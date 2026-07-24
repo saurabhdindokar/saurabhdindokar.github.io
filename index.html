@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saurabh Dindokar | AWS DevOps Portfolio</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #5b6472;
+      --line: #d8dee8;
+      --brand: #0f6b5f;
+      --blue: #1f4e79;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.55; }
+    header { background: #101820; color: #fff; padding: 42px 24px; border-bottom: 4px solid var(--brand); }
+    main { max-width: 1120px; margin: 0 auto; padding: 24px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px; margin-bottom: 20px; }
+    h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: 0; }
+    h2 { margin: 0 0 14px; color: var(--blue); font-size: 23px; }
+    h3 { margin: 18px 0 8px; font-size: 17px; }
+    p { margin: 8px 0; }
+    ul { margin: 8px 0 0; padding-left: 20px; }
+    li { margin: 5px 0; }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    .sub { color: #c9d3df; font-size: 15px; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: #fbfcfe; }
+    .pill { display: inline-block; border: 1px solid #c8d6e6; border-radius: 999px; padding: 4px 10px; margin: 4px 4px 0 0; background: #f7fafc; font-size: 12px; color: #27415f; }
+    .note { background: #fff7e6; border: 1px solid #edd6a7; color: #6b4600; border-radius: 8px; padding: 12px; }
+    .diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; margin-top: 12px; }
+    .mermaid { min-width: 760px; }
+    a { color: var(--blue); font-weight: 700; }
+    @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 28px; } main { padding: 16px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Saurabh Dindokar</h1>
+      <p class="sub">AWS DevOps Engineer | Cloud Migration | Kubernetes | CI/CD | Production Operations</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>About</h2>
+      <p>I build and support cloud infrastructure, deployment pipelines, Kubernetes workloads, release automation, monitoring, runbooks, and production handover processes. My focus is practical AWS DevOps work: stable deployments, clear rollback paths, visible health checks, and support-ready documentation.</p>
+      <p class="note">This portfolio is public-safe. It does not include client names, organization-owned source code, private URLs, credentials, internal diagrams, or production identifiers.</p>
+    </section>
+
+    <section>
+      <h2>Core Stack</h2>
+      <p>
+        <span class="pill">AWS</span><span class="pill">EKS</span><span class="pill">ECS/Fargate</span><span class="pill">EC2</span><span class="pill">S3</span><span class="pill">RDS</span><span class="pill">IAM</span><span class="pill">VPC</span><span class="pill">CloudWatch</span><span class="pill">CloudFormation</span><span class="pill">SSM</span><span class="pill">ECR</span><span class="pill">Route 53</span><span class="pill">ALB</span><span class="pill">CloudFront</span><span class="pill">Global Accelerator</span>
+      </p>
+      <p>
+        <span class="pill">Docker</span><span class="pill">Kubernetes</span><span class="pill">Helm</span><span class="pill">ArgoCD</span><span class="pill">Jenkins</span><span class="pill">CodeBuild</span><span class="pill">CodePipeline</span><span class="pill">Terraform</span><span class="pill">Ansible</span><span class="pill">Linux</span><span class="pill">Nginx</span><span class="pill">systemd</span><span class="pill">PowerShell</span>
+      </p>
+    </section>
+
+    <section>
+      <h2>Case Study Areas</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Smart Building Management Platform</h3>
+          <ul>
+            <li>AWS EKS migration and container deployment planning</li>
+            <li>Kubernetes liveness/readiness probes and health checks</li>
+            <li>Jenkins, systemd, PM2, rollback and support runbooks</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>IoT Healthcare Platform</h3>
+          <ul>
+            <li>ECS/Fargate modernization and managed AWS services</li>
+            <li>Active-passive disaster recovery and traffic failover design</li>
+            <li>Cloud operations handover and backup/restore documentation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Cloud-Based Membership Platform</h3>
+          <ul>
+            <li>Jenkins, CloudFormation, S3, SSM deployment automation</li>
+            <li>Linux .NET deployment with Nginx and systemd</li>
+            <li>RDS SQL Server, RDS MySQL, CloudFront and Route 53 planning</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Enterprise Automation Platform</h3>
+          <ul>
+            <li>Terraform deployment skeleton for EC2/RDS/S3/IAM</li>
+            <li>Nginx routing for React frontend and FastAPI backend</li>
+            <li>Docker Compose/systemd and Bitbucket pipeline planning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Architecture Example</h2>
+      <div class="diagram">
+        <div class="mermaid">
+flowchart LR
+  Dev[Developer Commit] --> CI[Jenkins / CodeBuild]
+  CI --> ECR[Amazon ECR]
+  ECR --> EKS[AWS EKS]
+  ALB[ALB Ingress] --> EKS
+  EKS --> Apps[Microservices]
+  Apps --> Data[RDS / DocumentDB / Redis]
+  EKS --> Logs[CloudWatch Logs]
+  Ops[Runbooks + Rollback] --> CI
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>POC Roadmap</h2>
+      <ul>
+        <li>EKS microservices health-check and probe standardization</li>
+        <li>ALB path-based routing for multi-service platforms</li>
+        <li>Jenkins to systemd release automation with rollback</li>
+        <li>ECS Fargate modernization lab</li>
+        <li>Active-passive DR architecture with Global Accelerator concept</li>
+        <li>SaaS deployment automation with Jenkins, S3, SSM, and CloudFormation</li>
+        <li>Terraform-based enterprise application deployment</li>
+        <li>AWS cloud operations handover pack</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Recognition</h2>
+      <ul>
+        <li>Best Performer of the Team - November 2025</li>
+        <li>Best Mentor of the Year - November 2025</li>
+        <li>Best Team Lead - November 2025</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
+
