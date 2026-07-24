@@ -10,5 +10,8 @@ It contains:
 - DevOps POC roadmap
 - Resume and profile links
 
-No client names, internal code, private diagrams, production URLs, credentials, or organization-owned source code are included.
+## Live URL
 
+Portfolio site: https://saurabhdindokar.github.io/
+
+No client names, internal code, private diagrams, production URLs, credentials, or organization-owned source code are included.
