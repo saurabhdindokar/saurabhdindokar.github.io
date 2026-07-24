@@ -1,6 +1,6 @@
 # Saurabh Dindokar - DevOps Portfolio Site
 
-This repository is the staging area for my public-safe GitHub Pages portfolio.
+This repository hosts my public-safe GitHub Pages portfolio.
 
 It contains:
 
