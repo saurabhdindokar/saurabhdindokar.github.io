@@ -38,6 +38,15 @@
     .diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; margin-top: 12px; }
     .mermaid { min-width: 760px; }
     a { color: var(--blue); font-weight: 700; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .button {
+      display: inline-block;
+      border: 1px solid var(--blue);
+      border-radius: 6px;
+      padding: 9px 12px;
+      background: #eef5fb;
+      text-decoration: none;
+    }
     @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 28px; } main { padding: 16px; } }
   </style>
 </head>
@@ -54,6 +63,12 @@
       <h2>About</h2>
       <p>I build and support cloud infrastructure, deployment pipelines, Kubernetes workloads, release automation, monitoring, runbooks, and production handover processes. My focus is practical AWS DevOps work: stable deployments, clear rollback paths, visible health checks, and support-ready documentation.</p>
       <p class="note">This portfolio is public-safe. It does not include client names, organization-owned source code, private URLs, credentials, internal diagrams, or production identifiers.</p>
+      <div class="links">
+        <a class="button" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume PDF</a>
+        <a class="button" href="case-studies/">Case Studies</a>
+        <a class="button" href="pocs/">POC Roadmap</a>
+        <a class="button" href="assets/Mermaid_Diagrams_Source.md">Diagram Source</a>
+      </div>
     </section>
 
     <section>
@@ -146,4 +161,3 @@ flowchart LR
   </main>
 </body>
 </html>
-
