@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mermaid_Diagrams_Source</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>Mermaid Diagrams Source</h1>
+<p>These diagrams are public-safe and can be reused in GitHub README files, portfolio pages, or converted to PNG/SVG later.</p>
+<h2>Smart Building EKS Modernization</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Dev[Developers] --&gt; Jenkins[Jenkins CI/CD]
+  Jenkins --&gt; ECR[Amazon ECR]
+  ECR --&gt; EKS[AWS EKS Cluster]
+  EKS --&gt; Linux[Linux Worker Nodes]
+  EKS --&gt; Windows[Windows Worker Node]
+  ALB[AWS ALB Ingress] --&gt; EKS
+  EKS --&gt; Scala[Scala Services]
+  EKS --&gt; Node[Node.js Services]
+  EKS --&gt; Java[Java Services]
+  EKS --&gt; Web[Angular Web]
+  EKS --&gt; Kafka[Kafka and Zookeeper]
+  EKS --&gt; ES[Elasticsearch]
+  EKS --&gt; Mongo[MongoDB]
+  CloudWatch[CloudWatch Logs and Metrics] --&gt; EKS
+  Argo[ArgoCD Desired State] --&gt; EKS
+</div></div>
+<h2>IoT Healthcare ECS and DR</h2>
+<div class="diagram"><div class="mermaid">
+flowchart TB
+  Users[Users] --&gt; GA[AWS Global Accelerator]
+  GA --&gt; PrimaryALB[Primary Region ALB]
+  GA -. standby .-&gt; StandbyALB[Standby Region ALB]
+  PrimaryALB --&gt; ECS1[ECS Fargate Services]
+  StandbyALB --&gt; ECS2[Warm Standby ECS Services]
+  ECS1 --&gt; DocDB1[DocumentDB / RDS Primary]
+  ECS2 --&gt; DocDB2[Replica / Standby Data Layer]
+  ECS1 --&gt; S3A[S3 Object Storage]
+  CDN[CloudFront] --&gt; S3A
+  CW[CloudWatch + Alerts] --&gt; ECS1
+  CW --&gt; ECS2
+  Sec[Secrets Manager + KMS + IAM] --&gt; ECS1
+  Sec --&gt; ECS2
+</div></div>
+<h2>Membership Deployment Automation</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Admin[Super Admin Portal] --&gt; Request[Deployment Request]
+  Request --&gt; Jenkins[Jenkins Pipeline]
+  Jenkins --&gt; CFN[CloudFormation]
+  Jenkins --&gt; S3[S3 Artifact Bucket]
+  Jenkins --&gt; SSM[AWS SSM Run Command]
+  CFN --&gt; VPC[VPC + IAM + Security Groups]
+  CFN --&gt; EC2[Linux EC2 App Server]
+  CFN --&gt; SQL[RDS SQL Server]
+  CFN --&gt; MYSQL[RDS MySQL]
+  SSM --&gt; EC2
+  EC2 --&gt; Nginx[Nginx Reverse Proxy]
+  EC2 --&gt; DotNet[&quot;ASP.NET Core systemd Service&quot;]
+  EC2 --&gt; WP[&quot;WordPress /blog&quot;]
+  Nginx --&gt; Health[&quot;/health Validation&quot;]
+  CloudFront[CloudFront + Route 53] --&gt; Nginx
+</div></div>
+<h2>Enterprise Automation AWS Deployment</h2>
+<div class="diagram"><div class="mermaid">
+flowchart TB
+  Internet[Internet] --&gt; Nginx[Nginx on EC2]
+  Nginx --&gt; React[&quot;React Static Frontend /crm/&quot;]
+  Nginx --&gt; API[&quot;FastAPI Backend /crm-api/&quot;]
+  API --&gt; RDS[Private RDS MySQL]
+  API --&gt; S3[S3 Document Bucket]
+  EC2Role[IAM Role for EC2] --&gt; S3
+  Terraform[Terraform Skeleton] --&gt; EC2[EC2 App Server]
+  Terraform --&gt; RDS
+  Terraform --&gt; S3
+  Terraform --&gt; SG[Security Groups]
+  Pipeline[Bitbucket Pipeline] --&gt; EC2
+</div></div>
+<h2>Cloud Partner Enablement Flow</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Evidence[Technical Evidence] --&gt; FTR[AWS FTR Readiness]
+  CCoE[CCoE Pre-work] --&gt; FTR
+  Cases[Case Study Collateral] --&gt; GTM[GTM and Service Positioning]
+  ACE[ACE / Co-sell Inputs] --&gt; GTM
+  Billing[Billing and Resource Review] --&gt; Ops[Cloud Operations Handover]
+  FTR --&gt; Partner[Partner Enablement Program]
+  GTM --&gt; Partner
+  Ops --&gt; Partner
+</div></div>
+  </main>
+</body>
+</html>
