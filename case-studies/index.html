@@ -1,0 +1,387 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>README</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>Expanded Public-Safe Case Studies</h1>
+<p>Prepared for: Saurabh Dindokar  </p>
+<p>Role focus: AWS DevOps Engineer, Cloud Migration, Kubernetes, CI/CD, Production Operations  </p>
+<p>Public-safe version: Do not include real client names or internal project names.</p>
+<h2>01. Smart Building Management Platform - AWS EKS Modernization</h2>
+<h3>Project Overview</h3>
+<p>This project involved modernizing a large smart building management and automation platform from manually managed infrastructure toward a containerized AWS architecture. The platform supported real-time building operations, access-control workflows, telemetry processing, mobile applications, administrative portals, analytics, reporting, and integration with building systems.</p>
+<p>The application estate was large and mixed. It included Scala backend services, Node.js services, Angular web applications, Java components, mobile build pipelines, Kafka, Elasticsearch, MongoDB, and Windows-dependent access-control workloads. The modernization required a practical AWS design that could support microservices, stateful components, routing complexity, observability, release automation, and production support handover.</p>
+<h3>Business Challenge</h3>
+<ul>
+<li>Existing deployments depended heavily on manual server operations, terminal sessions, ad hoc service restarts, and scattered operational knowledge.</li>
+<li>Multiple services and technology stacks had different build, deployment, startup, and health-check behavior.</li>
+<li>The platform needed a repeatable migration path into AWS without losing operational control of real-time services.</li>
+<li>Stateful services such as Kafka, Zookeeper, Elasticsearch, and MongoDB required careful handling during containerization.</li>
+<li>The platform needed stronger deployment visibility, rollback readiness, and health validation at service and pod level.</li>
+<h3>My Responsibilities</h3>
+<li>Supported AWS migration planning for a multi-service smart building platform.</li>
+<li>Helped containerize and structure backend services for Kubernetes-based deployment.</li>
+<li>Worked on Kubernetes deployment definitions, service exposure, health checks, and operational documentation.</li>
+<li>Added and standardized application-level health-check endpoints across Scala, Node.js, Angular, and Java services.</li>
+<li>Configured Kubernetes liveness and readiness probes so unhealthy pods could be detected and restarted correctly.</li>
+<li>Supported ECR image publishing, deployment tagging, and release traceability.</li>
+<li>Worked on ALB path-based routing for multiple backend service paths through a controlled public entry point.</li>
+<li>Prepared deployment, monitoring, troubleshooting, and handover documentation for support teams.</li>
+<h3>Technical Work Completed</h3>
+<li>Designed a Kubernetes-oriented deployment model for a platform with more than 30 application service routes.</li>
+<li>Improved pod-level stability using liveness and readiness probes aligned with each service&#39;s startup behavior.</li>
+<li>Added health-check files and endpoints across multiple stacks so infrastructure checks were not only port-based.</li>
+<li>Supported EKS workload definitions for backend services, web services, and supporting components.</li>
+<li>Helped establish image build and push flow into Amazon ECR.</li>
+<li>Supported ALB ingress/path-routing design to simplify external routing for a large number of services.</li>
+<li>Documented deployment sequence, troubleshooting steps, dependency checks, and handover runbooks.</li>
+<h3>Technologies Used</h3>
+<p>AWS EKS, Amazon ECR, AWS ALB, Route 53, CloudWatch, Docker, Kubernetes, Jenkins, ArgoCD, Kafka, Zookeeper, Elasticsearch, MongoDB, Scala, Node.js, Angular, Java, Linux, YAML, Bash, CI/CD.</p>
+<h3>Outcome</h3>
+<li>Moved the platform closer to a repeatable AWS deployment model.</li>
+<li>Reduced dependency on manual service checks by introducing proper health endpoints and pod probes.</li>
+<li>Improved operational visibility at the Kubernetes level.</li>
+<li>Created a stronger foundation for future GitOps, monitoring, rollback, and production support.</li>
+<h2>02. Smart Building Management Platform - Hybrid Linux and Windows EKS Stabilization</h2>
+<h3>Project Overview</h3>
+<p>The smart building platform contained both Linux-friendly services and a Windows-dependent access-control component. The challenge was to support this mixed environment while keeping the operational model manageable for deployment, monitoring, and troubleshooting.</p>
+<h3>Business Challenge</h3>
+<li>Most services were suitable for Linux container workloads, but one critical access-control component required Windows compatibility.</li>
+<li>The platform needed consistent release and support practices despite different operating system requirements.</li>
+<li>Scheduling, service discovery, health checks, and troubleshooting differed between Linux and Windows workloads.</li>
+<li>A poor migration design could have created unstable access-control behavior or a difficult support model.</li>
+<h3>My Responsibilities</h3>
+<li>Supported the hybrid workload design for Linux and Windows components.</li>
+<li>Helped validate deployment behavior and dependency readiness across mixed workloads.</li>
+<li>Documented operational risks, troubleshooting steps, and handover details.</li>
+<li>Worked on startup health behavior, internal DNS/service reachability checks, and readiness validation.</li>
+<h3>Technical Work Completed</h3>
+<li>Supported EKS planning with Linux node groups for core microservices and Windows node groups for Windows-native workloads.</li>
+<li>Helped define service checks for components that depended on other internal services.</li>
+<li>Documented rollout and troubleshooting steps for mixed workload deployment.</li>
+<li>Supported stabilization of health-check behavior so platform status could be trusted during deployments.</li>
+<h3>Technologies Used</h3>
+<p>AWS EKS, Windows node groups, Linux node groups, Kubernetes, Docker, ALB, CloudWatch, Jenkins, ArgoCD, Windows services, Linux services, DNS/service discovery.</p>
+<h3>Outcome</h3>
+<li>Created a clearer migration path for a platform that could not be moved as pure Linux workloads.</li>
+<li>Improved support readiness by documenting differences between Linux and Windows workloads.</li>
+<li>Reduced risk during platform stabilization and future production migration.</li>
+<h2>03. Smart Building Management Platform - Jenkins Release Automation and Server Stabilization</h2>
+<h3>Project Overview</h3>
+<p>Before automation, deployments were heavily dependent on manual actions, terminal sessions, direct server access, and inconsistent restart methods. The goal was to make QA and production-like deployments repeatable, restart-safe, and supportable.</p>
+<h3>Business Challenge</h3>
+<li>Backend services were previously run through manual terminal/screen sessions.</li>
+<li>Restart behavior after server reboot was unreliable.</li>
+<li>Multiple Scala and Node.js services needed consistent deployment and rollback behavior.</li>
+<li>Release history and current/previous artifact tracking were not strong enough for fast recovery.</li>
+<h3>My Responsibilities</h3>
+<li>Supported Jenkins-based deployment automation for backend services.</li>
+<li>Helped replace manual service execution with managed process control.</li>
+<li>Prepared deployment documentation and troubleshooting runbooks.</li>
+<li>Helped standardize service restart and rollback behavior.</li>
+<h3>Technical Work Completed</h3>
+<li>Supported Jenkins pipelines for multiple Scala backend services.</li>
+<li>Helped move long-running services into <code>systemd</code> so they survived reboots and could be managed consistently.</li>
+<li>Supported Node.js service management with PM2/system service patterns.</li>
+<li>Helped define release directory structure using current and previous release references.</li>
+<li>Documented rollback steps and deployment verification checks.</li>
+<li>Supported shared library publishing practices for reproducible builds.</li>
+<h3>Technologies Used</h3>
+<p>Jenkins, Linux, systemd, PM2, Scala, Node.js, Angular, Nexus-style artifact publishing, Bash, Git, CI/CD, deployment runbooks.</p>
+<h3>Outcome</h3>
+<li>Reduced manual deployment effort and operational risk.</li>
+<li>Improved restart behavior after server reboot.</li>
+<li>Made rollback and service status verification clearer for support teams.</li>
+<li>Built a practical release automation foundation for a large multi-service platform.</li>
+<h2>04. Smart Building Management Platform - Real-Time Data Backbone and Observability</h2>
+<h3>Project Overview</h3>
+<p>The platform relied on real-time events, building telemetry, integrations, search, and operational analytics. Supporting this required stable event and data services alongside application deployment work.</p>
+<h3>Business Challenge</h3>
+<li>Building telemetry and automation events required reliable event streaming.</li>
+<li>Search and operational analytics depended on Elasticsearch availability and data retention.</li>
+<li>MongoDB and Elasticsearch workloads introduced stateful operational concerns.</li>
+<li>Logs, alerts, and troubleshooting documentation were needed for support readiness.</li>
+<h3>My Responsibilities</h3>
+<li>Supported infrastructure and operations planning around Kafka, Zookeeper, Elasticsearch, and MongoDB.</li>
+<li>Helped document service dependencies, operational checks, restart steps, and known risks.</li>
+<li>Supported monitoring and data retention planning.</li>
+<li>Prepared support-friendly troubleshooting notes for common operational issues.</li>
+<h3>Technical Work Completed</h3>
+<li>Documented real-time service dependencies and startup order considerations.</li>
+<li>Supported Kubernetes/stateful workload planning for event and data services.</li>
+<li>Worked on Elasticsearch retention and archive planning to control growth and improve maintainability.</li>
+<li>Prepared monitoring and handover notes for logs, service health, and recovery checks.</li>
+<h3>Technologies Used</h3>
+<p>Kafka, Zookeeper, Elasticsearch, MongoDB, AWS EKS, Docker, Kubernetes, CloudWatch, Linux, Jenkins, S3 archival concepts.</p>
+<h3>Outcome</h3>
+<li>Improved operational understanding of the event and data layer.</li>
+<li>Reduced risk of support teams treating stateful services like simple stateless apps.</li>
+<li>Created a stronger base for monitoring, retention, backup, and restore discussions.</li>
+<h2>05. IoT Healthcare Platform - AWS ECS Modernization</h2>
+<h3>Project Overview</h3>
+<p>This project involved modernizing a healthcare workflow platform used for case management, image/document handling, reports, subscriptions, notifications, authentication, and administrative operations. The target architecture used AWS managed services and container deployment to reduce manual server operations and improve scalability.</p>
+<h3>Business Challenge</h3>
+<li>Existing infrastructure had manual operations and limited repeatability.</li>
+<li>The application needed secure storage for healthcare-related images and documents.</li>
+<li>Backend services required a containerized deployment model.</li>
+<li>Database, cache, file storage, frontend delivery, security, and monitoring needed to be designed together.</li>
+<h3>My Responsibilities</h3>
+<li>Supported AWS modernization planning and deployment documentation.</li>
+<li>Helped structure application deployment with container images and managed AWS services.</li>
+<li>Supported ECS/Fargate, ECR, ALB/NLB, S3, CloudFront, DocumentDB, RDS, and Redis/ElastiCache planning.</li>
+<li>Prepared operational documentation for deployment, monitoring, backups, security, and handover.</li>
+<h3>Technical Work Completed</h3>
+<li>Supported container image publishing to ECR.</li>
+<li>Helped define ECS/Fargate deployment model for backend services.</li>
+<li>Supported frontend/static asset delivery through S3 and CloudFront.</li>
+<li>Helped document managed database usage with DocumentDB and PostgreSQL/RDS patterns.</li>
+<li>Supported Redis/ElastiCache planning for caching/session-related use cases.</li>
+<li>Documented monitoring, IAM, secrets, and operational governance expectations.</li>
+<h3>Technologies Used</h3>
+<p>AWS ECS Fargate, Amazon ECR, ALB, NLB, S3, CloudFront, Route 53, DocumentDB, RDS PostgreSQL, Redis/ElastiCache, Secrets Manager, KMS, IAM, CloudWatch, CloudTrail, AWS Config, GuardDuty, Security Hub.</p>
+<h3>Outcome</h3>
+<li>Produced a clearer AWS managed-service deployment direction.</li>
+<li>Improved separation of application, storage, database, security, and observability responsibilities.</li>
+<li>Reduced dependency on manually managed infrastructure.</li>
+<h2>06. IoT Healthcare Platform - Active-Passive Disaster Recovery and Global Traffic</h2>
+<h3>Project Overview</h3>
+<p>The healthcare platform required a disaster recovery design that balanced availability with data consistency. The chosen model was active-passive DR with a primary region and a warm standby region.</p>
+<h3>Business Challenge</h3>
+<li>The platform had write-heavy and session-dependent workflows.</li>
+<li>Active-active design could introduce data consistency and operational complexity.</li>
+<li>DNS-only failover was not ideal for controlled recovery.</li>
+<li>The team needed documented failover steps and validation checks.</li>
+<h3>My Responsibilities</h3>
+<li>Supported DR architecture documentation and operational runbook preparation.</li>
+<li>Helped compare active-active and active-passive models.</li>
+<li>Supported traffic routing design using AWS Global Accelerator.</li>
+<li>Helped document failover validation, database promotion, notification, and state tracking steps.</li>
+<h3>Technical Work Completed</h3>
+<li>Documented active-passive DR model with one active region and one warm standby region.</li>
+<li>Supported Global Accelerator traffic model with controlled traffic dials.</li>
+<li>Helped document health monitoring and sustained outage validation before failover.</li>
+<li>Supported database promotion and application endpoint validation planning.</li>
+<li>Prepared DR runbook content for incident response and handover.</li>
+<h3>Technologies Used</h3>
+<p>AWS Global Accelerator, ECS/Fargate, ECR, ALB/NLB, Route 53, DocumentDB/RDS concepts, Secrets Manager, CloudWatch, SNS/notification concepts, IAM, DR runbooks.</p>
+<h3>Outcome</h3>
+<li>Created a safer DR direction for healthcare workflows where data consistency matters.</li>
+<li>Reduced dependency on manual DNS changes during regional failover.</li>
+<li>Improved DR operational readiness through documented validation and recovery steps.</li>
+<h2>07. IoT Healthcare Platform - Backup, Restore, and Cloud Operations Handover</h2>
+<h3>Project Overview</h3>
+<p>Beyond migration and DR, the platform needed operational maturity: backup validation, restore procedures, monitoring, incident response, access governance, cost awareness, and clear handover documentation.</p>
+<h3>Business Challenge</h3>
+<li>Support teams needed clear procedures for backup restore, health checks, and incidents.</li>
+<li>Cloud services were spread across compute, database, storage, security, and networking layers.</li>
+<li>Without handover documentation, production support would depend on a small number of people.</li>
+<h3>My Responsibilities</h3>
+<li>Prepared cloud operations documentation and handover material.</li>
+<li>Supported backup and restore procedure documentation.</li>
+<li>Helped define monitoring, alerting, incident, and known-risk sections.</li>
+<li>Documented access governance and secrets handling expectations.</li>
+<h3>Technical Work Completed</h3>
+<li>Created service maps and deployment notes.</li>
+<li>Documented backup and restore workflows for object storage and database-related components.</li>
+<li>Prepared monitoring and alerting notes around application and infrastructure health.</li>
+<li>Documented incident response flow, known risks, cost considerations, and support ownership.</li>
+<h3>Technologies Used</h3>
+<p>S3, CloudFront, ECS/Fargate, RDS, DocumentDB, CloudWatch, CloudTrail, Config, GuardDuty, Security Hub, IAM, Secrets Manager, KMS, runbooks.</p>
+<h3>Outcome</h3>
+<li>Improved production support readiness.</li>
+<li>Reduced operational knowledge gaps.</li>
+<li>Created reusable handover patterns for future AWS projects.</li>
+<h2>08. Cloud-Based Membership Platform - Linux-First AWS Deployment Automation</h2>
+<h3>Project Overview</h3>
+<p>This project focused on creating a Linux-first AWS deployment model for a membership platform. The architecture included a central Super Admin control panel, client application deployments, WordPress blog support, SQL Server and MySQL databases, CloudFront, Route 53, S3 artifacts, SSM automation, Jenkins pipelines, Nginx, and systemd.</p>
+<h3>Business Challenge</h3>
+<li>The deployment model needed to support first-time client provisioning and later redeployment.</li>
+<li>Existing direction included Windows/IIS references, but Linux-first deployment was preferred for cost and operational simplicity.</li>
+<li>Super Admin needed to trigger deployment workflows without directly changing servers.</li>
+<li>WordPress <code>/blog</code> automation, DNS/HTTPS, CloudFront, backup validation, and monitoring needed to be planned before production readiness.</li>
+<h3>My Responsibilities</h3>
+<li>Helped create and validate the Linux AWS UAT deployment flow.</li>
+<li>Supported Jenkins pipeline structure for infrastructure, Super Admin deployment, client first-time deployment, and redeployment.</li>
+<li>Worked with CloudFormation-based AWS infrastructure planning.</li>
+<li>Supported health validation through Kestrel and Nginx.</li>
+<li>Documented current status, limitations, next steps, production checklist, rollback, DNS, and cost notes.</li>
+<h3>Technical Work Completed</h3>
+<li>Supported shared AWS network, IAM, artifact bucket, SQL Server RDS, and MySQL RDS planning.</li>
+<li>Helped deploy Super Admin on Linux with Jenkins, Nginx, systemd, and SQL Server RDS.</li>
+<li>Supported client first-time deployment and redeployment flow.</li>
+<li>Helped implement repeat publish behavior so existing clients route to redeploy instead of duplicate stack creation.</li>
+<li>Supported client configuration sync, logo sync, and appsettings merge fixes.</li>
+<li>Added health validation for first-time and redeploy pipelines.</li>
+<li>Documented remaining blockers, including WordPress automation, DNS/HTTPS, CloudFront/ALB, backup validation, and monitoring alarms.</li>
+<h3>Technologies Used</h3>
+<p>AWS CloudFormation, EC2 Linux, Graviton planning, RDS SQL Server, RDS MySQL, S3, SSM, Jenkins, Nginx, ASP.NET Core, systemd, CloudFront, Route 53, Bash, PowerShell, CI/CD.</p>
+<h3>Outcome</h3>
+<li>Proved a working Linux AWS UAT deployment flow for Super Admin and client .NET application deployment.</li>
+<li>Created a repeatable automation model for first-time deployment and redeployment.</li>
+<li>Clearly identified production readiness gaps before wider rollout.</li>
+<h2>09. Cloud-Based Membership Platform - Windows/IIS Deployment Reference and Hybrid Migration Path</h2>
+<h3>Project Overview</h3>
+<p>The membership platform also contained a Windows/IIS deployment package and historical production direction. This became reference material as the project moved toward Linux-first AWS deployment, but it remained important for understanding fallback options and Windows-specific deployment needs.</p>
+<h3>Business Challenge</h3>
+<li>Some deployment knowledge existed in Windows/IIS scripts and runbooks.</li>
+<li>The project direction changed from Windows/IIS to Linux-first.</li>
+<li>Teams needed to avoid mixing old and new deployment assumptions.</li>
+<li>A controlled migration path was needed from Windows references to Linux production automation.</li>
+<h3>My Responsibilities</h3>
+<li>Reviewed Windows/IIS deployment model as reference material.</li>
+<li>Helped separate old deployment logic from current Linux-first target.</li>
+<li>Supported documentation showing which folder/package was current and which was historical.</li>
+<li>Helped define Jenkins, SSM, and server-role responsibilities.</li>
+<h3>Technical Work Completed</h3>
+<li>Documented role-based deployment structure with shared infrastructure, Super Admin first-time deployment, Super Admin redeployment, client first-time deployment, and client redeployment.</li>
+<li>Defined Super Admin as the control plane and Jenkins as the deployment executor.</li>
+<li>Supported S3 artifact upload and SSM-based remote execution model.</li>
+<li>Documented database handling, client configuration, WordPress, and module update behavior.</li>
+<h3>Technologies Used</h3>
+<p>Windows Server, IIS, PowerShell, AWS SSM, S3, Jenkins, CloudFormation, SQL Server RDS, EC2, Nginx, Linux, systemd.</p>
+<h3>Outcome</h3>
+<li>Reduced confusion between legacy Windows deployment and current Linux deployment direction.</li>
+<li>Preserved useful Windows/IIS knowledge without treating it as the active production target.</li>
+<li>Improved handover quality for future deployment decisions.</li>
+<h2>10. Fitness and Wellness Application - Production Support and Deployment Stabilization</h2>
+<h3>Project Overview</h3>
+<p>This project involved production support and cloud operations for a fitness and wellness application. The focus was on deployment coordination, environment stability, issue investigation, and operational communication.</p>
+<h3>Business Challenge</h3>
+<li>Production support required careful coordination across application and infrastructure layers.</li>
+<li>Releases and incidents needed clear checks before and after deployment.</li>
+<li>Operational work had to be communicated in a way business and technical stakeholders could understand.</li>
+<h3>My Responsibilities</h3>
+<li>Supported production environment troubleshooting and deployment coordination.</li>
+<li>Helped review infrastructure and service behavior during incidents or releases.</li>
+<li>Prepared or followed deployment steps, validation checks, and support notes.</li>
+<li>Coordinated with developers and stakeholders for fixes and verification.</li>
+<h3>Technical Work Completed</h3>
+<li>Supported application deployment and post-deployment validation.</li>
+<li>Helped investigate infrastructure, service, or configuration-related issues.</li>
+<li>Supported monitoring/log review and operational communication.</li>
+<li>Documented findings and next steps for handover or follow-up.</li>
+<h3>Technologies Used</h3>
+<p>AWS, EC2, CloudWatch, Linux/Windows operations, deployment runbooks, CI/CD support, application logs, DNS/SSL concepts.</p>
+<h3>Outcome</h3>
+<li>Improved stability and support visibility during application operations.</li>
+<li>Strengthened release discipline and production troubleshooting process.</li>
+<h2>11. Enterprise Automation Platform - AWS Deployment and Infrastructure Templates</h2>
+<h3>Project Overview</h3>
+<p>This project focused on deploying an internal enterprise automation/CRM-style application on AWS using a low-cost architecture that could scale later. The architecture included an EC2 application server, private RDS MySQL, S3 document storage, IAM roles, Nginx reverse proxy, FastAPI backend, React frontend, Docker Compose or systemd, and Bitbucket pipeline templates.</p>
+<h3>Business Challenge</h3>
+<li>The application needed a clean AWS deployment path from an existing non-cloud/on-prem style setup.</li>
+<li>Document uploads needed to move toward S3-backed storage.</li>
+<li>Backend API routing needed to be simplified through Nginx instead of a gateway pattern.</li>
+<li>Infrastructure needed to be repeatable and low-cost for the first deployment.</li>
+<h3>My Responsibilities</h3>
+<li>Prepared AWS deployment plan and infrastructure template structure.</li>
+<li>Supported Terraform skeleton covering EC2, RDS, S3, IAM, and security groups.</li>
+<li>Helped design Nginx routing for frontend and backend API paths.</li>
+<li>Prepared backend deployment options using Docker Compose or systemd.</li>
+<li>Supported Bitbucket pipeline template planning.</li>
+<h3>Technical Work Completed</h3>
+<li>Created conservative AWS architecture with EC2, private RDS MySQL, S3 document bucket, IAM role, and security groups.</li>
+<li>Documented Nginx routing for static frontend and FastAPI backend.</li>
+<li>Prepared Dockerfile, Docker Compose, systemd service, and Bitbucket pipeline examples.</li>
+<li>Documented Terraform initialization, plan, apply, variables, outputs, and secret-handling warnings.</li>
+<li>Supported migration checklist, cost/scaling notes, security/operations notes, and application change tasks.</li>
+<h3>Technologies Used</h3>
+<p>AWS EC2, RDS MySQL, S3, IAM, Security Groups, Terraform, Nginx, FastAPI, React, Docker Compose, systemd, Bitbucket Pipelines, Linux.</p>
+<h3>Outcome</h3>
+<li>Created a practical AWS deployment path for a lightweight enterprise automation platform.</li>
+<li>Improved infrastructure repeatability through Terraform planning.</li>
+<li>Reduced operational complexity by simplifying API routing and storage design.</li>
+<h2>12. Enterprise Automation Platform - Document Processing POC</h2>
+<h3>Project Overview</h3>
+<p>This POC explored automation for converting structured document information into usable data outputs. The solution used Python-based processing, API components, MongoDB/Excel-style outputs, and sample documents to validate feasibility.</p>
+<h3>Business Challenge</h3>
+<li>Manual document review and data extraction can be slow and error-prone.</li>
+<li>Business users needed structured outputs from uploaded documents.</li>
+<li>The POC needed to validate whether document parsing could support future automation.</li>
+<h3>My Responsibilities</h3>
+<li>Reviewed POC structure and supported documentation of its purpose.</li>
+<li>Helped position the POC as an automation accelerator rather than a production system.</li>
+<li>Supported packaging of POC evidence for portfolio-safe explanation.</li>
+<h3>Technical Work Completed</h3>
+<li>Worked with a Python/FastAPI-style POC structure.</li>
+<li>Supported document-to-structured-output workflow using sample files.</li>
+<li>Validated output generation into Excel/JSON-like formats.</li>
+<li>Documented how the POC could later be secured, containerized, and deployed.</li>
+<h3>Technologies Used</h3>
+<p>Python, FastAPI, MongoDB concepts, Excel output, JSON, document parsing, local POC packaging.</p>
+<h3>Outcome</h3>
+<li>Demonstrated feasibility of document-to-data automation.</li>
+<li>Created a base that could later be productionized with authentication, file storage, queues, logging, and cloud deployment.</li>
+<h2>13. Cloud Partner Enablement Program - AWS Readiness, FTR, and GTM Operations</h2>
+<h3>Project Overview</h3>
+<p>This work supported AWS partner readiness and cloud business enablement. It included partner onboarding material, foundational technical review evidence, solution readiness notes, ACE/co-sell opportunity preparation, GTM case study collateral, AWS billing/resource workbook support, and operational handover documents.</p>
+<h3>Business Challenge</h3>
+<li>Partner readiness requires evidence, documentation, controls, case studies, and operational clarity.</li>
+<li>Technical teams needed organized material for AWS partner programs, FTR, opportunity submissions, and GTM collateral.</li>
+<li>Billing, resource review, and service-offering documentation needed to be traceable and review-ready.</li>
+<h3>My Responsibilities</h3>
+<li>Organized and prepared AWS partner journey documentation.</li>
+<li>Supported FTR evidence tracking and readiness material.</li>
+<li>Prepared case study and solution collateral in AWS-aligned formats.</li>
+<li>Supported ACE opportunity preparation and cloud service positioning.</li>
+<li>Helped prepare billing/resource review material and handover notes.</li>
+<h3>Technical Work Completed</h3>
+<li>Created and maintained partner journey trackers, readiness notes, evidence trackers, and handover files.</li>
+<li>Prepared cloud case study collateral using AWS-style templates.</li>
+<li>Supported opportunity import review notes and submission-ready drafts.</li>
+<li>Assisted with AWS service page review, QA page review, and collateral feedback.</li>
+<li>Organized billing/resource information and operational workbooks for review.</li>
+<h3>Technologies Used</h3>
+<p>AWS Partner Central concepts, AWS FTR, ACE/co-sell, CCoE pre-work, AWS billing/resource review, Excel, Word, Markdown, HTML, cloud operations documentation.</p>
+<h3>Outcome</h3>
+<li>Improved partner readiness and internal cloud governance.</li>
+<li>Created reusable documentation patterns for AWS service offerings and case-study collateral.</li>
+<li>Strengthened presales and cloud operations support capability.</li>
+<h2>14. Digital Learning Accessibility Tool - Interactive Widget Review and Packaging</h2>
+<h3>Project Overview</h3>
+<p>This project involved supporting interactive education content and accessibility review for a number-line learning widget. The work involved static HTML/JS assets, widget player/editor files, accessibility review spreadsheets, packaging, and comparing live/current behavior with fixed or backup versions.</p>
+<h3>Business Challenge</h3>
+<li>Interactive learning widgets must work consistently across player/editor modes.</li>
+<li>Accessibility issues need structured review and tracking.</li>
+<li>Static content packages can be hard to troubleshoot because they include HTML, JS, CSS, assets, and widget metadata.</li>
+<h3>My Responsibilities</h3>
+<li>Reviewed widget files, accessibility tracking sheets, and packaged outputs.</li>
+<li>Helped analyze current/live widget behavior compared with backup or fixed versions.</li>
+<li>Supported documentation of fixes and packaging status.</li>
+<h3>Technical Work Completed</h3>
+<li>Reviewed number-line widget assets including HTML, JS, CSS, manifest, player, editor, and supporting libraries.</li>
+<li>Compared live/current versions with backup versions.</li>
+<li>Supported accessibility issue tracking using spreadsheet-based review material.</li>
+<li>Helped package a fixed output for validation.</li>
+<h3>Technologies Used</h3>
+<p>HTML, JavaScript, CSS, widget packaging, accessibility review, static assets, spreadsheet-based QA tracking.</p>
+<h3>Outcome</h3>
+<li>Improved traceability of accessibility review and widget packaging work.</li>
+<li>Created a supportable explanation of frontend/tooling work without exposing client details.</li>
+  </main>
+</body>
+</html>

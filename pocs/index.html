@@ -1,0 +1,292 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>README</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>Expanded Public-Safe POC Blueprints</h1>
+<p>These POCs are public-safe and can be implemented in a personal GitHub portfolio. They should be built with dummy applications, dummy data, sanitized diagrams, and no client names.</p>
+<h2>POC 01. EKS Microservices Health Check and Probe Standardization</h2>
+<h3>Purpose</h3>
+<p>Demonstrate how a multi-service platform can be made more stable by adding service-level health endpoints and Kubernetes liveness/readiness probes.</p>
+<h3>Scope</h3>
+<ul>
+<li>Create dummy services representing Scala, Node.js, Angular, and Java workloads.</li>
+<li>Add <code>/health</code>, <code>/ready</code>, or equivalent endpoints.</li>
+<li>Create Kubernetes deployment YAML with readiness and liveness probes.</li>
+<li>Show different startup delays and dependency checks.</li>
+<li>Add a troubleshooting guide for failed probes and crash loops.</li>
+<h3>Deliverables</h3>
+<li>Sample services or mock containers.</li>
+<li>Kubernetes manifests.</li>
+<li>Health-check behavior documentation.</li>
+<li>Before/after explanation showing why pod-level health checks matter.</li>
+<h3>Portfolio Value</h3>
+<p>This directly reflects real work on stabilizing a large platform with multiple application stacks and Kubernetes pod-level health validation.</p>
+<h2>POC 02. AWS EKS Path-Based Routing for Multi-Service Platform</h2>
+<h3>Purpose</h3>
+<p>Show how many backend services can be exposed through one controlled entry point using ALB ingress and path-based routing.</p>
+<h3>Scope</h3>
+<li>Create 5 to 8 dummy services.</li>
+<li>Configure ingress paths such as <code>/api/users</code>, <code>/api/events</code>, <code>/api/reports</code>, <code>/api/admin</code>.</li>
+<li>Include TLS/host placeholder documentation.</li>
+<li>Add CloudWatch/logging notes.</li>
+<h3>Deliverables</h3>
+<li>Kubernetes services/deployments.</li>
+<li>ALB ingress example.</li>
+<li>Routing diagram.</li>
+<li>Troubleshooting checklist.</li>
+<h3>Portfolio Value</h3>
+<p>Demonstrates platform routing design for a real multi-service application estate without exposing internal routes.</p>
+<h2>POC 03. Jenkins to systemd Release Automation with Rollback</h2>
+<h3>Purpose</h3>
+<p>Demonstrate a reliable deployment model for Linux services using Jenkins, release directories, current/previous symlinks, systemd, and rollback.</p>
+<h3>Scope</h3>
+<li>Use a dummy backend service.</li>
+<li>Jenkins pipeline builds and uploads/deploys artifact.</li>
+<li>Deployment script creates versioned release directory.</li>
+<li><code>current</code> points to active release and <code>previous</code> supports rollback.</li>
+<li>systemd manages process lifecycle.</li>
+<h3>Deliverables</h3>
+<li>Jenkinsfile.</li>
+<li>systemd service file.</li>
+<li>deploy and rollback scripts.</li>
+<li>Runbook with validation and rollback steps.</li>
+<h3>Portfolio Value</h3>
+<p>Reflects real release automation and server stabilization work where manual terminal sessions were replaced by managed services and rollback-aware deployment.</p>
+<h2>POC 04. ECS Fargate Application Modernization</h2>
+<h3>Purpose</h3>
+<p>Show how a manually deployed backend can be containerized and moved to ECS Fargate with ECR, ALB, CloudWatch, and Secrets Manager.</p>
+<h3>Scope</h3>
+<li>Build a sample API container.</li>
+<li>Push image to ECR.</li>
+<li>Deploy using ECS Fargate task definition and service.</li>
+<li>Place ALB in front of service.</li>
+<li>Store configuration through Secrets Manager or environment variables.</li>
+<li>Add CloudWatch logs.</li>
+<h3>Deliverables</h3>
+<li>Dockerfile.</li>
+<li>ECS task definition sample.</li>
+<li>ALB/service design notes.</li>
+<li>Deployment runbook.</li>
+<h3>Portfolio Value</h3>
+<p>Matches healthcare platform modernization work using ECS/Fargate and AWS managed services.</p>
+<h2>POC 05. Active-Passive DR with Global Accelerator Concept</h2>
+<h3>Purpose</h3>
+<p>Create a sanitized DR blueprint showing primary and standby regions, health monitoring, validation, and traffic switch using AWS Global Accelerator.</p>
+<h3>Scope</h3>
+<li>Draw primary/standby region diagram.</li>
+<li>Define health-check logic and failover criteria.</li>
+<li>Document database promotion concept.</li>
+<li>Document application validation before traffic switch.</li>
+<li>Include rollback/failback checklist.</li>
+<h3>Deliverables</h3>
+<li>DR architecture diagram.</li>
+<li>Failover runbook.</li>
+<li>Validation checklist.</li>
+<li>Risk register.</li>
+<h3>Portfolio Value</h3>
+<p>Demonstrates cloud resilience design and the ability to reason about active-passive versus active-active tradeoffs.</p>
+<h2>POC 06. Membership SaaS Deployment Automation with Jenkins, S3, SSM, and CloudFormation</h2>
+<h3>Purpose</h3>
+<p>Show a controlled deployment model where an admin portal triggers Jenkins, Jenkins stores artifacts in S3, and AWS SSM performs server-side deployment.</p>
+<h3>Scope</h3>
+<li>Create dummy Super Admin deployment request flow.</li>
+<li>Define CloudFormation templates for network, IAM, EC2, RDS placeholders, and S3 artifact bucket.</li>
+<li>Create Jenkins pipelines for first-time deployment and redeployment.</li>
+<li>Use SSM command execution pattern.</li>
+<li>Add health validation through Nginx and application endpoint.</li>
+<h3>Deliverables</h3>
+<li>Architecture diagram.</li>
+<li>CloudFormation templates.</li>
+<li>Jenkinsfile examples.</li>
+<li>SSM execution scripts.</li>
+<li>First-time deploy and redeploy runbooks.</li>
+<h3>Portfolio Value</h3>
+<p>Reflects real membership platform deployment automation without disclosing internal code or client names.</p>
+<h2>POC 07. Linux .NET Application Deployment Behind Nginx and systemd</h2>
+<h3>Purpose</h3>
+<p>Demonstrate a Linux-first deployment pattern for ASP.NET Core using Nginx reverse proxy, systemd, health checks, and rollback.</p>
+<h3>Scope</h3>
+<li>Deploy a sample .NET API or dummy service.</li>
+<li>Configure Nginx reverse proxy.</li>
+<li>Run application under systemd.</li>
+<li>Add <code>/health</code> endpoint validation.</li>
+<li>Include deployment and rollback scripts.</li>
+<h3>Deliverables</h3>
+<li>Nginx template.</li>
+<li>systemd service file.</li>
+<li>Deployment script.</li>
+<li>Health-check runbook.</li>
+<h3>Portfolio Value</h3>
+<p>Matches Linux-first deployment work on a cloud-based membership platform.</p>
+<h2>POC 08. CRM AWS Deployment with Terraform, Nginx, FastAPI, React, RDS, and S3</h2>
+<h3>Purpose</h3>
+<p>Build a clean low-cost AWS deployment pattern for a lightweight enterprise automation application.</p>
+<h3>Scope</h3>
+<li>Terraform skeleton for EC2, RDS MySQL, S3, IAM, and security groups.</li>
+<li>Nginx serves React frontend at <code>/crm/</code>.</li>
+<li>Nginx proxies FastAPI backend at <code>/crm-api/</code>.</li>
+<li>S3 handles document uploads.</li>
+<li>Backend runs with Docker Compose or systemd.</li>
+<h3>Deliverables</h3>
+<li>Terraform code.</li>
+<li>Nginx config.</li>
+<li>Docker Compose file.</li>
+<li>systemd alternative.</li>
+<li>Bitbucket pipeline example.</li>
+<li>Deployment and migration checklist.</li>
+<h3>Portfolio Value</h3>
+<p>Demonstrates practical AWS infrastructure and application deployment for small-to-medium business applications.</p>
+<h2>POC 09. Elasticsearch Retention and S3 Archive Workflow</h2>
+<h3>Purpose</h3>
+<p>Demonstrate how operational data growth can be controlled using retention rules, archive/export workflow, and restore documentation.</p>
+<h3>Scope</h3>
+<li>Create dummy Elasticsearch indexes.</li>
+<li>Define retention policy.</li>
+<li>Export old data to S3-compatible storage.</li>
+<li>Document restore validation.</li>
+<li>Include monitoring and cost notes.</li>
+<h3>Deliverables</h3>
+<li>Retention policy document.</li>
+<li>Archive script concept.</li>
+<li>Restore runbook.</li>
+<li>Monitoring checklist.</li>
+<h3>Portfolio Value</h3>
+<p>Reflects operational work around large data/search systems and cloud storage governance.</p>
+<h2>POC 10. AWS Cloud Operations Handover Pack</h2>
+<h3>Purpose</h3>
+<p>Create a reusable handover template for any AWS project covering architecture, access, deployment, monitoring, backup, incident response, DR, cost, and known risks.</p>
+<h3>Scope</h3>
+<li>Build a sample handover pack for a dummy AWS application.</li>
+<li>Include ownership matrix, escalation flow, runbooks, and checklist.</li>
+<li>Add monitoring and backup validation sections.</li>
+<li>Add cost optimization and security review sections.</li>
+<h3>Deliverables</h3>
+<li>Handover document.</li>
+<li>Operations checklist.</li>
+<li>Incident response template.</li>
+<li>Backup and restore checklist.</li>
+<li>Cost review template.</li>
+<h3>Portfolio Value</h3>
+<p>Shows operational maturity beyond simple deployment work.</p>
+<h2>POC 11. ArgoCD GitOps Drift Detection for EKS</h2>
+<h3>Purpose</h3>
+<p>Demonstrate desired-state deployment and drift detection for EKS workloads using ArgoCD.</p>
+<h3>Scope</h3>
+<li>Store Kubernetes manifests in Git.</li>
+<li>Connect ArgoCD to the repository.</li>
+<li>Deploy a sample app into EKS or a local Kubernetes cluster.</li>
+<li>Manually change a running resource to create drift.</li>
+<li>Show ArgoCD detecting and correcting drift.</li>
+<h3>Deliverables</h3>
+<li>GitOps repository structure.</li>
+<li>ArgoCD application manifest.</li>
+<li>Drift detection screenshots or sanitized logs.</li>
+<li>Sync and rollback notes.</li>
+<h3>Portfolio Value</h3>
+<p>Reflects real-world GitOps thinking for Kubernetes environments.</p>
+<h2>POC 12. Mobile App CI/CD Signing and Internal Test Release</h2>
+<h3>Purpose</h3>
+<p>Demonstrate a secure mobile build and release pipeline pattern using dummy mobile code and placeholder signing assets.</p>
+<h3>Scope</h3>
+<li>Use a dummy Flutter or Android project.</li>
+<li>Store signing asset references securely.</li>
+<li>Build mobile artifact through Jenkins or AWS CodePipeline.</li>
+<li>Publish artifact to a simulated internal test release folder.</li>
+<li>Document release validation and rollback behavior.</li>
+<h3>Deliverables</h3>
+<li>Pipeline definition.</li>
+<li>Secure signing asset handling notes.</li>
+<li>Build artifact folder structure.</li>
+<li>Internal test release runbook.</li>
+<h3>Portfolio Value</h3>
+<p>Shows CI/CD capability beyond backend deployments, while keeping real mobile app details private.</p>
+<h2>POC 13. Windows Workload on Kubernetes/EKS Design Lab</h2>
+<h3>Purpose</h3>
+<p>Demonstrate hybrid Kubernetes workload planning for Linux and Windows workloads.</p>
+<h3>Scope</h3>
+<li>Document Linux and Windows node-group model.</li>
+<li>Deploy mock Linux service and mock Windows workload design.</li>
+<li>Explain scheduling constraints and operational differences.</li>
+<li>Add monitoring, logging, and support notes.</li>
+<h3>Deliverables</h3>
+<li>Architecture diagram.</li>
+<li>Node scheduling notes.</li>
+<li>Troubleshooting guide.</li>
+<li>Support runbook.</li>
+<h3>Portfolio Value</h3>
+<p>Reflects experience with platforms that cannot be treated as pure Linux container workloads.</p>
+<h2>POC 14. S3 Glacier Restore and Validation Runbook</h2>
+<h3>Purpose</h3>
+<p>Demonstrate archive and restore discipline for cloud object storage.</p>
+<h3>Scope</h3>
+<li>Create a dummy S3 lifecycle policy.</li>
+<li>Move old objects to Glacier-style archive tier.</li>
+<li>Document restore request process.</li>
+<li>Validate restored objects and update handover checklist.</li>
+<h3>Deliverables</h3>
+<li>Lifecycle policy example.</li>
+<li>Restore runbook.</li>
+<li>Validation checklist.</li>
+<li>Cost and timing notes.</li>
+<h3>Portfolio Value</h3>
+<p>Shows backup/restore maturity, which is important for production cloud operations.</p>
+<h2>POC 15. WordPress /blog Automation Behind Nginx for SaaS Tenant</h2>
+<h3>Purpose</h3>
+<p>Demonstrate automated WordPress deployment under a <code>/blog</code> path behind Nginx for a SaaS-style tenant application.</p>
+<h3>Scope</h3>
+<li>Deploy dummy main app behind Nginx.</li>
+<li>Deploy WordPress under <code>/blog</code>.</li>
+<li>Configure PHP-FPM and MySQL placeholder database.</li>
+<li>Automate setup through Jenkins or shell scripts.</li>
+<li>Add health checks and rollback notes.</li>
+<h3>Deliverables</h3>
+<li>Nginx config.</li>
+<li>WordPress setup script.</li>
+<li>MySQL bootstrap notes.</li>
+<li>Jenkins pipeline example.</li>
+<li>Validation runbook.</li>
+<h3>Portfolio Value</h3>
+<p>Matches the membership platform&#39;s pending WordPress automation area and turns it into a public-safe POC.</p>
+<h2>POC 16. AWS Presales and FTR Evidence Pack Generator</h2>
+<h3>Purpose</h3>
+<p>Create a reusable pack for AWS readiness, presales, FTR-style evidence, and case-study preparation.</p>
+<h3>Scope</h3>
+<li>Build templates for architecture, controls, monitoring, backup, DR, security, and support.</li>
+<li>Create an evidence checklist.</li>
+<li>Create a sanitized case-study generator structure.</li>
+<li>Add review tracker and readiness status.</li>
+<h3>Deliverables</h3>
+<li>Evidence checklist.</li>
+<li>Case-study template.</li>
+<li>Review tracker.</li>
+<li>Readiness dashboard or Markdown index.</li>
+<h3>Portfolio Value</h3>
+<p>Shows DevOps plus presales maturity: not only building systems, but also documenting them for review, handover, and business positioning.</p>
+  </main>
+</body>
+</html>
