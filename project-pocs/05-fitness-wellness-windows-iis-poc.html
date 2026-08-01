@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05-fitness-wellness-windows-iis-poc</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>POC 05: Fitness And Wellness Application - Windows IIS Deployment And Monitoring</h1>
+<p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
+<p>Role: <strong>AWS DevOps Engineer</strong>  </p>
+<p>Public-safe name: <strong>Fitness And Wellness Application</strong></p>
+<h2>Confidentiality Note</h2>
+<p>This POC excludes private domains, server IPs, database credentials, internal deployment values, and client-specific screenshots.</p>
+<h2>POC Objective</h2>
+<p>Create a Windows/IIS deployment and monitoring blueprint for a mixed application stack with .NET hosting, WordPress hosting, database backup planning, CloudWatch dashboard setup, data transfer estimation, and production handover.</p>
+<h2>Deployment Architecture Diagram</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Users[Users] --&gt; DNS[DNS / Domain]
+  DNS --&gt; IIS[IIS on Windows Server]
+  IIS --&gt; DotNet[.NET Core Application]
+  IIS --&gt; WP[WordPress Site]
+  DotNet --&gt; DB[(SQL Server / MySQL)]
+  WP --&gt; DB
+  Server[Windows EC2] --&gt; Agent[CloudWatch Agent]
+  Agent --&gt; CW[CloudWatch Dashboard]
+  Backup[Database Backup Process] --&gt; Storage[Backup Storage]
+  Admin[DevOps Admin] --&gt; PS[PowerShell / Remote Execution]
+  PS --&gt; IIS
+</div></div>
+<h2>What I Worked On</h2>
+<ul>
+<li>Documented Windows server setup, IIS website setup, application pool configuration, .NET Core hosting, and WordPress hosting.</li>
+<li>Prepared CloudWatch dashboard setup documentation for Windows server monitoring.</li>
+<li>Documented database backup process and data transfer estimation.</li>
+<li>Supported reusable deployment planning using S3 artifact concepts, SSM/remote execution concepts, PowerShell, IIS, .NET, SQL Server/MySQL, PHP, and WordPress.</li>
+<h2>POC Implementation Scope</h2>
+<li>Windows IIS deployment checklist.</li>
+<li>PowerShell deployment commands for dummy artifact copy and IIS restart.</li>
+<li>CloudWatch Agent installation and dashboard notes.</li>
+<li>Database backup and restore checklist.</li>
+<li>Production validation and rollback runbook.</li>
+<h2>Suggested Repository Structure</h2>
+<pre><code class="language-text">windows-iis-deployment-poc/
+|-- README.md
+|-- powershell/
+|   |-- deploy.ps1
+|   |-- rollback.ps1
+|   `-- health-check.ps1
+|-- docs/
+|   |-- iis-setup.md
+|   |-- cloudwatch-monitoring.md
+|   |-- database-backup.md
+|   `-- production-checklist.md
+`-- diagrams/
+    `-- architecture.mmd</code></pre>
+<h2>Validation Steps</h2>
+</ul>
+<ol>
+<li>Validate IIS site and app pool setup steps.</li>
+<li>Run PowerShell deployment script against a dummy folder structure.</li>
+<li>Confirm service/site health after deployment.</li>
+<li>Review CloudWatch Agent configuration.</li>
+<li>Validate backup and rollback documentation.</li>
+<h2>Expected Outcome</h2>
+</ol>
+<ul>
+<li>Repeatable Windows/IIS deployment approach.</li>
+<li>Clear monitoring and backup documentation.</li>
+<li>Better production handover for Windows-hosted workloads.</li>
+<h2>Technologies</h2>
+<p>AWS EC2, Windows Server, IIS, CloudWatch, S3, SSM concepts, PowerShell, .NET Core, WordPress, SQL Server/MySQL, PHP.</p>
+  </main>
+</body>
+</html>

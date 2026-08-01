@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>07-digital-media-kubernetes-monitoring-poc</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>POC 07: Digital Media Platform - Kubernetes, S3, Jenkins And Monitoring</h1>
+<p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
+<p>Role: <strong>AWS DevOps Engineer</strong>  </p>
+<p>Public-safe name: <strong>Digital Media Platform</strong></p>
+<h2>Confidentiality Note</h2>
+<p>This POC excludes private repository URLs, environment values, credentials, IP addresses, dashboard links, and client-specific deployment details.</p>
+<h2>POC Objective</h2>
+<p>Create a DevOps support blueprint for application availability, monitoring, S3 backup storage, Terraform backend versioning, Jenkins master-agent performance, GitHub repository maintenance, and Kubernetes-based container orchestration.</p>
+<h2>Support And Delivery Diagram</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Developers[Developers] --&gt; GitHub[GitHub Repositories]
+  GitHub --&gt; Jenkins[Jenkins Master / Agents]
+  Jenkins --&gt; Docker[Docker Images]
+  Docker --&gt; K8s[Kubernetes]
+  K8s --&gt; App[Application Workloads]
+  App --&gt; Prom[Prometheus]
+  Prom --&gt; Grafana[Grafana Dashboards]
+  App --&gt; S3[S3 Files / Backups]
+  Terraform[Terraform Backend Versioning] --&gt; S3
+  Ops[Release Support] --&gt; Jenkins
+  Ops --&gt; K8s
+</div></div>
+<h2>What I Worked On</h2>
+<ul>
+<li>Supported application availability and performance improvement activities.</li>
+<li>Monitored build machines, deployment machines, and application environments using Prometheus and Grafana.</li>
+<li>Created S3 buckets for files and backups.</li>
+<li>Used Terraform backend versioning concepts.</li>
+<li>Supported continuous delivery for releases.</li>
+<li>Implemented Jenkins master-agent structure to improve Jenkins performance.</li>
+<li>Maintained GitHub repositories and supported Kubernetes orchestration for Docker containers.</li>
+<h2>POC Implementation Scope</h2>
+<li>Jenkins master-agent pipeline pattern.</li>
+<li>Kubernetes deployment and service manifests.</li>
+<li>Prometheus/Grafana monitoring notes.</li>
+<li>S3 backup bucket structure and lifecycle considerations.</li>
+<li>Terraform backend versioning notes.</li>
+<li>GitHub repository maintenance checklist.</li>
+<h2>Suggested Repository Structure</h2>
+<pre><code class="language-text">digital-media-k8s-monitoring-poc/
+|-- README.md
+|-- k8s/
+|   |-- deployment.yaml
+|   `-- service.yaml
+|-- jenkins/
+|   `-- Jenkinsfile
+|-- monitoring/
+|   |-- prometheus-notes.md
+|   `-- grafana-dashboard-notes.md
+|-- terraform-backend/
+|   `-- backend-example.hcl
+`-- docs/
+    |-- repository-maintenance.md
+    `-- release-support.md</code></pre>
+<h2>Validation Steps</h2>
+</ul>
+<ol>
+<li>Validate Kubernetes manifests.</li>
+<li>Review Jenkins master-agent pipeline stages.</li>
+<li>Confirm S3 backup/lifecycle plan.</li>
+<li>Review monitoring dashboard checklist.</li>
+<li>Confirm repository maintenance and release support runbooks.</li>
+<h2>Expected Outcome</h2>
+</ol>
+<ul>
+<li>Better release and support readiness.</li>
+<li>Improved Jenkins performance pattern.</li>
+<li>Clear Kubernetes deployment and monitoring documentation.</li>
+<li>Structured S3 backup and Terraform backend planning.</li>
+<h2>Technologies</h2>
+<p>AWS S3, Terraform, Jenkins, GitHub, Kubernetes, Docker, Prometheus, Grafana, CI/CD, release support.</p>
+  </main>
+</body>
+</html>

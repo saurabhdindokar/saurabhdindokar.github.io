@@ -1,0 +1,100 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02-smart-building-cicd-modernization-poc</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>POC 02: Smart Building Management Platform - CI/CD Modernization</h1>
+<p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
+<p>Role: <strong>AWS DevOps Engineer</strong>  </p>
+<p>Public-safe name: <strong>Smart Building Management Platform</strong></p>
+<h2>Confidentiality Note</h2>
+<p>This POC is public-safe and uses generic source, build, and deployment names. No private pipeline values, repository names, credentials, or client identifiers are included.</p>
+<h2>POC Objective</h2>
+<p>Design a migration pattern from Jenkins-heavy build workflows toward AWS-native CI/CD using CodePipeline, CodeBuild, Docker image builds, Amazon ECR, S3 artifact storage, IAM roles, CloudWatch logs, and deployment handover notes.</p>
+<h2>CI/CD Architecture Diagram</h2>
+<div class="diagram"><div class="mermaid">
+flowchart LR
+  Repo[Git Repository] --&gt; Trigger[Pull Request / Merge Trigger]
+  Trigger --&gt; CodePipeline[AWS CodePipeline]
+  CodePipeline --&gt; CodeBuild[AWS CodeBuild]
+  CodeBuild --&gt; Test[Unit / Build Validation]
+  CodeBuild --&gt; Docker[Docker Build + Tag]
+  Docker --&gt; ECR[Amazon ECR]
+  CodeBuild --&gt; S3[S3 Build Artifacts]
+  ECR --&gt; Deploy[EKS / ECS Deployment Stage]
+  Deploy --&gt; CW[CloudWatch Logs]
+  IAM[IAM Roles and Least Privilege Policies] --&gt; CodePipeline
+  IAM --&gt; CodeBuild
+</div></div>
+<h2>What I Worked On</h2>
+<ul>
+<li>Documented existing Jenkins release flow and migration considerations.</li>
+<li>Planned CodePipeline and CodeBuild build stages.</li>
+<li>Documented Docker image build, tagging, ECR push, S3 artifact handling, IAM permissions, and CloudWatch logging.</li>
+<li>Prepared handover notes for release support and troubleshooting.</li>
+<h2>POC Implementation Scope</h2>
+<li>Dummy app repository with Dockerfile.</li>
+<li>Buildspec file for CodeBuild.</li>
+<li>CodePipeline stages for source, build, and deployment placeholder.</li>
+<li>ECR image naming and tagging standard.</li>
+<li>CloudWatch log group and retention notes.</li>
+<li>IAM least-privilege checklist.</li>
+<h2>Suggested Repository Structure</h2>
+<pre><code class="language-text">aws-cicd-modernization-poc/
+|-- README.md
+|-- app/
+|   |-- Dockerfile
+|   `-- health.html
+|-- buildspec.yml
+|-- terraform/
+|   |-- codebuild.tf
+|   |-- codepipeline.tf
+|   |-- ecr.tf
+|   |-- iam.tf
+|   `-- s3.tf
+`-- docs/
+    |-- release-runbook.md
+    `-- troubleshooting.md</code></pre>
+<h2>Validation Steps</h2>
+</ul>
+<ol>
+<li>Run Docker build locally for the dummy app.</li>
+<li>Validate <code>buildspec.yml</code> commands.</li>
+<li>Run Terraform <code>fmt</code>, <code>validate</code>, and plan-only review.</li>
+<li>Confirm pipeline stages and IAM responsibilities are documented.</li>
+<li>Confirm CloudWatch log and artifact retention notes are present.</li>
+<h2>Expected Outcome</h2>
+</ol>
+<ul>
+<li>Clear Jenkins-to-AWS CI/CD migration blueprint.</li>
+<li>Repeatable image build and ECR publishing pattern.</li>
+<li>Better release visibility through CloudWatch logs and documented handover.</li>
+<h2>Technologies</h2>
+<p>Jenkins, AWS CodePipeline, AWS CodeBuild, Docker, Amazon ECR, Amazon S3, IAM, CloudWatch, Terraform, Kubernetes/ECS deployment concepts.</p>
+  </main>
+</body>
+</html>

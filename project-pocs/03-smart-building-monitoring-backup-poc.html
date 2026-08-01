@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03-smart-building-monitoring-backup-poc</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
+  </script>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
+    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
+    h2 { color: #1f4e79; margin-top: 28px; }
+    h3 { color: #17324d; margin-top: 22px; }
+    p, li { font-size: 14.5px; }
+    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
+    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eef5fb; }
+    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
+    .mermaid { min-width: 760px; }
+  </style>
+</head>
+<body>
+  <main>
+<h1>POC 03: Smart Building Management Platform - Monitoring, Backup And Cost Optimization</h1>
+<p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
+<p>Role: <strong>AWS DevOps Engineer</strong>  </p>
+<p>Public-safe name: <strong>Smart Building Management Platform</strong></p>
+<h2>Confidentiality Note</h2>
+<p>This POC excludes private backup paths, repository names, environment values, credentials, internal dashboards, and production identifiers.</p>
+<h2>POC Objective</h2>
+<p>Build an operations blueprint for monitoring, alerting, backup planning, recovery documentation, Elasticsearch data handling, MongoDB backup/restore, Jenkins backup planning, and CloudWatch log cost control.</p>
+<h2>Operations Architecture Diagram</h2>
+<div class="diagram"><div class="mermaid">
+flowchart TB
+  Apps[Application Services] --&gt; CWLogs[CloudWatch Logs]
+  Apps --&gt; CWMetrics[CloudWatch Metrics]
+  CWLogs --&gt; Retention[Retention Policy]
+  CWMetrics --&gt; Alarms[CloudWatch Alarms]
+  Alarms --&gt; Notify[Notification Channel]
+  Jenkins[Jenkins Server] --&gt; EBSSnapshots[EBS Snapshot Backup Plan]
+  ES[Elasticsearch] --&gt; ESSnapshot[Snapshot / Migration Notes]
+  Mongo[MongoDB] --&gt; MongoDump[Backup / Restore Runbook]
+  PV[Kubernetes Persistent Volumes] --&gt; PVBackup[PV Backup Plan]
+  Retention --&gt; Cost[Log Cost Optimization]
+  Notify --&gt; Runbook[Incident Runbook]
+</div></div>
+<h2>What I Worked On</h2>
+<ul>
+<li>Documented CloudWatch logging, monitoring, alerts, and notification practices.</li>
+<li>Prepared Jenkins backup planning using EBS snapshot concepts.</li>
+<li>Documented Elasticsearch backup/data migration and MongoDB backup/restore approach.</li>
+<li>Added log retention and cost optimization guidance.</li>
+<h2>POC Implementation Scope</h2>
+<li>CloudWatch log retention example.</li>
+<li>Alarm design for service errors, high CPU/memory, and failed jobs.</li>
+<li>Backup runbooks for Jenkins, MongoDB, Elasticsearch, and persistent storage.</li>
+<li>Recovery verification checklist.</li>
+<li>Cost-control checklist for logs and backups.</li>
+<h2>Suggested Repository Structure</h2>
+<pre><code class="language-text">monitoring-backup-cost-poc/
+|-- README.md
+|-- cloudwatch/
+|   |-- alarms.md
+|   `-- log-retention.md
+|-- backup/
+|   |-- jenkins-backup.md
+|   |-- mongodb-backup-restore.md
+|   |-- elasticsearch-snapshot.md
+|   `-- pv-backup.md
+`-- runbooks/
+    |-- incident-response.md
+    `-- restore-verification.md</code></pre>
+<h2>Validation Steps</h2>
+</ul>
+<ol>
+<li>Review log retention and alarm thresholds.</li>
+<li>Run backup commands against dummy/local services where possible.</li>
+<li>Restore backup into a non-production target.</li>
+<li>Confirm row/document counts or service health after restore.</li>
+<li>Document restore outcome and improvement notes.</li>
+<h2>Expected Outcome</h2>
+</ol>
+<ul>
+<li>Stronger operational readiness.</li>
+<li>Repeatable backup and restore documentation.</li>
+<li>Better CloudWatch log cost control.</li>
+<li>Clearer monitoring and incident response handover.</li>
+<h2>Technologies</h2>
+<p>AWS CloudWatch, EBS Snapshots, S3, EC2, Jenkins, Elasticsearch, MongoDB, Kubernetes Persistent Volumes, monitoring, alerting, backup automation, cost optimization.</p>
+  </main>
+</body>
+</html>
