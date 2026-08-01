@@ -2,96 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>05-fitness-wellness-windows-iis-poc</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111827; line-height: 1.45; font-size: 11.5pt; }
+    h1 { color: #101820; font-size: 22pt; margin: 0 0 10px; border-bottom: 3px solid #0f766e; padding-bottom: 8px; page-break-after: avoid; }
+    h2 { color: #1f4e79; font-size: 15pt; margin: 18px 0 8px; }
+    h3 { color: #111827; font-size: 13pt; margin: 14px 0 6px; }
+    p { margin: 5px 0; }
+    .bullet { margin-left: 14px; }
+    pre { background: #f3f6fa; border: 1px solid #d8dee8; padding: 10px; white-space: pre-wrap; font-size: 9.5pt; }
+    figure { margin: 12px 0 16px; padding: 10px; border: 1px solid #d8dee8; border-radius: 8px; background: #f8fafc; page-break-inside: avoid; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { color: #64748b; font-size: 9pt; margin-top: 6px; text-align: center; }
+    .spacer { height: 4px; }
+    .mermaid { min-width: 760px; text-align: center; }
+  </style>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#ffffff",
+        primaryBorderColor: "#0f766e",
+        primaryTextColor: "#111827",
+        lineColor: "#1f4e79",
+        fontFamily: "Arial"
+      }
+    });
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
 </head>
 <body>
-  <main>
-<h1>POC 05: Fitness And Wellness Application - Windows IIS Deployment And Monitoring</h1>
+<h1>POC 05: Fitness and Wellness Application - Windows IIS Deployment</h1>
+<div class='spacer'></div>
 <p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
 <p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Public-safe name: <strong>Fitness And Wellness Application</strong></p>
+<p>Public-safe project name: <strong>Fitness and Wellness Application</strong>  </p>
+<p>Document type: <strong>Naukri-ready work sample / portfolio POC</strong></p>
+<div class='spacer'></div>
 <h2>Confidentiality Note</h2>
-<p>This POC excludes private domains, server IPs, database credentials, internal deployment values, and client-specific screenshots.</p>
-<h2>POC Objective</h2>
-<p>Create a Windows/IIS deployment and monitoring blueprint for a mixed application stack with .NET hosting, WordPress hosting, database backup planning, CloudWatch dashboard setup, data transfer estimation, and production handover.</p>
-<h2>Deployment Architecture Diagram</h2>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Users[Users] --&gt; DNS[DNS / Domain]
-  DNS --&gt; IIS[IIS on Windows Server]
-  IIS --&gt; DotNet[.NET Core Application]
-  IIS --&gt; WP[WordPress Site]
-  DotNet --&gt; DB[(SQL Server / MySQL)]
-  WP --&gt; DB
-  Server[Windows EC2] --&gt; Agent[CloudWatch Agent]
-  Agent --&gt; CW[CloudWatch Dashboard]
-  Backup[Database Backup Process] --&gt; Storage[Backup Storage]
-  Admin[DevOps Admin] --&gt; PS[PowerShell / Remote Execution]
-  PS --&gt; IIS
-</div></div>
-<h2>What I Worked On</h2>
-<ul>
-<li>Documented Windows server setup, IIS website setup, application pool configuration, .NET Core hosting, and WordPress hosting.</li>
-<li>Prepared CloudWatch dashboard setup documentation for Windows server monitoring.</li>
-<li>Documented database backup process and data transfer estimation.</li>
-<li>Supported reusable deployment planning using S3 artifact concepts, SSM/remote execution concepts, PowerShell, IIS, .NET, SQL Server/MySQL, PHP, and WordPress.</li>
-<h2>POC Implementation Scope</h2>
-<li>Windows IIS deployment checklist.</li>
-<li>PowerShell deployment commands for dummy artifact copy and IIS restart.</li>
-<li>CloudWatch Agent installation and dashboard notes.</li>
-<li>Database backup and restore checklist.</li>
-<li>Production validation and rollback runbook.</li>
-<h2>Suggested Repository Structure</h2>
-<pre><code class="language-text">windows-iis-deployment-poc/
-|-- README.md
-|-- powershell/
-|   |-- deploy.ps1
-|   |-- rollback.ps1
-|   `-- health-check.ps1
-|-- docs/
-|   |-- iis-setup.md
-|   |-- cloudwatch-monitoring.md
-|   |-- database-backup.md
-|   `-- production-checklist.md
-`-- diagrams/
-    `-- architecture.mmd</code></pre>
-<h2>Validation Steps</h2>
-</ul>
-<ol>
-<li>Validate IIS site and app pool setup steps.</li>
-<li>Run PowerShell deployment script against a dummy folder structure.</li>
-<li>Confirm service/site health after deployment.</li>
-<li>Review CloudWatch Agent configuration.</li>
-<li>Validate backup and rollback documentation.</li>
-<h2>Expected Outcome</h2>
-</ol>
-<ul>
-<li>Repeatable Windows/IIS deployment approach.</li>
-<li>Clear monitoring and backup documentation.</li>
-<li>Better production handover for Windows-hosted workloads.</li>
-<h2>Technologies</h2>
-<p>AWS EC2, Windows Server, IIS, CloudWatch, S3, SSM concepts, PowerShell, .NET Core, WordPress, SQL Server/MySQL, PHP.</p>
-  </main>
+<div class='spacer'></div>
+<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
+<div class='spacer'></div>
+<h2>Work Sample Summary</h2>
+<div class='spacer'></div>
+<p>Public-safe work sample for Windows Server deployment with IIS, .NET hosting, WordPress support, PowerShell automation, backups, monitoring, and production validation checklist.</p>
+<div class='spacer'></div>
+<h2>Problem Statement</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ The application required stable deployment on Windows Server with IIS and supporting components.</p>
+<p class='bullet'>â€¢ Deployment steps needed to be repeatable for releases, configuration updates, and rollback.</p>
+<p class='bullet'>â€¢ Operational documentation was required for backup, logs, service checks, and post-deployment validation.</p>
+<div class='spacer'></div>
+<h2>Mermaid Architecture Diagram</h2>
+<div class='spacer'></div>
+<figure><pre class='mermaid'>flowchart LR
+  Admin[Release Engineer] --&gt; Package[Build Package / Artifact]
+  Package --&gt; Win[Windows Server]
+  Win --&gt; IIS[IIS Website / App Pool]
+  IIS --&gt; DotNet[.NET Application]
+  IIS --&gt; WP[WordPress Component]
+  Scripts[PowerShell Deployment Scripts] --&gt; IIS
+  Win --&gt; Logs[Windows / IIS Logs]
+  Win --&gt; Backup[File and Config Backup]
+  Logs --&gt; Monitor[CloudWatch / Monitoring]
+  Backup --&gt; Restore[Rollback / Restore Point]</pre><figcaption>Mermaid architecture diagram</figcaption></figure>
+<div class='spacer'></div>
+<h2>My Responsibilities</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Prepared IIS deployment steps for .NET application hosting and related web components.</p>
+<p class='bullet'>â€¢ Documented application pool settings, site binding checks, service restart steps, and validation flow.</p>
+<p class='bullet'>â€¢ Used PowerShell-oriented deployment and backup approach for repeatability.</p>
+<p class='bullet'>â€¢ Created troubleshooting checklist for IIS logs, Windows services, permissions, and rollback.</p>
+<div class='spacer'></div>
+<h2>Implementation Approach</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Deployment flow includes pre-backup, artifact placement, app pool recycle, binding validation, and health checks.</p>
+<p class='bullet'>â€¢ Configuration backup is taken before changes to support controlled rollback.</p>
+<p class='bullet'>â€¢ Monitoring notes cover server health, application logs, and access/error log checks.</p>
+<p class='bullet'>â€¢ Runbook helps support teams verify post-deployment behavior without depending on memory.</p>
+<div class='spacer'></div>
+<h2>Reliability, Security and Operations Focus</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</p>
+<p class='bullet'>â€¢ Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</p>
+<p class='bullet'>â€¢ The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</p>
+<div class='spacer'></div>
+<h2>Validation Checklist</h2>
+<div class='spacer'></div>
+<p class='bullet'>Review architecture and confirm each component has a clear responsibility.</p>
+<p class='bullet'>Validate deployment or automation steps in a non-production environment first.</p>
+<p class='bullet'>Confirm logs, health checks, backup behavior, and rollback steps are documented.</p>
+<p class='bullet'>Confirm access, secrets, and network boundaries follow least-privilege expectations.</p>
+<p class='bullet'>Capture final runbook notes for handover and support readiness.</p>
+<div class='spacer'></div>
+<h2>Expected Outcomes</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ More controlled Windows/IIS deployment process.</p>
+<p class='bullet'>â€¢ Reduced rollback uncertainty through pre-change backups.</p>
+<p class='bullet'>â€¢ Better application support through log and service validation.</p>
+<p class='bullet'>â€¢ Clear deployment handover for repeated releases.</p>
+<div class='spacer'></div>
+<h2>Technologies Used</h2>
+<div class='spacer'></div>
+<p>Windows Server, IIS, .NET, WordPress, PowerShell, CloudWatch/Monitoring, Backup and Restore, DNS, SSL/TLS</p>
+<div class='spacer'></div>
+<h2>Naukri Work Sample Description</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.</p>
+<div class='spacer'></div>
 </body>
 </html>

@@ -1,22 +1,19 @@
-# Separate Public-Safe Project POCs
+﻿# Naukri Ready Separate DevOps POCs
 
 Prepared for: **Saurabh Dindokar**
 
-This folder contains separate public-safe POC documents for each major project/work area. These are suitable for Naukri work samples, GitHub portfolio pages, and LinkedIn featured/project references.
+This folder contains separate public-safe DevOps POC documents for Naukri work samples, LinkedIn featured items, and GitHub portfolio references.
 
-## POC List
+## Files
 
-| No. | POC | File |
-| --- | --- | --- |
-| 01 | Smart Building Management Platform - EKS Stabilization | `01-smart-building-eks-stabilization-poc.md` |
-| 02 | Smart Building Management Platform - CI/CD Modernization | `02-smart-building-cicd-modernization-poc.md` |
-| 03 | Smart Building Management Platform - Monitoring, Backup And Cost Optimization | `03-smart-building-monitoring-backup-poc.md` |
-| 04 | IoT Healthcare Platform - ECS/Fargate Migration And Cloud Operations | `04-iot-healthcare-ecs-migration-poc.md` |
-| 05 | Fitness And Wellness Application - Windows IIS Deployment And Monitoring | `05-fitness-wellness-windows-iis-poc.md` |
-| 06 | Enterprise Automation Platform - IaC, Jenkins And Monitoring | `06-enterprise-automation-iac-monitoring-poc.md` |
-| 07 | Digital Media Platform - Kubernetes, S3, Jenkins And Monitoring | `07-digital-media-kubernetes-monitoring-poc.md` |
+- 01-smart-building-eks-stabilization-poc
+- 02-smart-building-cicd-modernization-poc
+- 03-smart-building-monitoring-backup-poc
+- 04-iot-healthcare-ecs-migration-poc
+- 05-fitness-wellness-windows-iis-poc
+- 06-enterprise-automation-iac-monitoring-poc
+- 07-digital-media-kubernetes-monitoring-poc
 
 ## Confidentiality Rule
 
-Do not add real client names, internal project names, private repositories, URLs, IP addresses, credentials, screenshots, account IDs, or organization-owned source code.
-
+Use these files publicly. They avoid real client names, internal project names, private repositories, production URLs, IP addresses, credentials, account IDs, private screenshots, and organization-owned source code.

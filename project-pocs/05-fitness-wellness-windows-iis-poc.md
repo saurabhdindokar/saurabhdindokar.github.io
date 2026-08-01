@@ -1,82 +1,80 @@
-# POC 05: Fitness And Wellness Application - Windows IIS Deployment And Monitoring
+﻿# POC 05: Fitness and Wellness Application - Windows IIS Deployment
 
 Prepared for: **Saurabh Dindokar**  
 Role: **AWS DevOps Engineer**  
-Public-safe name: **Fitness And Wellness Application**
+Public-safe project name: **Fitness and Wellness Application**  
+Document type: **Naukri-ready work sample / portfolio POC**
 
 ## Confidentiality Note
 
-This POC excludes private domains, server IPs, database credentials, internal deployment values, and client-specific screenshots.
+This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.
 
-## POC Objective
+## Work Sample Summary
 
-Create a Windows/IIS deployment and monitoring blueprint for a mixed application stack with .NET hosting, WordPress hosting, database backup planning, CloudWatch dashboard setup, data transfer estimation, and production handover.
+Public-safe work sample for Windows Server deployment with IIS, .NET hosting, WordPress support, PowerShell automation, backups, monitoring, and production validation checklist.
 
-## Deployment Architecture Diagram
+## Problem Statement
+
+- The application required stable deployment on Windows Server with IIS and supporting components.
+- Deployment steps needed to be repeatable for releases, configuration updates, and rollback.
+- Operational documentation was required for backup, logs, service checks, and post-deployment validation.
+
+## Mermaid Architecture Diagram
 
 ```mermaid
 flowchart LR
-  Users[Users] --> DNS[DNS / Domain]
-  DNS --> IIS[IIS on Windows Server]
-  IIS --> DotNet[.NET Core Application]
-  IIS --> WP[WordPress Site]
-  DotNet --> DB[(SQL Server / MySQL)]
-  WP --> DB
-  Server[Windows EC2] --> Agent[CloudWatch Agent]
-  Agent --> CW[CloudWatch Dashboard]
-  Backup[Database Backup Process] --> Storage[Backup Storage]
-  Admin[DevOps Admin] --> PS[PowerShell / Remote Execution]
-  PS --> IIS
+  Admin[Release Engineer] --> Package[Build Package / Artifact]
+  Package --> Win[Windows Server]
+  Win --> IIS[IIS Website / App Pool]
+  IIS --> DotNet[.NET Application]
+  IIS --> WP[WordPress Component]
+  Scripts[PowerShell Deployment Scripts] --> IIS
+  Win --> Logs[Windows / IIS Logs]
+  Win --> Backup[File and Config Backup]
+  Logs --> Monitor[CloudWatch / Monitoring]
+  Backup --> Restore[Rollback / Restore Point]
 ```
 
-## What I Worked On
+## My Responsibilities
 
-- Documented Windows server setup, IIS website setup, application pool configuration, .NET Core hosting, and WordPress hosting.
-- Prepared CloudWatch dashboard setup documentation for Windows server monitoring.
-- Documented database backup process and data transfer estimation.
-- Supported reusable deployment planning using S3 artifact concepts, SSM/remote execution concepts, PowerShell, IIS, .NET, SQL Server/MySQL, PHP, and WordPress.
+- Prepared IIS deployment steps for .NET application hosting and related web components.
+- Documented application pool settings, site binding checks, service restart steps, and validation flow.
+- Used PowerShell-oriented deployment and backup approach for repeatability.
+- Created troubleshooting checklist for IIS logs, Windows services, permissions, and rollback.
 
-## POC Implementation Scope
+## Implementation Approach
 
-- Windows IIS deployment checklist.
-- PowerShell deployment commands for dummy artifact copy and IIS restart.
-- CloudWatch Agent installation and dashboard notes.
-- Database backup and restore checklist.
-- Production validation and rollback runbook.
+- Deployment flow includes pre-backup, artifact placement, app pool recycle, binding validation, and health checks.
+- Configuration backup is taken before changes to support controlled rollback.
+- Monitoring notes cover server health, application logs, and access/error log checks.
+- Runbook helps support teams verify post-deployment behavior without depending on memory.
 
-## Suggested Repository Structure
+## Reliability, Security and Operations Focus
 
-```text
-windows-iis-deployment-poc/
-|-- README.md
-|-- powershell/
-|   |-- deploy.ps1
-|   |-- rollback.ps1
-|   `-- health-check.ps1
-|-- docs/
-|   |-- iis-setup.md
-|   |-- cloudwatch-monitoring.md
-|   |-- database-backup.md
-|   `-- production-checklist.md
-`-- diagrams/
-    `-- architecture.mmd
-```
+- Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.
+- Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.
+- The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.
 
-## Validation Steps
+## Validation Checklist
 
-1. Validate IIS site and app pool setup steps.
-2. Run PowerShell deployment script against a dummy folder structure.
-3. Confirm service/site health after deployment.
-4. Review CloudWatch Agent configuration.
-5. Validate backup and rollback documentation.
+1. Review architecture and confirm each component has a clear responsibility.
+2. Validate deployment or automation steps in a non-production environment first.
+3. Confirm logs, health checks, backup behavior, and rollback steps are documented.
+4. Confirm access, secrets, and network boundaries follow least-privilege expectations.
+5. Capture final runbook notes for handover and support readiness.
 
-## Expected Outcome
+## Expected Outcomes
 
-- Repeatable Windows/IIS deployment approach.
-- Clear monitoring and backup documentation.
-- Better production handover for Windows-hosted workloads.
+- More controlled Windows/IIS deployment process.
+- Reduced rollback uncertainty through pre-change backups.
+- Better application support through log and service validation.
+- Clear deployment handover for repeated releases.
 
-## Technologies
+## Technologies Used
 
-AWS EC2, Windows Server, IIS, CloudWatch, S3, SSM concepts, PowerShell, .NET Core, WordPress, SQL Server/MySQL, PHP.
+Windows Server, IIS, .NET, WordPress, PowerShell, CloudWatch/Monitoring, Backup and Restore, DNS, SSL/TLS
+
+## Naukri Work Sample Description
+
+Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.
 

@@ -1,89 +1,88 @@
-# POC 01: Smart Building Management Platform - EKS Stabilization
+﻿# POC 01: Smart Building Management Platform - EKS Stabilization
 
 Prepared for: **Saurabh Dindokar**  
 Role: **AWS DevOps Engineer**  
-Public-safe name: **Smart Building Management Platform**
+Public-safe project name: **Smart Building Management Platform**  
+Document type: **Naukri-ready work sample / portfolio POC**
 
 ## Confidentiality Note
 
-This POC is public-safe. It does not include real client names, internal repository names, production URLs, IP addresses, credentials, private screenshots, or organization-owned source code.
+This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.
 
-## POC Objective
+## Work Sample Summary
 
-Create a reusable Kubernetes/EKS stabilization blueprint for a multi-service platform with standardized health checks, liveness probes, readiness probes, ingress routing, CloudWatch logging, and deployment handover documentation.
+Public-safe DevOps work sample showing Kubernetes/EKS stabilization for a multi-service platform with standardized health checks, rollout safety, ALB ingress, image flow, and production support documentation.
 
-## Architecture Diagram
+## Problem Statement
+
+- Multiple services were deployed with different health-check behavior, which made pod readiness and failure detection inconsistent.
+- The platform required better pod-level visibility across backend and frontend services before production handover.
+- Deployment documentation needed to clearly explain validation, rollback, and troubleshooting steps for support teams.
+
+## Mermaid Architecture Diagram
 
 ```mermaid
 flowchart LR
-  Dev[Developer Commit] --> Jenkins[Jenkins CI/CD]
-  Jenkins --> ECR[Amazon ECR]
+  Dev[Developer Commit] --> Jenkins[Jenkins CI/CD Pipeline]
+  Jenkins --> Build[Docker Build and Tag]
+  Build --> ECR[Amazon ECR Image Registry]
   ECR --> EKS[AWS EKS Cluster]
-  ALB[Application Load Balancer] --> Ingress[AWS Load Balancer Controller]
-  Ingress --> EKS
-  EKS --> Scala[Scala Service]
-  EKS --> Node[Node.js Service]
-  EKS --> Java[Java Service]
-  EKS --> Angular[Angular Web]
-  Scala --> Health1["/health"]
-  Node --> Health2["/health"]
-  Java --> Health3["/actuator/health"]
-  Angular --> Health4["Static health file"]
-  EKS --> CW[CloudWatch Logs / Metrics]
-  Argo[ArgoCD Desired State] --> EKS
+  ALB[Application Load Balancer] --> Ingress[AWS Load Balancer Controller / Ingress]
+  Ingress --> Svc[Service Routing]
+  Svc --> Scala[Scala Service]
+  Svc --> Node[Node.js Service]
+  Svc --> Java[Java Service]
+  Svc --> Angular[Angular Web App]
+  Scala --> ScalaHealth["/health endpoint"]
+  Node --> NodeHealth["/health endpoint"]
+  Java --> JavaHealth["/actuator/health"]
+  Angular --> StaticHealth["Static health file"]
+  EKS --> Probes[Liveness and Readiness Probes]
+  Probes --> Stable[Stable Pod Scheduling]
+  EKS --> CW[CloudWatch Logs and Metrics]
+  Argo[ArgoCD Desired State Sync] --> EKS
 ```
 
-## What I Worked On
+## My Responsibilities
 
-- Supported AWS EKS migration and Kubernetes workload stabilization planning.
-- Added and documented service health-check endpoints/files across Scala, Node.js, Angular, and Java services.
-- Configured Kubernetes liveness and readiness probe patterns for pod-level stability.
-- Documented ECR image flow, ALB ingress routing, CloudWatch visibility, and operational handover steps.
+- Prepared Kubernetes health-check standards for Scala, Node.js, Java, and Angular workloads.
+- Documented liveness and readiness probe behavior to reduce unsafe traffic routing during startup or unhealthy states.
+- Mapped image build, ECR push, Kubernetes deployment, ingress routing, logging, and validation flow.
+- Created operational notes for rollout verification, failure checks, and rollback readiness.
 
-## POC Implementation Scope
+## Implementation Approach
 
-- Dummy services for Scala, Node.js, Java, and Angular health-check behavior.
-- Kubernetes manifests for Deployment, Service, Ingress, ConfigMap, and probe configuration.
-- ALB ingress example using path-based routing.
-- CloudWatch logging and troubleshooting notes.
-- Rollout validation and rollback checklist.
+- Deployment templates include resource requests/limits, readiness probes, liveness probes, service definitions, and ingress routing.
+- Application health checks are separated from traffic readiness so a pod becomes live and ready only after required checks pass.
+- CloudWatch visibility is included for pod logs, deployment troubleshooting, and basic production diagnostics.
+- Runbook sections explain what to check before rollout, after rollout, and during rollback.
 
-## Suggested Repository Structure
+## Reliability, Security and Operations Focus
 
-```text
-eks-health-stabilization-poc/
-|-- README.md
-|-- k8s/
-|   |-- namespace.yaml
-|   |-- scala-service.yaml
-|   |-- node-service.yaml
-|   |-- java-service.yaml
-|   |-- angular-web.yaml
-|   `-- ingress.yaml
-|-- docs/
-|   |-- runbook.md
-|   |-- rollback.md
-|   `-- troubleshooting.md
-`-- diagrams/
-    `-- architecture.mmd
-```
+- Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.
+- Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.
+- The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.
 
-## Validation Steps
+## Validation Checklist
 
-1. Deploy dummy workloads to a local Kubernetes cluster or test EKS namespace.
-2. Confirm all pods become ready only after readiness checks pass.
-3. Simulate a failed health endpoint and confirm liveness restart behavior.
-4. Confirm ingress routes traffic only to ready pods.
-5. Review logs and events for troubleshooting documentation.
+1. Review architecture and confirm each component has a clear responsibility.
+2. Validate deployment or automation steps in a non-production environment first.
+3. Confirm logs, health checks, backup behavior, and rollback steps are documented.
+4. Confirm access, secrets, and network boundaries follow least-privilege expectations.
+5. Capture final runbook notes for handover and support readiness.
 
-## Expected Outcome
+## Expected Outcomes
 
-- Safer Kubernetes rollouts.
-- Better pod restart and readiness behavior.
-- Clear health-check standard for future services.
-- Better handover documentation for support teams.
+- More predictable Kubernetes rollout behavior.
+- Reduced chance of routing production traffic to unready pods.
+- Reusable health-check approach for future services.
+- Cleaner handover documentation for operations and support.
 
-## Technologies
+## Technologies Used
 
-AWS EKS, Kubernetes, Docker, Amazon ECR, ALB Ingress, AWS Load Balancer Controller, Jenkins, ArgoCD, CloudWatch, Scala, Node.js, Angular, Java.
+AWS EKS, Kubernetes, Docker, Amazon ECR, ALB, AWS Load Balancer Controller, Jenkins, ArgoCD, CloudWatch, Scala, Node.js, Java, Angular
+
+## Naukri Work Sample Description
+
+Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.
 

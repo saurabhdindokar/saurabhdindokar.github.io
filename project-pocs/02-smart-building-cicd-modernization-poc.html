@@ -2,99 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>02-smart-building-cicd-modernization-poc</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111827; line-height: 1.45; font-size: 11.5pt; }
+    h1 { color: #101820; font-size: 22pt; margin: 0 0 10px; border-bottom: 3px solid #0f766e; padding-bottom: 8px; page-break-after: avoid; }
+    h2 { color: #1f4e79; font-size: 15pt; margin: 18px 0 8px; }
+    h3 { color: #111827; font-size: 13pt; margin: 14px 0 6px; }
+    p { margin: 5px 0; }
+    .bullet { margin-left: 14px; }
+    pre { background: #f3f6fa; border: 1px solid #d8dee8; padding: 10px; white-space: pre-wrap; font-size: 9.5pt; }
+    figure { margin: 12px 0 16px; padding: 10px; border: 1px solid #d8dee8; border-radius: 8px; background: #f8fafc; page-break-inside: avoid; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { color: #64748b; font-size: 9pt; margin-top: 6px; text-align: center; }
+    .spacer { height: 4px; }
+    .mermaid { min-width: 760px; text-align: center; }
+  </style>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#ffffff",
+        primaryBorderColor: "#0f766e",
+        primaryTextColor: "#111827",
+        lineColor: "#1f4e79",
+        fontFamily: "Arial"
+      }
+    });
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
 </head>
 <body>
-  <main>
 <h1>POC 02: Smart Building Management Platform - CI/CD Modernization</h1>
+<div class='spacer'></div>
 <p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
 <p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Public-safe name: <strong>Smart Building Management Platform</strong></p>
+<p>Public-safe project name: <strong>Smart Building Management Platform</strong>  </p>
+<p>Document type: <strong>Naukri-ready work sample / portfolio POC</strong></p>
+<div class='spacer'></div>
 <h2>Confidentiality Note</h2>
-<p>This POC is public-safe and uses generic source, build, and deployment names. No private pipeline values, repository names, credentials, or client identifiers are included.</p>
-<h2>POC Objective</h2>
-<p>Design a migration pattern from Jenkins-heavy build workflows toward AWS-native CI/CD using CodePipeline, CodeBuild, Docker image builds, Amazon ECR, S3 artifact storage, IAM roles, CloudWatch logs, and deployment handover notes.</p>
-<h2>CI/CD Architecture Diagram</h2>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Repo[Git Repository] --&gt; Trigger[Pull Request / Merge Trigger]
-  Trigger --&gt; CodePipeline[AWS CodePipeline]
-  CodePipeline --&gt; CodeBuild[AWS CodeBuild]
-  CodeBuild --&gt; Test[Unit / Build Validation]
-  CodeBuild --&gt; Docker[Docker Build + Tag]
-  Docker --&gt; ECR[Amazon ECR]
-  CodeBuild --&gt; S3[S3 Build Artifacts]
-  ECR --&gt; Deploy[EKS / ECS Deployment Stage]
-  Deploy --&gt; CW[CloudWatch Logs]
-  IAM[IAM Roles and Least Privilege Policies] --&gt; CodePipeline
+<div class='spacer'></div>
+<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
+<div class='spacer'></div>
+<h2>Work Sample Summary</h2>
+<div class='spacer'></div>
+<p>Public-safe work sample for moving release flow from a traditional Jenkins-heavy pattern toward AWS-native CI/CD using CodePipeline, CodeBuild, ECR, S3 artifacts, IAM, and CloudWatch logs.</p>
+<div class='spacer'></div>
+<h2>Problem Statement</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ The release workflow required a cleaner build, artifact, image, and deployment chain.</p>
+<p class='bullet'>â€¢ Manual dependency on one CI/CD path increased operational risk during repeated deployments.</p>
+<p class='bullet'>â€¢ The team needed documented plan-only migration steps that could be reviewed before production implementation.</p>
+<div class='spacer'></div>
+<h2>Mermaid Architecture Diagram</h2>
+<div class='spacer'></div>
+<figure><pre class='mermaid'>flowchart LR
+  Git[Source Repository] --&gt; Pipeline[AWS CodePipeline]
+  Pipeline --&gt; CodeBuild[AWS CodeBuild]
+  CodeBuild --&gt; Unit[Build / Unit Checks]
+  Unit --&gt; Image[Docker Image]
+  Image --&gt; ECR[Amazon ECR]
+  CodeBuild --&gt; Artifact[S3 Build Artifacts]
+  Pipeline --&gt; Deploy[ECS/EKS Deployment Stage]
+  Deploy --&gt; Env[Dev / Staging / Production]
+  Env --&gt; CW[CloudWatch Logs]
+  IAM[IAM Roles and Least Privilege] --&gt; Pipeline
   IAM --&gt; CodeBuild
-</div></div>
-<h2>What I Worked On</h2>
-<ul>
-<li>Documented existing Jenkins release flow and migration considerations.</li>
-<li>Planned CodePipeline and CodeBuild build stages.</li>
-<li>Documented Docker image build, tagging, ECR push, S3 artifact handling, IAM permissions, and CloudWatch logging.</li>
-<li>Prepared handover notes for release support and troubleshooting.</li>
-<h2>POC Implementation Scope</h2>
-<li>Dummy app repository with Dockerfile.</li>
-<li>Buildspec file for CodeBuild.</li>
-<li>CodePipeline stages for source, build, and deployment placeholder.</li>
-<li>ECR image naming and tagging standard.</li>
-<li>CloudWatch log group and retention notes.</li>
-<li>IAM least-privilege checklist.</li>
-<h2>Suggested Repository Structure</h2>
-<pre><code class="language-text">aws-cicd-modernization-poc/
-|-- README.md
-|-- app/
-|   |-- Dockerfile
-|   `-- health.html
-|-- buildspec.yml
-|-- terraform/
-|   |-- codebuild.tf
-|   |-- codepipeline.tf
-|   |-- ecr.tf
-|   |-- iam.tf
-|   `-- s3.tf
-`-- docs/
-    |-- release-runbook.md
-    `-- troubleshooting.md</code></pre>
-<h2>Validation Steps</h2>
-</ul>
-<ol>
-<li>Run Docker build locally for the dummy app.</li>
-<li>Validate <code>buildspec.yml</code> commands.</li>
-<li>Run Terraform <code>fmt</code>, <code>validate</code>, and plan-only review.</li>
-<li>Confirm pipeline stages and IAM responsibilities are documented.</li>
-<li>Confirm CloudWatch log and artifact retention notes are present.</li>
-<h2>Expected Outcome</h2>
-</ol>
-<ul>
-<li>Clear Jenkins-to-AWS CI/CD migration blueprint.</li>
-<li>Repeatable image build and ECR publishing pattern.</li>
-<li>Better release visibility through CloudWatch logs and documented handover.</li>
-<h2>Technologies</h2>
-<p>Jenkins, AWS CodePipeline, AWS CodeBuild, Docker, Amazon ECR, Amazon S3, IAM, CloudWatch, Terraform, Kubernetes/ECS deployment concepts.</p>
-  </main>
+  Manual[Manual Approval Gate] --&gt; Deploy</pre><figcaption>Mermaid architecture diagram</figcaption></figure>
+<div class='spacer'></div>
+<h2>My Responsibilities</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Mapped existing Jenkins release stages into AWS-native pipeline stages.</p>
+<p class='bullet'>â€¢ Prepared pipeline flow for source, build, Docker image publishing, artifact storage, approval, and deployment.</p>
+<p class='bullet'>â€¢ Documented IAM role boundaries for pipeline, build, ECR, S3, and CloudWatch access.</p>
+<p class='bullet'>â€¢ Defined rollback and artifact traceability notes for safer releases.</p>
+<div class='spacer'></div>
+<h2>Implementation Approach</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Pipeline stages separate source fetch, build validation, image creation, image push, and deployment.</p>
+<p class='bullet'>â€¢ Build logs and failure traces are routed to CloudWatch for easy troubleshooting.</p>
+<p class='bullet'>â€¢ Environment-specific deployment stages can use approval gates for production control.</p>
+<p class='bullet'>â€¢ Artifacts and image tags are traceable so a previous version can be redeployed when needed.</p>
+<div class='spacer'></div>
+<h2>Reliability, Security and Operations Focus</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</p>
+<p class='bullet'>â€¢ Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</p>
+<p class='bullet'>â€¢ The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</p>
+<div class='spacer'></div>
+<h2>Validation Checklist</h2>
+<div class='spacer'></div>
+<p class='bullet'>Review architecture and confirm each component has a clear responsibility.</p>
+<p class='bullet'>Validate deployment or automation steps in a non-production environment first.</p>
+<p class='bullet'>Confirm logs, health checks, backup behavior, and rollback steps are documented.</p>
+<p class='bullet'>Confirm access, secrets, and network boundaries follow least-privilege expectations.</p>
+<p class='bullet'>Capture final runbook notes for handover and support readiness.</p>
+<div class='spacer'></div>
+<h2>Expected Outcomes</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Improved release traceability.</p>
+<p class='bullet'>â€¢ Cleaner AWS-native build and deployment workflow.</p>
+<p class='bullet'>â€¢ Reduced manual deployment dependency.</p>
+<p class='bullet'>â€¢ Better CI/CD documentation for future onboarding.</p>
+<div class='spacer'></div>
+<h2>Technologies Used</h2>
+<div class='spacer'></div>
+<p>AWS CodePipeline, AWS CodeBuild, Jenkins, Docker, Amazon ECR, S3, IAM, CloudWatch, ECS/EKS</p>
+<div class='spacer'></div>
+<h2>Naukri Work Sample Description</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.</p>
+<div class='spacer'></div>
 </body>
 </html>

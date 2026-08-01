@@ -2,97 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>03-smart-building-monitoring-backup-poc</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111827; line-height: 1.45; font-size: 11.5pt; }
+    h1 { color: #101820; font-size: 22pt; margin: 0 0 10px; border-bottom: 3px solid #0f766e; padding-bottom: 8px; page-break-after: avoid; }
+    h2 { color: #1f4e79; font-size: 15pt; margin: 18px 0 8px; }
+    h3 { color: #111827; font-size: 13pt; margin: 14px 0 6px; }
+    p { margin: 5px 0; }
+    .bullet { margin-left: 14px; }
+    pre { background: #f3f6fa; border: 1px solid #d8dee8; padding: 10px; white-space: pre-wrap; font-size: 9.5pt; }
+    figure { margin: 12px 0 16px; padding: 10px; border: 1px solid #d8dee8; border-radius: 8px; background: #f8fafc; page-break-inside: avoid; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { color: #64748b; font-size: 9pt; margin-top: 6px; text-align: center; }
+    .spacer { height: 4px; }
+    .mermaid { min-width: 760px; text-align: center; }
+  </style>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#ffffff",
+        primaryBorderColor: "#0f766e",
+        primaryTextColor: "#111827",
+        lineColor: "#1f4e79",
+        fontFamily: "Arial"
+      }
+    });
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
 </head>
 <body>
-  <main>
-<h1>POC 03: Smart Building Management Platform - Monitoring, Backup And Cost Optimization</h1>
+<h1>POC 03: Smart Building Management Platform - Monitoring, Backup and Cost Optimization</h1>
+<div class='spacer'></div>
 <p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
 <p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Public-safe name: <strong>Smart Building Management Platform</strong></p>
+<p>Public-safe project name: <strong>Smart Building Management Platform</strong>  </p>
+<p>Document type: <strong>Naukri-ready work sample / portfolio POC</strong></p>
+<div class='spacer'></div>
 <h2>Confidentiality Note</h2>
-<p>This POC excludes private backup paths, repository names, environment values, credentials, internal dashboards, and production identifiers.</p>
-<h2>POC Objective</h2>
-<p>Build an operations blueprint for monitoring, alerting, backup planning, recovery documentation, Elasticsearch data handling, MongoDB backup/restore, Jenkins backup planning, and CloudWatch log cost control.</p>
-<h2>Operations Architecture Diagram</h2>
-<div class="diagram"><div class="mermaid">
-flowchart TB
-  Apps[Application Services] --&gt; CWLogs[CloudWatch Logs]
-  Apps --&gt; CWMetrics[CloudWatch Metrics]
-  CWLogs --&gt; Retention[Retention Policy]
-  CWMetrics --&gt; Alarms[CloudWatch Alarms]
-  Alarms --&gt; Notify[Notification Channel]
-  Jenkins[Jenkins Server] --&gt; EBSSnapshots[EBS Snapshot Backup Plan]
-  ES[Elasticsearch] --&gt; ESSnapshot[Snapshot / Migration Notes]
-  Mongo[MongoDB] --&gt; MongoDump[Backup / Restore Runbook]
-  PV[Kubernetes Persistent Volumes] --&gt; PVBackup[PV Backup Plan]
-  Retention --&gt; Cost[Log Cost Optimization]
-  Notify --&gt; Runbook[Incident Runbook]
-</div></div>
-<h2>What I Worked On</h2>
-<ul>
-<li>Documented CloudWatch logging, monitoring, alerts, and notification practices.</li>
-<li>Prepared Jenkins backup planning using EBS snapshot concepts.</li>
-<li>Documented Elasticsearch backup/data migration and MongoDB backup/restore approach.</li>
-<li>Added log retention and cost optimization guidance.</li>
-<h2>POC Implementation Scope</h2>
-<li>CloudWatch log retention example.</li>
-<li>Alarm design for service errors, high CPU/memory, and failed jobs.</li>
-<li>Backup runbooks for Jenkins, MongoDB, Elasticsearch, and persistent storage.</li>
-<li>Recovery verification checklist.</li>
-<li>Cost-control checklist for logs and backups.</li>
-<h2>Suggested Repository Structure</h2>
-<pre><code class="language-text">monitoring-backup-cost-poc/
-|-- README.md
-|-- cloudwatch/
-|   |-- alarms.md
-|   `-- log-retention.md
-|-- backup/
-|   |-- jenkins-backup.md
-|   |-- mongodb-backup-restore.md
-|   |-- elasticsearch-snapshot.md
-|   `-- pv-backup.md
-`-- runbooks/
-    |-- incident-response.md
-    `-- restore-verification.md</code></pre>
-<h2>Validation Steps</h2>
-</ul>
-<ol>
-<li>Review log retention and alarm thresholds.</li>
-<li>Run backup commands against dummy/local services where possible.</li>
-<li>Restore backup into a non-production target.</li>
-<li>Confirm row/document counts or service health after restore.</li>
-<li>Document restore outcome and improvement notes.</li>
-<h2>Expected Outcome</h2>
-</ol>
-<ul>
-<li>Stronger operational readiness.</li>
-<li>Repeatable backup and restore documentation.</li>
-<li>Better CloudWatch log cost control.</li>
-<li>Clearer monitoring and incident response handover.</li>
-<h2>Technologies</h2>
-<p>AWS CloudWatch, EBS Snapshots, S3, EC2, Jenkins, Elasticsearch, MongoDB, Kubernetes Persistent Volumes, monitoring, alerting, backup automation, cost optimization.</p>
-  </main>
+<div class='spacer'></div>
+<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
+<div class='spacer'></div>
+<h2>Work Sample Summary</h2>
+<div class='spacer'></div>
+<p>Public-safe work sample covering monitoring, alerting, backup automation, retention control, Jenkins backup, database backup, log visibility, and practical cost optimization checks.</p>
+<div class='spacer'></div>
+<h2>Problem Statement</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Operational teams needed better visibility into compute, deployment, backup, and application health.</p>
+<p class='bullet'>â€¢ Backup activity required documented scripts, retention behavior, and restoration verification.</p>
+<p class='bullet'>â€¢ Cloud resources needed periodic cost review for unused or oversized components.</p>
+<div class='spacer'></div>
+<h2>Mermaid Architecture Diagram</h2>
+<div class='spacer'></div>
+<figure><pre class='mermaid'>flowchart TB
+  Apps[Application Workloads] --&gt; Logs[CloudWatch Logs]
+  Apps --&gt; Metrics[CloudWatch Metrics]
+  Metrics --&gt; Alarms[CloudWatch Alarms]
+  Alarms --&gt; Notify[Email / Incident Notification]
+  Jenkins[Jenkins Server] --&gt; JenkinsBackup[Jenkins Home Backup]
+  Mongo[MongoDB / Document Store] --&gt; DbDump[Database Dump]
+  Search[Elasticsearch / Search Layer] --&gt; Snapshot[Snapshot / Backup Export]
+  JenkinsBackup --&gt; S3[S3 Backup Bucket]
+  DbDump --&gt; S3
+  Snapshot --&gt; S3
+  S3 --&gt; Lifecycle[S3 Lifecycle and Retention]
+  Cost[Cost Review] --&gt; Rightsize[Rightsizing / Cleanup]
+  Cost --&gt; Lifecycle</pre><figcaption>Mermaid architecture diagram</figcaption></figure>
+<div class='spacer'></div>
+<h2>My Responsibilities</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Prepared backup and retention approach for CI/CD server data and database components.</p>
+<p class='bullet'>â€¢ Documented CloudWatch dashboards, alarms, log groups, and troubleshooting checkpoints.</p>
+<p class='bullet'>â€¢ Created cost optimization checklist covering unused resources, storage lifecycle, right sizing, and backup retention.</p>
+<p class='bullet'>â€¢ Defined restore verification steps so backup success is not assumed without validation.</p>
+<div class='spacer'></div>
+<h2>Implementation Approach</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Backup scripts create timestamped archives and store them in a controlled S3 path.</p>
+<p class='bullet'>â€¢ Retention rules keep recent backups while reducing long-term storage cost.</p>
+<p class='bullet'>â€¢ CloudWatch alarms are mapped to actionable failure conditions, not noisy generic metrics only.</p>
+<p class='bullet'>â€¢ Cost review focuses on EC2/EBS snapshots, S3 lifecycle, idle resources, and oversized compute.</p>
+<div class='spacer'></div>
+<h2>Reliability, Security and Operations Focus</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</p>
+<p class='bullet'>â€¢ Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</p>
+<p class='bullet'>â€¢ The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</p>
+<div class='spacer'></div>
+<h2>Validation Checklist</h2>
+<div class='spacer'></div>
+<p class='bullet'>Review architecture and confirm each component has a clear responsibility.</p>
+<p class='bullet'>Validate deployment or automation steps in a non-production environment first.</p>
+<p class='bullet'>Confirm logs, health checks, backup behavior, and rollback steps are documented.</p>
+<p class='bullet'>Confirm access, secrets, and network boundaries follow least-privilege expectations.</p>
+<p class='bullet'>Capture final runbook notes for handover and support readiness.</p>
+<div class='spacer'></div>
+<h2>Expected Outcomes</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Improved backup confidence through restore validation.</p>
+<p class='bullet'>â€¢ Better operational visibility for incidents.</p>
+<p class='bullet'>â€¢ Reduced avoidable cloud spend through retention and cleanup planning.</p>
+<p class='bullet'>â€¢ Clear support runbook for monitoring and backup ownership.</p>
+<div class='spacer'></div>
+<h2>Technologies Used</h2>
+<div class='spacer'></div>
+<p>CloudWatch, S3, Jenkins, Shell Scripting, Elasticsearch, MongoDB, AWS Cost Explorer, EC2, EBS, IAM</p>
+<div class='spacer'></div>
+<h2>Naukri Work Sample Description</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.</p>
+<div class='spacer'></div>
 </body>
 </html>

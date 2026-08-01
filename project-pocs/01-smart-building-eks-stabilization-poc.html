@@ -2,103 +2,123 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>01-smart-building-eks-stabilization-poc</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111827; line-height: 1.45; font-size: 11.5pt; }
+    h1 { color: #101820; font-size: 22pt; margin: 0 0 10px; border-bottom: 3px solid #0f766e; padding-bottom: 8px; page-break-after: avoid; }
+    h2 { color: #1f4e79; font-size: 15pt; margin: 18px 0 8px; }
+    h3 { color: #111827; font-size: 13pt; margin: 14px 0 6px; }
+    p { margin: 5px 0; }
+    .bullet { margin-left: 14px; }
+    pre { background: #f3f6fa; border: 1px solid #d8dee8; padding: 10px; white-space: pre-wrap; font-size: 9.5pt; }
+    figure { margin: 12px 0 16px; padding: 10px; border: 1px solid #d8dee8; border-radius: 8px; background: #f8fafc; page-break-inside: avoid; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { color: #64748b; font-size: 9pt; margin-top: 6px; text-align: center; }
+    .spacer { height: 4px; }
+    .mermaid { min-width: 760px; text-align: center; }
+  </style>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#ffffff",
+        primaryBorderColor: "#0f766e",
+        primaryTextColor: "#111827",
+        lineColor: "#1f4e79",
+        fontFamily: "Arial"
+      }
+    });
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
 </head>
 <body>
-  <main>
 <h1>POC 01: Smart Building Management Platform - EKS Stabilization</h1>
+<div class='spacer'></div>
 <p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
 <p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Public-safe name: <strong>Smart Building Management Platform</strong></p>
+<p>Public-safe project name: <strong>Smart Building Management Platform</strong>  </p>
+<p>Document type: <strong>Naukri-ready work sample / portfolio POC</strong></p>
+<div class='spacer'></div>
 <h2>Confidentiality Note</h2>
-<p>This POC is public-safe. It does not include real client names, internal repository names, production URLs, IP addresses, credentials, private screenshots, or organization-owned source code.</p>
-<h2>POC Objective</h2>
-<p>Create a reusable Kubernetes/EKS stabilization blueprint for a multi-service platform with standardized health checks, liveness probes, readiness probes, ingress routing, CloudWatch logging, and deployment handover documentation.</p>
-<h2>Architecture Diagram</h2>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Dev[Developer Commit] --&gt; Jenkins[Jenkins CI/CD]
-  Jenkins --&gt; ECR[Amazon ECR]
+<div class='spacer'></div>
+<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
+<div class='spacer'></div>
+<h2>Work Sample Summary</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps work sample showing Kubernetes/EKS stabilization for a multi-service platform with standardized health checks, rollout safety, ALB ingress, image flow, and production support documentation.</p>
+<div class='spacer'></div>
+<h2>Problem Statement</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Multiple services were deployed with different health-check behavior, which made pod readiness and failure detection inconsistent.</p>
+<p class='bullet'>â€¢ The platform required better pod-level visibility across backend and frontend services before production handover.</p>
+<p class='bullet'>â€¢ Deployment documentation needed to clearly explain validation, rollback, and troubleshooting steps for support teams.</p>
+<div class='spacer'></div>
+<h2>Mermaid Architecture Diagram</h2>
+<div class='spacer'></div>
+<figure><pre class='mermaid'>flowchart LR
+  Dev[Developer Commit] --&gt; Jenkins[Jenkins CI/CD Pipeline]
+  Jenkins --&gt; Build[Docker Build and Tag]
+  Build --&gt; ECR[Amazon ECR Image Registry]
   ECR --&gt; EKS[AWS EKS Cluster]
-  ALB[Application Load Balancer] --&gt; Ingress[AWS Load Balancer Controller]
-  Ingress --&gt; EKS
-  EKS --&gt; Scala[Scala Service]
-  EKS --&gt; Node[Node.js Service]
-  EKS --&gt; Java[Java Service]
-  EKS --&gt; Angular[Angular Web]
-  Scala --&gt; Health1[&quot;/health&quot;]
-  Node --&gt; Health2[&quot;/health&quot;]
-  Java --&gt; Health3[&quot;/actuator/health&quot;]
-  Angular --&gt; Health4[&quot;Static health file&quot;]
-  EKS --&gt; CW[CloudWatch Logs / Metrics]
-  Argo[ArgoCD Desired State] --&gt; EKS
-</div></div>
-<h2>What I Worked On</h2>
-<ul>
-<li>Supported AWS EKS migration and Kubernetes workload stabilization planning.</li>
-<li>Added and documented service health-check endpoints/files across Scala, Node.js, Angular, and Java services.</li>
-<li>Configured Kubernetes liveness and readiness probe patterns for pod-level stability.</li>
-<li>Documented ECR image flow, ALB ingress routing, CloudWatch visibility, and operational handover steps.</li>
-<h2>POC Implementation Scope</h2>
-<li>Dummy services for Scala, Node.js, Java, and Angular health-check behavior.</li>
-<li>Kubernetes manifests for Deployment, Service, Ingress, ConfigMap, and probe configuration.</li>
-<li>ALB ingress example using path-based routing.</li>
-<li>CloudWatch logging and troubleshooting notes.</li>
-<li>Rollout validation and rollback checklist.</li>
-<h2>Suggested Repository Structure</h2>
-<pre><code class="language-text">eks-health-stabilization-poc/
-|-- README.md
-|-- k8s/
-|   |-- namespace.yaml
-|   |-- scala-service.yaml
-|   |-- node-service.yaml
-|   |-- java-service.yaml
-|   |-- angular-web.yaml
-|   `-- ingress.yaml
-|-- docs/
-|   |-- runbook.md
-|   |-- rollback.md
-|   `-- troubleshooting.md
-`-- diagrams/
-    `-- architecture.mmd</code></pre>
-<h2>Validation Steps</h2>
-</ul>
-<ol>
-<li>Deploy dummy workloads to a local Kubernetes cluster or test EKS namespace.</li>
-<li>Confirm all pods become ready only after readiness checks pass.</li>
-<li>Simulate a failed health endpoint and confirm liveness restart behavior.</li>
-<li>Confirm ingress routes traffic only to ready pods.</li>
-<li>Review logs and events for troubleshooting documentation.</li>
-<h2>Expected Outcome</h2>
-</ol>
-<ul>
-<li>Safer Kubernetes rollouts.</li>
-<li>Better pod restart and readiness behavior.</li>
-<li>Clear health-check standard for future services.</li>
-<li>Better handover documentation for support teams.</li>
-<h2>Technologies</h2>
-<p>AWS EKS, Kubernetes, Docker, Amazon ECR, ALB Ingress, AWS Load Balancer Controller, Jenkins, ArgoCD, CloudWatch, Scala, Node.js, Angular, Java.</p>
-  </main>
+  ALB[Application Load Balancer] --&gt; Ingress[AWS Load Balancer Controller / Ingress]
+  Ingress --&gt; Svc[Service Routing]
+  Svc --&gt; Scala[Scala Service]
+  Svc --&gt; Node[Node.js Service]
+  Svc --&gt; Java[Java Service]
+  Svc --&gt; Angular[Angular Web App]
+  Scala --&gt; ScalaHealth[&quot;/health endpoint&quot;]
+  Node --&gt; NodeHealth[&quot;/health endpoint&quot;]
+  Java --&gt; JavaHealth[&quot;/actuator/health&quot;]
+  Angular --&gt; StaticHealth[&quot;Static health file&quot;]
+  EKS --&gt; Probes[Liveness and Readiness Probes]
+  Probes --&gt; Stable[Stable Pod Scheduling]
+  EKS --&gt; CW[CloudWatch Logs and Metrics]
+  Argo[ArgoCD Desired State Sync] --&gt; EKS</pre><figcaption>Mermaid architecture diagram</figcaption></figure>
+<div class='spacer'></div>
+<h2>My Responsibilities</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Prepared Kubernetes health-check standards for Scala, Node.js, Java, and Angular workloads.</p>
+<p class='bullet'>â€¢ Documented liveness and readiness probe behavior to reduce unsafe traffic routing during startup or unhealthy states.</p>
+<p class='bullet'>â€¢ Mapped image build, ECR push, Kubernetes deployment, ingress routing, logging, and validation flow.</p>
+<p class='bullet'>â€¢ Created operational notes for rollout verification, failure checks, and rollback readiness.</p>
+<div class='spacer'></div>
+<h2>Implementation Approach</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Deployment templates include resource requests/limits, readiness probes, liveness probes, service definitions, and ingress routing.</p>
+<p class='bullet'>â€¢ Application health checks are separated from traffic readiness so a pod becomes live and ready only after required checks pass.</p>
+<p class='bullet'>â€¢ CloudWatch visibility is included for pod logs, deployment troubleshooting, and basic production diagnostics.</p>
+<p class='bullet'>â€¢ Runbook sections explain what to check before rollout, after rollout, and during rollback.</p>
+<div class='spacer'></div>
+<h2>Reliability, Security and Operations Focus</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</p>
+<p class='bullet'>â€¢ Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</p>
+<p class='bullet'>â€¢ The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</p>
+<div class='spacer'></div>
+<h2>Validation Checklist</h2>
+<div class='spacer'></div>
+<p class='bullet'>Review architecture and confirm each component has a clear responsibility.</p>
+<p class='bullet'>Validate deployment or automation steps in a non-production environment first.</p>
+<p class='bullet'>Confirm logs, health checks, backup behavior, and rollback steps are documented.</p>
+<p class='bullet'>Confirm access, secrets, and network boundaries follow least-privilege expectations.</p>
+<p class='bullet'>Capture final runbook notes for handover and support readiness.</p>
+<div class='spacer'></div>
+<h2>Expected Outcomes</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ More predictable Kubernetes rollout behavior.</p>
+<p class='bullet'>â€¢ Reduced chance of routing production traffic to unready pods.</p>
+<p class='bullet'>â€¢ Reusable health-check approach for future services.</p>
+<p class='bullet'>â€¢ Cleaner handover documentation for operations and support.</p>
+<div class='spacer'></div>
+<h2>Technologies Used</h2>
+<div class='spacer'></div>
+<p>AWS EKS, Kubernetes, Docker, Amazon ECR, ALB, AWS Load Balancer Controller, Jenkins, ArgoCD, CloudWatch, Scala, Node.js, Java, Angular</p>
+<div class='spacer'></div>
+<h2>Naukri Work Sample Description</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.</p>
+<div class='spacer'></div>
 </body>
 </html>

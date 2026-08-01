@@ -2,101 +2,117 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>04-iot-healthcare-ecs-migration-poc</title>
+  <style>
+    @page { size: A4; margin: 16mm; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111827; line-height: 1.45; font-size: 11.5pt; }
+    h1 { color: #101820; font-size: 22pt; margin: 0 0 10px; border-bottom: 3px solid #0f766e; padding-bottom: 8px; page-break-after: avoid; }
+    h2 { color: #1f4e79; font-size: 15pt; margin: 18px 0 8px; }
+    h3 { color: #111827; font-size: 13pt; margin: 14px 0 6px; }
+    p { margin: 5px 0; }
+    .bullet { margin-left: 14px; }
+    pre { background: #f3f6fa; border: 1px solid #d8dee8; padding: 10px; white-space: pre-wrap; font-size: 9.5pt; }
+    figure { margin: 12px 0 16px; padding: 10px; border: 1px solid #d8dee8; border-radius: 8px; background: #f8fafc; page-break-inside: avoid; }
+    img { width: 100%; height: auto; display: block; }
+    figcaption { color: #64748b; font-size: 9pt; margin-top: 6px; text-align: center; }
+    .spacer { height: 4px; }
+    .mermaid { min-width: 760px; text-align: center; }
+  </style>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#ffffff",
+        primaryBorderColor: "#0f766e",
+        primaryTextColor: "#111827",
+        lineColor: "#1f4e79",
+        fontFamily: "Arial"
+      }
+    });
   </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
 </head>
 <body>
-  <main>
-<h1>POC 04: IoT Healthcare Platform - ECS/Fargate Migration And Cloud Operations</h1>
+<h1>POC 04: IoT Healthcare Platform - ECS/Fargate Migration</h1>
+<div class='spacer'></div>
 <p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
 <p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Public-safe name: <strong>IoT Healthcare Platform</strong></p>
+<p>Public-safe project name: <strong>IoT Healthcare Platform</strong>  </p>
+<p>Document type: <strong>Naukri-ready work sample / portfolio POC</strong></p>
+<div class='spacer'></div>
 <h2>Confidentiality Note</h2>
-<p>This POC uses generic healthcare platform naming and excludes real domains, VPN details, IP addresses, credentials, private diagrams, and environment-specific values.</p>
-<h2>POC Objective</h2>
-<p>Design a secure AWS ECS/Fargate migration pattern for frontend applications, backend APIs, database services, object storage, networking, security controls, monitoring, disaster recovery, and production handover.</p>
-<h2>Architecture Diagram</h2>
-<div class="diagram"><div class="mermaid">
-flowchart TB
-  Users[Users] --&gt; Route53[Route 53]
-  Route53 --&gt; CDN[CloudFront]
-  CDN --&gt; S3[S3 Static Frontend]
-  Route53 --&gt; ALB[Application Load Balancer]
-  ALB --&gt; ECS[ECS Fargate Backend APIs]
+<div class='spacer'></div>
+<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
+<div class='spacer'></div>
+<h2>Work Sample Summary</h2>
+<div class='spacer'></div>
+<p>Public-safe work sample for AWS migration using ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, database services, backup planning, and DR-focused handover.</p>
+<div class='spacer'></div>
+<h2>Problem Statement</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ The platform required a managed container hosting model with reduced server maintenance.</p>
+<p class='bullet'>â€¢ Frontend and backend components needed a clean AWS delivery pattern with secure routing and secret handling.</p>
+<p class='bullet'>â€¢ Migration documentation needed to cover deployment, monitoring, backup, rollback, and production handover.</p>
+<div class='spacer'></div>
+<h2>Mermaid Architecture Diagram</h2>
+<div class='spacer'></div>
+<figure><pre class='mermaid'>flowchart TB
+  Users[Users / Devices] --&gt; Route53[Route 53 DNS]
+  Route53 --&gt; WAF[AWS WAF]
+  WAF --&gt; CloudFront[CloudFront CDN]
+  CloudFront --&gt; S3[S3 Frontend Hosting]
+  WAF --&gt; ALB[Application Load Balancer]
+  ALB --&gt; ECS[ECS Fargate Services]
   ECS --&gt; ECR[Amazon ECR]
-  ECS --&gt; DocDB[DocumentDB]
-  ECS --&gt; RDS[RDS PostgreSQL]
-  ECS --&gt; Redis[ElastiCache Redis]
   ECS --&gt; Secrets[Secrets Manager]
-  ECS --&gt; CW[CloudWatch Logs / Metrics]
-  WAF[AWS WAF] --&gt; CDN
-  WAF --&gt; ALB
-  DR[DR / Failover Runbook] --&gt; Route53
-</div></div>
-<h2>What I Worked On</h2>
-<ul>
-<li>Planned ECS/Fargate migration for APIs and supporting services.</li>
-<li>Covered VPC, public/private subnets, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, IAM, and CloudWatch.</li>
-<li>Supported migration planning for DocumentDB, RDS PostgreSQL, ElastiCache Redis, S3 object storage, signed URL flows, and environment configuration.</li>
-<li>Prepared CI/CD, monitoring, alerting, DR/failover, and production handover documentation.</li>
-<h2>POC Implementation Scope</h2>
-<li>Terraform blueprint for VPC, ALB, ECS service, ECR, S3, CloudFront, and RDS placeholder.</li>
-<li>Dummy backend container deployed on ECS/Fargate.</li>
-<li>Frontend static hosting pattern using S3 and CloudFront.</li>
-<li>Secrets and environment variable handling notes.</li>
-<li>Monitoring, DR, and cutover runbooks.</li>
-<h2>Suggested Repository Structure</h2>
-<pre><code class="language-text">ecs-fargate-migration-poc/
-|-- README.md
-|-- terraform/
-|   |-- network.tf
-|   |-- ecs.tf
-|   |-- alb.tf
-|   |-- ecr.tf
-|   |-- storage.tf
-|   `-- monitoring.tf
-|-- app/
-|   `-- Dockerfile
-`-- docs/
-    |-- migration-plan.md
-    |-- dr-runbook.md
-    `-- production-handover.md</code></pre>
-<h2>Validation Steps</h2>
-</ul>
-<ol>
-<li>Run Terraform <code>fmt</code>, <code>validate</code>, and plan-only review.</li>
-<li>Build dummy Docker image locally.</li>
-<li>Review ECS task definition and service configuration.</li>
-<li>Confirm RDS remains private and security groups are restrictive.</li>
-<li>Review monitoring and failover runbooks.</li>
-<h2>Expected Outcome</h2>
-</ol>
-<ul>
-<li>Clear ECS/Fargate migration blueprint.</li>
-<li>Secure private database access pattern.</li>
-<li>Better service monitoring, cutover, DR, and handover documentation.</li>
-<h2>Technologies</h2>
-<p>AWS ECS Fargate, ECR, ALB, VPC, S3, CloudFront, Route 53, WAF, CloudWatch, DocumentDB, RDS PostgreSQL, ElastiCache Redis, Secrets Manager, GitHub Actions, Terraform.</p>
-  </main>
+  ECS --&gt; DB[(Private Database Layer)]
+  ECS --&gt; CW[CloudWatch Logs and Metrics]
+  DB --&gt; Backup[Automated Backup / Snapshot]
+  Backup --&gt; DR[DR / Restore Validation]</pre><figcaption>Mermaid architecture diagram</figcaption></figure>
+<div class='spacer'></div>
+<h2>My Responsibilities</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Planned containerized backend deployment using ECS/Fargate with private service networking.</p>
+<p class='bullet'>â€¢ Mapped frontend delivery through S3 and CloudFront with DNS and WAF protection.</p>
+<p class='bullet'>â€¢ Prepared ECR image flow, secrets handling, CloudWatch logging, and deployment validation notes.</p>
+<p class='bullet'>â€¢ Documented backup, disaster recovery, and production handover checkpoints.</p>
+<div class='spacer'></div>
+<h2>Implementation Approach</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ ECS tasks run in private subnets and receive traffic only through the application load balancer.</p>
+<p class='bullet'>â€¢ Secrets are injected through managed secret storage instead of being kept in code or images.</p>
+<p class='bullet'>â€¢ Frontend static assets are delivered through CDN while backend APIs are routed through ALB.</p>
+<p class='bullet'>â€¢ DR planning includes backup schedule, restore verification, DNS considerations, and monitoring checks.</p>
+<div class='spacer'></div>
+<h2>Reliability, Security and Operations Focus</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</p>
+<p class='bullet'>â€¢ Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</p>
+<p class='bullet'>â€¢ The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</p>
+<div class='spacer'></div>
+<h2>Validation Checklist</h2>
+<div class='spacer'></div>
+<p class='bullet'>Review architecture and confirm each component has a clear responsibility.</p>
+<p class='bullet'>Validate deployment or automation steps in a non-production environment first.</p>
+<p class='bullet'>Confirm logs, health checks, backup behavior, and rollback steps are documented.</p>
+<p class='bullet'>Confirm access, secrets, and network boundaries follow least-privilege expectations.</p>
+<p class='bullet'>Capture final runbook notes for handover and support readiness.</p>
+<div class='spacer'></div>
+<h2>Expected Outcomes</h2>
+<div class='spacer'></div>
+<p class='bullet'>â€¢ Reduced infrastructure maintenance compared to manually managed servers.</p>
+<p class='bullet'>â€¢ Improved security posture through private workloads and managed secrets.</p>
+<p class='bullet'>â€¢ Better production support through clear logs, backups, and handover notes.</p>
+<p class='bullet'>â€¢ Reusable AWS migration blueprint for containerized applications.</p>
+<div class='spacer'></div>
+<h2>Technologies Used</h2>
+<div class='spacer'></div>
+<p>AWS ECS Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, RDS/Database, Docker</p>
+<div class='spacer'></div>
+<h2>Naukri Work Sample Description</h2>
+<div class='spacer'></div>
+<p>Public-safe DevOps POC by Saurabh Dindokar covering architecture, responsibilities, implementation approach, validation checklist, operational focus, and measurable delivery outcomes. The document uses generic project naming and does not disclose any confidential client or organization information.</p>
+<div class='spacer'></div>
 </body>
 </html>
