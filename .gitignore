@@ -20,3 +20,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 _project_pocs_tmp/
+project-pocs/downloads/*.html
