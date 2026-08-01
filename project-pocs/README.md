@@ -6,7 +6,7 @@ This folder contains separate public-safe DevOps POC documents for Naukri work s
 
 ## Files
 
-- 01-smart-building-eks-stabilization-poc
+- 01-smart-building-eks-migration-poc
 - 02-smart-building-cicd-modernization-poc
 - 03-smart-building-monitoring-backup-poc
 - 04-iot-healthcare-ecs-migration-poc

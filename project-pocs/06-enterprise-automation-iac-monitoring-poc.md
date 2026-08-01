@@ -3,8 +3,6 @@
 Prepared for: **Saurabh Dindokar**  
 Role: **AWS DevOps Engineer**  
 Public-safe project name: **Enterprise Automation Platform**  
-Document type: **Naukri-ready work sample / portfolio POC**
-
 ## Confidentiality Note
 
 This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.
