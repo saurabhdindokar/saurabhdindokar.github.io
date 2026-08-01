@@ -1,129 +1,54 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Saurabh Dindokar | DevOps Project POCs</title>
-  <style>
-    :root {
-      --ink: #162033;
-      --muted: #5d6878;
-      --line: #d9e1ea;
-      --panel: #ffffff;
-      --soft: #f5f8fb;
-      --brand: #0f766e;
-      --blue: #1f4e79;
-      --gold: #b7791f;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--soft); line-height: 1.55; }
-    header { background: #101820; color: #fff; border-bottom: 4px solid var(--brand); }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-    .hero { padding: 42px 0 30px; }
-    .eyebrow { margin: 0 0 8px; color: #9fe0d2; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
-    h1 { margin: 0; font-size: 34px; letter-spacing: 0; }
-    .hero p { margin: 10px 0 0; color: #d7e1ec; max-width: 900px; }
-    nav { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 0 22px; }
-    a { color: var(--blue); font-weight: 700; }
-    .nav-link, .button { display: inline-block; border: 1px solid #9fb5cc; border-radius: 6px; padding: 9px 12px; background: #eef5fb; color: #12395f; text-decoration: none; }
-    main { max-width: 1180px; margin: 0 auto; padding: 24px; }
-    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px; margin-bottom: 18px; }
-    h2 { margin: 0 0 14px; color: var(--blue); font-size: 23px; }
-    h3 { margin: 0 0 8px; font-size: 18px; }
-    p { margin: 8px 0; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .card { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: #fbfcfe; }
-    .card strong { color: var(--brand); }
-    .note { border-left: 4px solid var(--gold); background: #fff8ea; padding: 12px 14px; color: #5d3b00; }
-    .tags { margin-top: 10px; }
-    .tag { display: inline-block; border: 1px solid #cad6e2; border-radius: 999px; padding: 4px 9px; margin: 4px 4px 0 0; color: #27415f; background: #fff; font-size: 12px; }
-    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .button.primary { background: #0f766e; border-color: #0f766e; color: #fff; }
-    .button.secondary { background: #fff; }
-    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .metric { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfcfe; }
-    .metric b { display: block; font-size: 20px; color: var(--brand); }
-    @media (max-width: 860px) {
-      .grid, .metric-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 28px; }
-      main, .wrap { padding-left: 16px; padding-right: 16px; }
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/portfolio.css">
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <div class="wrap hero">
       <p class="eyebrow">Public-Safe DevOps Portfolio</p>
       <h1>Separate AWS DevOps Project POCs</h1>
-      <p>Detailed work samples by Saurabh Dindokar covering AWS migration, Kubernetes/EKS, ECS/Fargate, CI/CD, Docker, Jenkins, ArgoCD, monitoring, backup, rollback, and production handover. All documents use public-safe project names only.</p>
+      <p class="subtitle">Detailed work samples covering AWS migration, Kubernetes/EKS, ECS/Fargate, CI/CD, Docker, Jenkins, ArgoCD, monitoring, backup, rollback, and production handover.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Format</b>HTML, PDF and Word</div>
+        <div class="meta"><b>Confidentiality</b>Public-safe naming only</div>
+        <div class="meta"><b>Use</b>Naukri, LinkedIn and resume portfolio</div>
+      </div>
     </div>
     <div class="wrap">
-      <nav>
+      <nav class="nav">
         <a class="nav-link" href="../">Portfolio Home</a>
         <a class="nav-link" href="../case-studies/">Case Studies</a>
         <a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a>
-        <a class="nav-link" href="../assets/Mermaid_Diagrams_Source.html">Diagram Source</a>
       </nav>
     </div>
   </header>
-
   <main>
-    <section>
-      <h2>What This Pack Shows</h2>
-      <div class="metric-grid">
-        <div class="metric"><b>7</b>Separate POCs</div>
-        <div class="metric"><b>AWS</b>EKS, ECS, ALB, ECR, S3, CloudWatch</div>
-        <div class="metric"><b>CI/CD</b>Jenkins, CodePipeline, CodeBuild, ArgoCD</div>
-        <div class="metric"><b>Ops</b>Monitoring, backup, rollback, runbooks</div>
+    <section class="section feature">
+      <h2>Technology Coverage</h2>
+      <div class="logo-strip">
+        <div class="logo-tile"><img src="../assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
+        <div class="logo-tile"><img src="../assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
+        <div class="logo-tile"><img src="../assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
+        <div class="logo-tile"><img src="../assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
+        <div class="logo-tile"><img src="../assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
+        <div class="logo-tile"><img src="../assets/logos/grafana.svg" alt="Grafana"><span>Monitoring</span></div>
       </div>
       <p class="note">No real client names, private URLs, credentials, account IDs, IP addresses, internal screenshots, or organization-owned source code are included.</p>
     </section>
-
-    <section>
+    <section class="section">
       <h2>Project POCs</h2>
       <div class="grid">
-        <article class="card">
-          <h3>01. On-Prem to AWS EKS Migration</h3>
-          <p><strong>Focus:</strong> Full migration from on-prem/self-managed deployment to AWS EKS, including Dockerfiles, Jenkins build pipeline, ECR image flow, Kubernetes manifests, ArgoCD sync, ALB ingress, health checks, monitoring, rollback, and handover.</p>
-          <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Docker</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">ECR</span><span class="tag">ALB</span></div>
-          <div class="links"><a class="button primary" href="01-smart-building-eks-migration-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/01-smart-building-eks-migration-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/01-smart-building-eks-migration-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>02. CI/CD Modernization</h3>
-          <p><strong>Focus:</strong> Build and release modernization using Jenkins, AWS CodePipeline, CodeBuild, Docker image publishing, ECR, S3 artifacts, IAM boundaries, CloudWatch logs, and approval gates.</p>
-          <div class="tags"><span class="tag">CodePipeline</span><span class="tag">CodeBuild</span><span class="tag">Jenkins</span><span class="tag">ECR</span><span class="tag">IAM</span></div>
-          <div class="links"><a class="button primary" href="02-smart-building-cicd-modernization-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/02-smart-building-cicd-modernization-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/02-smart-building-cicd-modernization-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>03. Monitoring, Backup and Cost Optimization</h3>
-          <p><strong>Focus:</strong> CloudWatch visibility, alerting, Jenkins backup, database backup, S3 lifecycle retention, restore verification, cost review, cleanup, and operational ownership.</p>
-          <div class="tags"><span class="tag">CloudWatch</span><span class="tag">S3</span><span class="tag">Backup</span><span class="tag">Cost Optimization</span><span class="tag">Runbooks</span></div>
-          <div class="links"><a class="button primary" href="03-smart-building-monitoring-backup-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/03-smart-building-monitoring-backup-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/03-smart-building-monitoring-backup-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>04. IoT Healthcare ECS/Fargate Migration</h3>
-          <p><strong>Focus:</strong> ECS/Fargate migration design with ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, private database access, backup, DR, and production handover.</p>
-          <div class="tags"><span class="tag">ECS Fargate</span><span class="tag">CloudFront</span><span class="tag">WAF</span><span class="tag">Secrets Manager</span><span class="tag">DR</span></div>
-          <div class="links"><a class="button primary" href="04-iot-healthcare-ecs-migration-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/04-iot-healthcare-ecs-migration-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/04-iot-healthcare-ecs-migration-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>05. Windows IIS Deployment</h3>
-          <p><strong>Focus:</strong> Windows Server deployment using IIS, .NET hosting, WordPress support, PowerShell release steps, configuration backup, rollback, monitoring, and validation checklist.</p>
-          <div class="tags"><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">.NET</span><span class="tag">PowerShell</span><span class="tag">Rollback</span></div>
-          <div class="links"><a class="button primary" href="05-fitness-wellness-windows-iis-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/05-fitness-wellness-windows-iis-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/05-fitness-wellness-windows-iis-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>06. IaC and Monitoring Automation</h3>
-          <p><strong>Focus:</strong> Terraform, Ansible, Jenkins, Helm, Kubernetes, ELK/Elasticsearch, dashboards, shell automation, backup tasks, and infrastructure documentation.</p>
-          <div class="tags"><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Helm</span><span class="tag">Kubernetes</span><span class="tag">ELK</span></div>
-          <div class="links"><a class="button primary" href="06-enterprise-automation-iac-monitoring-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/06-enterprise-automation-iac-monitoring-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/06-enterprise-automation-iac-monitoring-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
-        <article class="card">
-          <h3>07. Kubernetes Monitoring and Release Support</h3>
-          <p><strong>Focus:</strong> Kubernetes operations, Jenkins master-agent build model, Prometheus, Grafana, S3 backups, Terraform remote state versioning, release support, and incident readiness.</p>
-          <div class="tags"><span class="tag">Kubernetes</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Jenkins Agents</span><span class="tag">S3</span></div>
-          <div class="links"><a class="button primary" href="07-digital-media-kubernetes-monitoring-poc.html?v=portfolio-v2">Open</a><a class="button" href="downloads/07-digital-media-kubernetes-monitoring-poc.pdf?v=portfolio-v2">PDF</a><a class="button secondary" href="downloads/07-digital-media-kubernetes-monitoring-poc.docx?v=portfolio-v2">Word</a></div>
-        </article>
+<article class="card project-card"><h3>01. On-Prem to AWS EKS Migration</h3><p>Full migration from on-prem/self-managed deployment to AWS EKS with Dockerfiles, Jenkins, ECR, Kubernetes manifests, ArgoCD, ALB ingress, probes, monitoring, rollback, and handover.</p><div class="links"><a class="button primary" href="01-smart-building-eks-migration-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/01-smart-building-eks-migration-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/01-smart-building-eks-migration-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>02. CI/CD Modernization</h3><p>Jenkins, AWS CodePipeline, CodeBuild, ECR, S3 artifacts, IAM, logs, and release approval patterns.</p><div class="links"><a class="button primary" href="02-smart-building-cicd-modernization-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/02-smart-building-cicd-modernization-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/02-smart-building-cicd-modernization-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>03. Monitoring, Backup and Cost Optimization</h3><p>CloudWatch, backup automation, S3 lifecycle, restore validation, cost review, and operations runbooks.</p><div class="links"><a class="button primary" href="03-smart-building-monitoring-backup-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/03-smart-building-monitoring-backup-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/03-smart-building-monitoring-backup-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>04. IoT Healthcare ECS/Fargate Migration</h3><p>ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, backups, and DR.</p><div class="links"><a class="button primary" href="04-iot-healthcare-ecs-migration-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/04-iot-healthcare-ecs-migration-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/04-iot-healthcare-ecs-migration-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>05. Windows IIS Deployment</h3><p>Windows Server, IIS, .NET, WordPress, PowerShell, backup, rollback, monitoring, and validation.</p><div class="links"><a class="button primary" href="05-fitness-wellness-windows-iis-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/05-fitness-wellness-windows-iis-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/05-fitness-wellness-windows-iis-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>06. IaC and Monitoring Automation</h3><p>Terraform, Ansible, Jenkins, Helm, Kubernetes, ELK/Elasticsearch, dashboards, and shell automation.</p><div class="links"><a class="button primary" href="06-enterprise-automation-iac-monitoring-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/06-enterprise-automation-iac-monitoring-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/06-enterprise-automation-iac-monitoring-poc.docx?v=portfolio-v3">Word</a></div></article>
+<article class="card project-card"><h3>07. Kubernetes Monitoring and Release Support</h3><p>Kubernetes operations, Jenkins agents, Prometheus, Grafana, S3 backups, Terraform state, and incident readiness.</p><div class="links"><a class="button primary" href="07-digital-media-kubernetes-monitoring-poc.html?v=portfolio-v3">Open</a><a class="button" href="downloads/07-digital-media-kubernetes-monitoring-poc.pdf?v=portfolio-v3">PDF</a><a class="button ghost" href="downloads/07-digital-media-kubernetes-monitoring-poc.docx?v=portfolio-v3">Word</a></div></article>
       </div>
     </section>
   </main>

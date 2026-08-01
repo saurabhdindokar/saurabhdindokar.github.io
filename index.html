@@ -1,97 +1,49 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Saurabh Dindokar | AWS DevOps Engineer</title>
+  <link rel="stylesheet" href="assets/portfolio.css">
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: "base",
-      themeVariables: {
-        primaryColor: "#ffffff",
-        primaryBorderColor: "#0f766e",
-        primaryTextColor: "#111827",
-        lineColor: "#1f4e79",
-        fontFamily: "Arial"
-      }
-    });
+    mermaid.initialize({ startOnLoad: true, theme: "base" });
   </script>
-  <style>
-    :root {
-      --ink: #162033;
-      --muted: #5c6878;
-      --panel: #ffffff;
-      --soft: #f5f8fb;
-      --line: #d9e1ea;
-      --brand: #0f766e;
-      --blue: #1f4e79;
-      --gold: #b7791f;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--soft); line-height: 1.55; }
-    a { color: var(--blue); font-weight: 700; }
-    header { background: #101820; color: #fff; border-bottom: 4px solid var(--brand); }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-    .hero { padding: 46px 0 30px; }
-    .eyebrow { margin: 0 0 8px; color: #9fe0d2; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
-    h1 { margin: 0; font-size: 38px; letter-spacing: 0; }
-    .subtitle { color: #d7e1ec; margin: 10px 0 0; max-width: 920px; font-size: 16px; }
-    nav { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 0 22px; }
-    .button, .nav-link { display: inline-block; border: 1px solid #9fb5cc; border-radius: 6px; padding: 9px 12px; background: #eef5fb; color: #12395f; text-decoration: none; }
-    .button.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
-    .button.dark { background: #172233; border-color: #344357; color: #fff; }
-    main { max-width: 1180px; margin: 0 auto; padding: 24px; }
-    section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px; margin-bottom: 18px; }
-    h2 { margin: 0 0 14px; color: var(--blue); font-size: 23px; }
-    h3 { margin: 0 0 8px; font-size: 18px; }
-    p { margin: 8px 0; }
-    ul { margin: 8px 0 0; padding-left: 20px; }
-    li { margin: 5px 0; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .card { border: 1px solid var(--line); border-radius: 8px; padding: 17px; background: #fbfcfe; }
-    .card strong { color: var(--brand); }
-    .note { border-left: 4px solid var(--gold); background: #fff8ea; padding: 12px 14px; color: #5d3b00; }
-    .tags { margin-top: 10px; }
-    .tag { display: inline-block; border: 1px solid #cad6e2; border-radius: 999px; padding: 4px 9px; margin: 4px 4px 0 0; color: #27415f; background: #fff; font-size: 12px; }
-    .links { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 12px; }
-    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .metric { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fbfcfe; }
-    .metric b { display: block; font-size: 20px; color: var(--brand); }
-    .diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; margin-top: 12px; }
-    .mermaid { min-width: 820px; }
-    @media (max-width: 900px) {
-      .grid, .three, .metric-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 30px; }
-      main, .wrap { padding-left: 16px; padding-right: 16px; }
-    }
-  </style>
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <div class="wrap hero">
       <p class="eyebrow">AWS DevOps Engineer</p>
       <h1>Saurabh Dindokar</h1>
       <p class="subtitle">Cloud migration, Kubernetes/EKS, ECS/Fargate, CI/CD, Docker, Jenkins, ArgoCD, infrastructure operations, monitoring, backup, rollback, and production handover.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Experience</b>5 years in DevOps and infrastructure</div>
+        <div class="meta"><b>Certification</b>AWS Solutions Architect - Associate</div>
+        <div class="meta"><b>Focus</b>AWS migration and production operations</div>
+      </div>
     </div>
     <div class="wrap">
-      <nav>
+      <nav class="nav">
         <a class="nav-link" href="project-pocs/">Project POCs</a>
         <a class="nav-link" href="case-studies/">Case Studies</a>
         <a class="nav-link" href="pocs/">POC Roadmap</a>
         <a class="nav-link" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume PDF</a>
-        <a class="nav-link" href="assets/Mermaid_Diagrams_Source.html">Diagram Source</a>
       </nav>
     </div>
   </header>
-
   <main>
-    <section>
+    <section class="section feature">
       <h2>Profile</h2>
       <p>I work on practical AWS DevOps delivery: moving applications to AWS, building Docker and Kubernetes deployment workflows, setting up CI/CD, improving release safety, documenting runbooks, and making production systems easier to support.</p>
       <p class="note">This portfolio is public-safe. It avoids real client names, internal project names, private repositories, URLs, IP addresses, credentials, screenshots, and organization-owned source code.</p>
+      <div class="logo-strip">
+        <div class="logo-tile"><img src="assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
+        <div class="logo-tile"><img src="assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
+        <div class="logo-tile"><img src="assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
+        <div class="logo-tile"><img src="assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
+        <div class="logo-tile"><img src="assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
+        <div class="logo-tile"><img src="assets/logos/grafana.svg" alt="Grafana"><span>Grafana</span></div>
+      </div>
       <div class="links">
         <a class="button primary" href="project-pocs/">View Project POCs</a>
         <a class="button" href="case-studies/">View Case Studies</a>
@@ -99,56 +51,38 @@
       </div>
     </section>
 
-    <section>
-      <h2>Delivery Areas</h2>
-      <div class="metric-grid">
-        <div class="metric"><b>5 Years</b>DevOps and infrastructure experience</div>
-        <div class="metric"><b>AWS</b>EKS, ECS/Fargate, EC2, S3, RDS, IAM, VPC</div>
-        <div class="metric"><b>CI/CD</b>Jenkins, CodeBuild, CodePipeline, ArgoCD</div>
-        <div class="metric"><b>Ops</b>CloudWatch, backups, rollback, runbooks</div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Featured Work Samples</h2>
+    <section class="section">
+      <h2>Featured Delivery Areas</h2>
       <div class="grid">
-        <article class="card">
+        <article class="card project-card">
           <h3>On-Prem to AWS EKS Migration</h3>
-          <p><strong>Scope:</strong> Full migration path from self-managed/on-prem deployment to AWS EKS with Dockerfiles, Jenkins, ECR, Kubernetes manifests, ArgoCD, ALB ingress, health checks, CloudWatch, rollback, and handover.</p>
-          <div class="links"><a class="button primary" href="project-pocs/01-smart-building-eks-migration-poc.html?v=portfolio-v2">Open POC</a><a class="button" href="project-pocs/downloads/01-smart-building-eks-migration-poc.pdf?v=portfolio-v2">PDF</a></div>
+          <p>Dockerfiles, Jenkins CI/CD, ECR, Kubernetes manifests, ArgoCD, ALB ingress, health probes, CloudWatch, rollback, and handover.</p>
+          <div class="links"><a class="button primary" href="project-pocs/01-smart-building-eks-migration-poc.html?v=portfolio-v3">Open POC</a></div>
         </article>
-        <article class="card">
+        <article class="card project-card">
           <h3>ECS/Fargate Migration</h3>
-          <p><strong>Scope:</strong> Containerized migration with ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, backup and DR handover.</p>
-          <div class="links"><a class="button primary" href="project-pocs/04-iot-healthcare-ecs-migration-poc.html?v=portfolio-v2">Open POC</a><a class="button" href="project-pocs/downloads/04-iot-healthcare-ecs-migration-poc.pdf?v=portfolio-v2">PDF</a></div>
+          <p>ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, backup, and DR handover.</p>
+          <div class="links"><a class="button primary" href="project-pocs/04-iot-healthcare-ecs-migration-poc.html?v=portfolio-v3">Open POC</a></div>
         </article>
-        <article class="card">
+        <article class="card project-card">
           <h3>Monitoring, Backup and Cost Optimization</h3>
-          <p><strong>Scope:</strong> CloudWatch monitoring, alerting, Jenkins backup, database backup, S3 lifecycle retention, restore verification, cost review, and operational runbook design.</p>
-          <div class="links"><a class="button primary" href="project-pocs/03-smart-building-monitoring-backup-poc.html?v=portfolio-v2">Open POC</a><a class="button" href="project-pocs/downloads/03-smart-building-monitoring-backup-poc.pdf?v=portfolio-v2">PDF</a></div>
+          <p>CloudWatch alarms, backup automation, S3 lifecycle, restore validation, cost review, and operations runbooks.</p>
+          <div class="links"><a class="button primary" href="project-pocs/03-smart-building-monitoring-backup-poc.html?v=portfolio-v3">Open POC</a></div>
         </article>
-        <article class="card">
+        <article class="card project-card">
           <h3>IaC and Release Automation</h3>
-          <p><strong>Scope:</strong> Terraform, Ansible, Jenkins, Docker, Helm, Kubernetes, ELK/Elasticsearch, shell automation, dashboards, and infrastructure documentation.</p>
-          <div class="links"><a class="button primary" href="project-pocs/06-enterprise-automation-iac-monitoring-poc.html?v=portfolio-v2">Open POC</a><a class="button" href="project-pocs/downloads/06-enterprise-automation-iac-monitoring-poc.pdf?v=portfolio-v2">PDF</a></div>
+          <p>Terraform, Ansible, Jenkins, Docker, Helm, Kubernetes, ELK/Elasticsearch, shell automation, and dashboards.</p>
+          <div class="links"><a class="button primary" href="project-pocs/06-enterprise-automation-iac-monitoring-poc.html?v=portfolio-v3">Open POC</a></div>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2>Core Stack</h2>
-      <div class="tags">
-        <span class="tag">AWS</span><span class="tag">EKS</span><span class="tag">ECS/Fargate</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">RDS</span><span class="tag">IAM</span><span class="tag">VPC</span><span class="tag">CloudWatch</span><span class="tag">ECR</span><span class="tag">Route 53</span><span class="tag">ALB</span><span class="tag">CloudFront</span><span class="tag">WAF</span>
-        <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">ArgoCD</span><span class="tag">Jenkins</span><span class="tag">CodeBuild</span><span class="tag">CodePipeline</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Linux</span><span class="tag">Nginx</span><span class="tag">systemd</span><span class="tag">PowerShell</span>
-      </div>
-    </section>
-
-    <section>
+    <section class="section">
       <h2>Architecture View</h2>
-      <div class="diagram">
+      <div class="diagram-shell">
         <pre class="mermaid">
 flowchart LR
-  Source[Source Code] --> CI[Jenkins / AWS CI/CD]
+  Source[Source Code] --> CI[Jenkins / AWS CI-CD]
   CI --> Docker[Docker Build]
   Docker --> ECR[Amazon ECR]
   ECR --> Runtime[AWS EKS / ECS Fargate]
@@ -156,13 +90,13 @@ flowchart LR
   Runtime --> Services[Application Services]
   Services --> Data[RDS / Managed Data Layer]
   Runtime --> Observability[CloudWatch / Prometheus / Grafana]
-  Runbooks[Rollback + Handover Runbooks] --> CI
+  Runbooks[Rollback and Handover Runbooks] --> CI
   Backup[Backup and Restore Plan] --> Data
         </pre>
       </div>
     </section>
 
-    <section>
+    <section class="section">
       <h2>Recognition</h2>
       <div class="grid three">
         <div class="card"><h3>Best Performer</h3><p>Recognized in November 2025.</p></div>
