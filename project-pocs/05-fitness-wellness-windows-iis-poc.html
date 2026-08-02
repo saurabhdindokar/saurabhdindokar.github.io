@@ -1,144 +1,122 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POC 05: Fitness and Wellness Application - Windows IIS Deployment | Saurabh Dindokar</title>
+  <title>Fitness and Wellness Application - Windows IIS and AWS Hybrid Deployment | Saurabh Dindokar</title>
+  <meta name="description" content="Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/project-pocs/05-fitness-wellness-windows-iis-poc.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fitness and Wellness Application - Windows IIS and AWS Hybrid Deployment | Saurabh Dindokar">
+  <meta property="og:description" content="Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/project-pocs/05-fitness-wellness-windows-iis-poc.html">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fitness and Wellness Application - Windows IIS and AWS Hybrid Deployment | Saurabh Dindokar">
+  <meta name="twitter:description" content="Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.">
   <link rel="stylesheet" href="../assets/portfolio.css">
+  <script defer src="../assets/site.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
     mermaid.initialize({
       startOnLoad: true,
       theme: "base",
       themeVariables: {
-        primaryColor: "#ffffff",
+        primaryColor: "#f8fafc",
         primaryBorderColor: "#0f766e",
-        primaryTextColor: "#111827",
-        lineColor: "#1f4e79",
-        fontFamily: "Arial"
+        primaryTextColor: "#0f172a",
+        secondaryColor: "#e0f2fe",
+        tertiaryColor: "#f0fdfa",
+        lineColor: "#2563eb",
+        fontFamily: "Inter, Segoe UI, Arial"
       }
     });
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap hero">
-      <p class="eyebrow">AWS DevOps Work Sample</p>
-      <h1>POC 05: Fitness and Wellness Application - Windows IIS Deployment</h1>
-      <p class="subtitle">Public-safe work sample for Windows Server deployment with IIS, .NET hosting, WordPress support, PowerShell automation, backups, monitoring, and production validation checklist.</p>
-      <div class="meta-grid">
-        <div class="meta"><b>Engineer</b>Saurabh Dindokar</div>
-        <div class="meta"><b>Role</b>AWS DevOps Engineer</div>
-        <div class="meta"><b>Project</b>Fitness and Wellness Application</div>
-      </div>
-    </div>
-    <div class="wrap">
-      <nav class="nav">
-        <a class="nav-link" href="./">All POCs</a>
-        <a class="nav-link" href="../">Portfolio Home</a>
-        <a class="button primary" href="downloads/05-fitness-wellness-windows-iis-poc.pdf?v=portfolio-v3">Download PDF</a>
-        <a class="button ghost" href="downloads/05-fitness-wellness-windows-iis-poc.docx?v=portfolio-v3">Download Word</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation">
+        <a class="nav-link" href="../">Home</a>
+        <a class="nav-link" href="./">All Projects</a>
+        <a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Portfolio Project 05</p>
+      <h1>Fitness and Wellness Application - Windows IIS and AWS Hybrid Deployment</h1>
+      <p class="subtitle">Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Role</b>Senior AWS DevOps Engineer</div>
+        <div class="meta"><b>Availability</b>Public-safe case study</div>
+        <div class="meta"><b>Focus</b>Reliability, automation, handover</div>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="section feature">
-      <h2>Technology Stack</h2>
-      <div class="logo-strip">
-        <div class="logo-tile"><img src="../assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
-        <div class="logo-tile"><img src="../assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
-        <div class="logo-tile"><img src="../assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
-        <div class="logo-tile"><img src="../assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
-        <div class="logo-tile"><img src="../assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
-        <div class="logo-tile"><img src="../assets/logos/grafana.svg" alt="Monitoring"><span>Monitoring</span></div>
-      </div>
-    </section>
+  <main id="main">
     <div class="case-layout">
       <div>
-<section class="section" id="confidentiality-note"><h2>Confidentiality Note</h2>
-<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
-</section>
-<section class="section" id="work-sample-summary"><h2>Work Sample Summary</h2>
-<p>Public-safe work sample for Windows Server deployment with IIS, .NET hosting, WordPress support, PowerShell automation, backups, monitoring, and production validation checklist.</p>
-</section>
-<section class="section" id="problem-statement"><h2>Problem Statement</h2>
-<ul>
-<li>The application required stable deployment on Windows Server with IIS and supporting components.</li>
-<li>Deployment steps needed to be repeatable for releases, configuration updates, and rollback.</li>
-<li>Operational documentation was required for backup, logs, service checks, and post-deployment validation.</li>
-</ul>
-</section>
-<section class="section" id="mermaid-architecture-diagram"><h2>Mermaid Architecture Diagram</h2>
-<div class="diagram-shell"><pre class="mermaid">flowchart LR
-  Admin[Release Engineer] --&gt; Package[Build Package / Artifact]
-  Package --&gt; Win[Windows Server]
-  Win --&gt; IIS[IIS Website / App Pool]
+        <section class="section feature reveal" id="overview">
+          <div class="section-heading"><p class="eyebrow">Overview</p><h2>Windows IIS and AWS Hybrid Deployment</h2></div>
+          <p>Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.</p>
+          <p class="note">Public-safe portfolio project. Real client names, internal project names, credentials, private URLs, IP addresses, account IDs, and organization-owned source code are intentionally excluded.</p>
+          <div class="tags"><span class="tag">AWS EC2</span><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">.NET</span><span class="tag">WordPress</span><span class="tag">CloudWatch</span><span class="tag">S3</span><span class="tag">PowerShell</span><span class="tag">SQL Server/MySQL</span></div>
+        </section>
+        <section class="section reveal" id="business-problem"><h2>Business Problem</h2><p>The application needed a reliable Windows/IIS hosting model with clear deployment, monitoring, backup, validation, and rollback steps that could be followed consistently during support activities.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  Users[Users] --&gt; DNS[DNS]
+  DNS --&gt; IIS[IIS on Windows Server]
   IIS --&gt; DotNet[.NET Application]
-  IIS --&gt; WP[WordPress Component]
-  Scripts[PowerShell Deployment Scripts] --&gt; IIS
-  Win --&gt; Logs[Windows / IIS Logs]
-  Win --&gt; Backup[File and Config Backup]
-  Logs --&gt; Monitor[CloudWatch / Monitoring]
-  Backup --&gt; Restore[Rollback / Restore Point]</pre></div>
-</section>
-<section class="section" id="my-responsibilities"><h2>My Responsibilities</h2>
-<ul>
-<li>Prepared IIS deployment steps for .NET application hosting and related web components.</li>
-<li>Documented application pool settings, site binding checks, service restart steps, and validation flow.</li>
-<li>Used PowerShell-oriented deployment and backup approach for repeatability.</li>
-<li>Created troubleshooting checklist for IIS logs, Windows services, permissions, and rollback.</li>
-</ul>
-</section>
-<section class="section" id="implementation-approach"><h2>Implementation Approach</h2>
-<ul>
-<li>Deployment flow includes pre-backup, artifact placement, app pool recycle, binding validation, and health checks.</li>
-<li>Configuration backup is taken before changes to support controlled rollback.</li>
-<li>Monitoring notes cover server health, application logs, and access/error log checks.</li>
-<li>Runbook helps support teams verify post-deployment behavior without depending on memory.</li>
-</ul>
-</section>
-<section class="section" id="reliability-security-and-operations-focus"><h2>Reliability, Security and Operations Focus</h2>
-<ul>
-<li>Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</li>
-<li>Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</li>
-<li>The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</li>
-</ul>
-</section>
-<section class="section" id="validation-checklist"><h2>Validation Checklist</h2>
-<ul>
-<li>Review architecture and confirm each component has a clear responsibility.</li>
-<li>Validate deployment or automation steps in a non-production environment first.</li>
-<li>Confirm logs, health checks, backup behavior, and rollback steps are documented.</li>
-<li>Confirm access, secrets, and network boundaries follow least-privilege expectations.</li>
-<li>Capture final runbook notes for handover and support readiness.</li>
-</ul>
-</section>
-<section class="section" id="expected-outcomes"><h2>Expected Outcomes</h2>
-<ul>
-<li>More controlled Windows/IIS deployment process.</li>
-<li>Reduced rollback uncertainty through pre-change backups.</li>
-<li>Better application support through log and service validation.</li>
-<li>Clear deployment handover for repeated releases.</li>
-</ul>
-</section>
-<section class="section" id="technologies-used"><h2>Technologies Used</h2>
-<p>Windows Server, IIS, .NET, WordPress, PowerShell, CloudWatch/Monitoring, Backup and Restore, DNS, SSL/TLS</p>
-</section>
+  IIS --&gt; WP[WordPress Site]
+  DotNet --&gt; DB[(Database)]
+  WP --&gt; DB
+  Server[Windows EC2 or Server] --&gt; Agent[CloudWatch Agent]
+  Agent --&gt; CW[CloudWatch Dashboard]
+  Backup[Backup Process] --&gt; S3[S3 or Backup Storage]
+  Ops[DevOps Operations] --&gt; PS[PowerShell Runbook]
+  PS --&gt; IIS
+  PS --&gt; Backup</pre></div></section>
+        <section class="section reveal" id="responsibilities"><h2>My Responsibilities</h2><ul><li>Documented Windows Server, IIS site, application pool, .NET hosting, and WordPress hosting setup.</li><li>Prepared CloudWatch dashboard and monitoring documentation for server-level visibility.</li><li>Documented database backup, data transfer estimation, and deployment validation steps.</li><li>Created PowerShell-oriented operational notes and rollback guidance.</li></ul></section>
+        <section class="section reveal" id="implementation"><h2>Implementation</h2><ul><li>Separated IIS configuration, application deployment, and operational validation steps.</li><li>Defined backup and rollback checkpoints before production changes.</li><li>Captured monitoring signals for CPU, memory, disk, service status, and application availability.</li><li>Documented reusable deployment flow for support and KT.</li></ul></section>
+        <section class="section reveal" id="challenges"><h2>Challenges</h2><ul><li>Windows/IIS operations required clear step-by-step validation.</li><li>Application and website hosting had to be documented without exposing private infrastructure details.</li><li>Rollback steps needed to be simple enough for production support.</li></ul></section>
+        <section class="section reveal" id="solution"><h2>Solution</h2><p>The solution combined automation, clear infrastructure boundaries, operational validation, and documentation-first handover. The design focuses on traceable releases, least-privilege access, predictable runtime behavior, and observable production systems.</p></section>
+        <section class="section reveal" id="code"><h2>Code Snippet</h2><p>Representative public-safe snippet showing the type of implementation pattern used.</p><pre class="code-block"><code>Get-Service W3SVC
+Test-NetConnection -ComputerName localhost -Port 80
+Restart-WebAppPool -Name "ApplicationPoolName"
+Get-EventLog -LogName Application -Newest 20</code></pre></section>
+        <section class="section reveal" id="deployment-flow"><h2>Deployment Flow</h2><ol class="timeline-list"><li><span>1</span><p>Server setup review</p></li><li><span>2</span><p>IIS and application hosting</p></li><li><span>3</span><p>Monitoring setup</p></li><li><span>4</span><p>Backup planning</p></li><li><span>5</span><p>Deployment runbook</p></li></ol></section>
+        <section class="section reveal" id="validation"><h2>Validation</h2><ul><li>Verified deployment health before routing user traffic.</li><li>Reviewed logs, metrics, events, and runtime configuration.</li><li>Documented rollback and post-deployment checks for support teams.</li></ul></section>
+        <section class="section reveal" id="monitoring-security"><h2>Monitoring and Security</h2><ul><li>Monitoring focused on logs, runtime status, health checks, alarms, and deployment evidence.</li><li>Security guidance covered IAM roles, security groups, secrets handling, and private network boundaries where applicable.</li><li>Operational notes included backup, restore, rollback, and incident response expectations.</li></ul></section>
+        <section class="section reveal" id="outcome"><h2>Outcome and Impact</h2><ul><li>Improved deployment consistency for Windows/IIS workloads.</li><li>Improved monitoring and backup readiness.</li><li>Reduced support dependency on informal server knowledge.</li></ul></section>
+        <section class="section reveal" id="lessons"><h2>Lessons Learned</h2><ul><li>Reliable DevOps delivery depends on validation, not only deployment automation.</li><li>Runbooks and handover notes reduce operational risk during production support.</li><li>Health checks, logs, access boundaries, and rollback steps should be designed before go-live.</li></ul></section>
+        <section class="section reveal" id="incident-experience"><h2>Related Incident Experience</h2><ul><li>Kubernetes deployment issue</li><li>Storage lifecycle recovery</li><li>Service startup failure</li><li>Pipeline rollback</li></ul></section>
+        <section class="section reveal" id="screenshots"><h2>Pipeline Screenshots Placeholder</h2><div class="placeholder-grid"><div>Jenkins pipeline evidence placeholder</div><div>CloudWatch dashboard placeholder</div><div>Deployment validation placeholder</div></div></section>
       </div>
-      <aside class="toc">
-        <h3>On This Page</h3>
-        <a href="#confidentiality-note">Confidentiality Note</a>
-<a href="#work-sample-summary">Work Sample Summary</a>
-<a href="#problem-statement">Problem Statement</a>
-<a href="#mermaid-architecture-diagram">Mermaid Architecture Diagram</a>
-<a href="#my-responsibilities">My Responsibilities</a>
-<a href="#implementation-approach">Implementation Approach</a>
-<a href="#reliability-security-and-operations-focus">Reliability, Security and Operations Focus</a>
-<a href="#validation-checklist">Validation Checklist</a>
-<a href="#expected-outcomes">Expected Outcomes</a>
-<a href="#technologies-used">Technologies Used</a>
+      <aside class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <a href="#overview">Overview</a>
+        <a href="#business-problem">Business Problem</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#responsibilities">Responsibilities</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#challenges">Challenges</a>
+        <a href="#code">Code Snippet</a>
+        <a href="#deployment-flow">Timeline</a>
+        <a href="#outcome">Outcome</a>
+        <div class="toc-actions">
+          <a class="button primary" href="downloads/05-fitness-wellness-windows-iis-poc.pdf">PDF</a>
+          <a class="button ghost" href="downloads/05-fitness-wellness-windows-iis-poc.docx">Word</a>
+        </div>
       </aside>
     </div>
   </main>
+
+  
 </body>
 </html>

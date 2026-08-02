@@ -1,156 +1,155 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POC 01: Smart Building Management Platform - On-Prem to AWS EKS Migration | Saurabh Dindokar</title>
+  <title>Smart Building Management Platform - On-Prem to AWS EKS Migration | Saurabh Dindokar</title>
+  <meta name="description" content="Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/project-pocs/01-smart-building-eks-migration-poc.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smart Building Management Platform - On-Prem to AWS EKS Migration | Saurabh Dindokar">
+  <meta property="og:description" content="Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/project-pocs/01-smart-building-eks-migration-poc.html">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Smart Building Management Platform - On-Prem to AWS EKS Migration | Saurabh Dindokar">
+  <meta name="twitter:description" content="Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.">
   <link rel="stylesheet" href="../assets/portfolio.css">
+  <script defer src="../assets/site.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
     mermaid.initialize({
       startOnLoad: true,
       theme: "base",
       themeVariables: {
-        primaryColor: "#ffffff",
+        primaryColor: "#f8fafc",
         primaryBorderColor: "#0f766e",
-        primaryTextColor: "#111827",
-        lineColor: "#1f4e79",
-        fontFamily: "Arial"
+        primaryTextColor: "#0f172a",
+        secondaryColor: "#e0f2fe",
+        tertiaryColor: "#f0fdfa",
+        lineColor: "#2563eb",
+        fontFamily: "Inter, Segoe UI, Arial"
       }
     });
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap hero">
-      <p class="eyebrow">AWS DevOps Work Sample</p>
-      <h1>POC 01: Smart Building Management Platform - On-Prem to AWS EKS Migration</h1>
-      <p class="subtitle">Public-safe DevOps work sample showing a full migration from on-prem/self-managed deployment to AWS EKS. The scope covers AWS foundation planning, Dockerization, image registry flow, Jenkins CI/CD, ArgoCD GitOps deployment, ALB ingress, Kubernetes manifests, health checks, monitoring, backup planning, rollout validation, and support handover.</p>
-      <div class="meta-grid">
-        <div class="meta"><b>Engineer</b>Saurabh Dindokar</div>
-        <div class="meta"><b>Role</b>AWS DevOps Engineer</div>
-        <div class="meta"><b>Project</b>Smart Building Management Platform</div>
-      </div>
-    </div>
-    <div class="wrap">
-      <nav class="nav">
-        <a class="nav-link" href="./">All POCs</a>
-        <a class="nav-link" href="../">Portfolio Home</a>
-        <a class="button primary" href="downloads/01-smart-building-eks-migration-poc.pdf?v=portfolio-v3">Download PDF</a>
-        <a class="button ghost" href="downloads/01-smart-building-eks-migration-poc.docx?v=portfolio-v3">Download Word</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation">
+        <a class="nav-link" href="../">Home</a>
+        <a class="nav-link" href="./">All Projects</a>
+        <a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Portfolio Project 01</p>
+      <h1>Smart Building Management Platform - On-Prem to AWS EKS Migration</h1>
+      <p class="subtitle">Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Role</b>Senior AWS DevOps Engineer</div>
+        <div class="meta"><b>Availability</b>Public-safe case study</div>
+        <div class="meta"><b>Focus</b>Reliability, automation, handover</div>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="section feature">
-      <h2>Technology Stack</h2>
-      <div class="logo-strip">
-        <div class="logo-tile"><img src="../assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
-        <div class="logo-tile"><img src="../assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
-        <div class="logo-tile"><img src="../assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
-        <div class="logo-tile"><img src="../assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
-        <div class="logo-tile"><img src="../assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
-        <div class="logo-tile"><img src="../assets/logos/grafana.svg" alt="Monitoring"><span>Monitoring</span></div>
-      </div>
-    </section>
+  <main id="main">
     <div class="case-layout">
       <div>
-<section class="section" id="confidentiality-note"><h2>Confidentiality Note</h2>
-<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
-</section>
-<section class="section" id="work-sample-summary"><h2>Work Sample Summary</h2>
-<p>Public-safe DevOps work sample showing a full migration from on-prem/self-managed deployment to AWS EKS. The scope covers AWS foundation planning, Dockerization, image registry flow, Jenkins CI/CD, ArgoCD GitOps deployment, ALB ingress, Kubernetes manifests, health checks, monitoring, backup planning, rollout validation, and support handover.</p>
-</section>
-<section class="section" id="problem-statement"><h2>Problem Statement</h2>
-<ul>
-<li>The application stack had to move from an on-prem/self-managed deployment model to a cloud-native AWS EKS platform.</li>
-<li>Multiple services, including Scala, Node.js, Java, and Angular components, needed containerization and Kubernetes deployment standards from scratch.</li>
-<li>The migration required CI/CD automation, GitOps deployment control, ALB ingress routing, ECR image management, health checks, monitoring, rollback planning, and production handover documentation.</li>
-</ul>
-</section>
-<section class="section" id="mermaid-architecture-diagram"><h2>Mermaid Architecture Diagram</h2>
-<div class="diagram-shell"><pre class="mermaid">flowchart LR
-  OnPrem[On-Prem / Self-Managed Servers] --&gt; Assess[Discovery and Migration Planning]
-  Assess --&gt; Dockerfiles[Dockerfiles for Scala, Node.js, Java, Angular]
-  Dockerfiles --&gt; Jenkins[Jenkins CI/CD Pipeline]
-  Jenkins --&gt; Build[Build, Test, Docker Tag]
-  Build --&gt; ECR[Amazon ECR]
-  ECR --&gt; Manifests[Kubernetes Manifests and Helm/GitOps Repo]
-  Manifests --&gt; Argo[ArgoCD Sync]
-  Argo --&gt; EKS[AWS EKS Cluster]
-  ALB[Application Load Balancer] --&gt; Ingress[AWS Load Balancer Controller]
-  Ingress --&gt; Services[Kubernetes Services]
-  Services --&gt; Scala[Scala Service]
-  Services --&gt; Node[Node.js Service]
-  Services --&gt; Java[Java Service]
-  Services --&gt; Angular[Angular Web App]
-  EKS --&gt; Probes[Liveness and Readiness Probes]
+        <section class="section feature reveal" id="overview">
+          <div class="section-heading"><p class="eyebrow">Overview</p><h2>On-Prem to AWS EKS Migration</h2></div>
+          <p>Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.</p>
+          <p class="note">Public-safe portfolio project. Real client names, internal project names, credentials, private URLs, IP addresses, account IDs, and organization-owned source code are intentionally excluded.</p>
+          <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">AWS Load Balancer Controller</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">CloudWatch</span><span class="tag">Scala</span><span class="tag">Node.js</span><span class="tag">Java</span><span class="tag">Angular</span></div>
+        </section>
+        <section class="section reveal" id="business-problem"><h2>Business Problem</h2><p>The platform had multiple Scala, Node.js, Java, and Angular services running outside a consistent cloud-native deployment model. Releases required stronger repeatability, health validation, observability, and support documentation before the workload could be treated as production-ready on Kubernetes.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  Users[Users] --&gt; R53[Route 53]
+  R53 --&gt; ALB[Application Load Balancer]
+  ALB --&gt; Ingress[AWS Load Balancer Controller]
+  Ingress --&gt; EKS[AWS EKS Cluster]
+  subgraph VPC[AWS VPC]
+    subgraph Public[Public Subnets]
+      ALB
+      NAT[NAT Gateway]
+      IGW[Internet Gateway]
+    end
+    subgraph Private[Private Subnets]
+      EKS
+      Pods[Scala Node Java Angular Pods]
+      RDS[(Private Data Layer)]
+    end
+  end
+  Dev[Git Commit] --&gt; Jenkins[Jenkins CI Pipeline]
+  Jenkins --&gt; ECR[Amazon ECR]
+  ECR --&gt; Argo[ArgoCD GitOps Sync]
+  Argo --&gt; EKS
   EKS --&gt; CW[CloudWatch Logs and Metrics]
-  EKS --&gt; Runbook[Rollback, Handover and Support Runbook]</pre></div>
-</section>
-<section class="section" id="my-responsibilities"><h2>My Responsibilities</h2>
-<ul>
-<li>Worked on end-to-end migration planning from on-prem/self-managed hosting to AWS EKS.</li>
-<li>Created and documented Dockerfile patterns for Scala, Node.js, Java, and Angular services.</li>
-<li>Built CI/CD flow using Jenkins for source checkout, build, Docker image creation, tagging, and ECR push.</li>
-<li>Prepared Kubernetes deployment, service, ingress, ConfigMap/Secret reference, liveness probe, and readiness probe patterns.</li>
-<li>Configured ArgoCD/GitOps-oriented deployment flow so Kubernetes desired state can be reviewed and synced from repository changes.</li>
-<li>Documented ALB ingress routing, CloudWatch log visibility, rollout validation, rollback strategy, and production handover.</li>
-</ul>
-</section>
-<section class="section" id="implementation-approach"><h2>Implementation Approach</h2>
-<ul>
-<li>AWS EKS was treated as the target runtime for containerized application workloads with ALB-based public routing.</li>
-<li>Each service was containerized with environment-specific configuration separated from the image build.</li>
-<li>Jenkins handled build automation and image publishing, while ArgoCD handled Kubernetes deployment synchronization.</li>
-<li>Application health endpoints and static health files were added or documented across Scala, Node.js, Java, and Angular components.</li>
-<li>Kubernetes probes were standardized so pods become ready only when the application is able to serve traffic.</li>
-<li>CloudWatch logging and Kubernetes event checks were included in the migration validation runbook.</li>
-</ul>
-</section>
-<section class="section" id="reliability-security-and-operations-focus"><h2>Reliability, Security and Operations Focus</h2>
-<ul>
-<li>Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</li>
-<li>Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</li>
-<li>The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</li>
-</ul>
-</section>
-<section class="section" id="validation-checklist"><h2>Validation Checklist</h2>
-<ul>
-<li>Review architecture and confirm each component has a clear responsibility.</li>
-<li>Validate deployment or automation steps in a non-production environment first.</li>
-<li>Confirm logs, health checks, backup behavior, and rollback steps are documented.</li>
-<li>Confirm access, secrets, and network boundaries follow least-privilege expectations.</li>
-<li>Capture final runbook notes for handover and support readiness.</li>
-</ul>
-</section>
-<section class="section" id="expected-outcomes"><h2>Expected Outcomes</h2>
-<ul>
-<li>Clear migration blueprint from on-prem/self-managed deployment to AWS EKS.</li>
-<li>Containerized multi-service release flow with Docker, Jenkins, ECR, Kubernetes, and ArgoCD.</li>
-<li>Improved deployment repeatability and reduced manual release dependency.</li>
-<li>Safer traffic handling through ALB ingress, readiness probes, and liveness probes.</li>
-<li>Better production support through CloudWatch visibility and documented rollback/handover steps.</li>
-</ul>
-</section>
-<section class="section" id="technologies-used"><h2>Technologies Used</h2>
-<p>AWS EKS, Kubernetes, Docker, Amazon ECR, ALB, AWS Load Balancer Controller, Jenkins, ArgoCD, CloudWatch, Scala, Node.js, Java, Angular</p>
-</section>
+  EKS --&gt; Probes[Liveness and Readiness Probes]
+  IAM[IAM Roles and Policies] --&gt; Jenkins
+  IAM --&gt; EKS
+  SG[Security Groups] --&gt; ALB
+  SG --&gt; EKS
+  SG --&gt; RDS</pre></div></section>
+        <section class="section reveal" id="responsibilities"><h2>My Responsibilities</h2><ul><li>Owned the DevOps migration path from self-managed deployment patterns to AWS EKS delivery workflows.</li><li>Created and documented Dockerfile patterns for Scala, Node.js, Java, and Angular workloads.</li><li>Built Jenkins pipeline stages for checkout, build, image tagging, Amazon ECR publishing, and deployment handoff.</li><li>Defined Kubernetes deployment, service, ingress, ConfigMap/Secret reference, liveness probe, and readiness probe patterns.</li><li>Documented ArgoCD GitOps sync, ALB ingress routing, CloudWatch validation, rollback steps, and support handover.</li></ul></section>
+        <section class="section reveal" id="implementation"><h2>Implementation</h2><ul><li>Separated application build concerns from runtime configuration so images could move across environments predictably.</li><li>Standardized readiness behavior so traffic is routed only to pods that can serve requests.</li><li>Introduced liveness checks to recover stuck application processes without manual intervention.</li><li>Aligned image promotion through ECR with a GitOps deployment flow for controlled Kubernetes changes.</li><li>Captured operational runbooks for deployment verification, logs, rollback, and KT.</li></ul></section>
+        <section class="section reveal" id="challenges"><h2>Challenges</h2><ul><li>Different application stacks had different health endpoint behavior.</li><li>Service startup timing had to be respected before routing production traffic.</li><li>Deployment ownership needed to move from manual knowledge to documented, repeatable workflows.</li></ul></section>
+        <section class="section reveal" id="solution"><h2>Solution</h2><p>The solution combined automation, clear infrastructure boundaries, operational validation, and documentation-first handover. The design focuses on traceable releases, least-privilege access, predictable runtime behavior, and observable production systems.</p></section>
+        <section class="section reveal" id="code"><h2>Code Snippet</h2><p>Representative public-safe snippet showing the type of implementation pattern used.</p><pre class="code-block"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-service
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: account-id.dkr.ecr.region.amazonaws.com/app:release-tag
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            initialDelaySeconds: 45
+            periodSeconds: 20</code></pre></section>
+        <section class="section reveal" id="deployment-flow"><h2>Deployment Flow</h2><ol class="timeline-list"><li><span>1</span><p>Discovery and target architecture</p></li><li><span>2</span><p>Dockerization</p></li><li><span>3</span><p>CI/CD and ECR flow</p></li><li><span>4</span><p>Kubernetes manifests and ALB ingress</p></li><li><span>5</span><p>Health checks, monitoring, rollback, handover</p></li></ol></section>
+        <section class="section reveal" id="validation"><h2>Validation</h2><ul><li>Verified deployment health before routing user traffic.</li><li>Reviewed logs, metrics, events, and runtime configuration.</li><li>Documented rollback and post-deployment checks for support teams.</li></ul></section>
+        <section class="section reveal" id="monitoring-security"><h2>Monitoring and Security</h2><ul><li>Monitoring focused on logs, runtime status, health checks, alarms, and deployment evidence.</li><li>Security guidance covered IAM roles, security groups, secrets handling, and private network boundaries where applicable.</li><li>Operational notes included backup, restore, rollback, and incident response expectations.</li></ul></section>
+        <section class="section reveal" id="outcome"><h2>Outcome and Impact</h2><ul><li>Improved release repeatability through containerized builds and GitOps deployment control.</li><li>Improved Kubernetes stability through liveness and readiness probes.</li><li>Improved support readiness through CloudWatch checks, rollback documentation, and handover notes.</li></ul></section>
+        <section class="section reveal" id="lessons"><h2>Lessons Learned</h2><ul><li>Reliable DevOps delivery depends on validation, not only deployment automation.</li><li>Runbooks and handover notes reduce operational risk during production support.</li><li>Health checks, logs, access boundaries, and rollback steps should be designed before go-live.</li></ul></section>
+        <section class="section reveal" id="incident-experience"><h2>Related Incident Experience</h2><ul><li>Kubernetes deployment issue</li><li>Storage lifecycle recovery</li><li>Service startup failure</li><li>Pipeline rollback</li></ul></section>
+        <section class="section reveal" id="screenshots"><h2>Pipeline Screenshots Placeholder</h2><div class="placeholder-grid"><div>Jenkins pipeline evidence placeholder</div><div>CloudWatch dashboard placeholder</div><div>Deployment validation placeholder</div></div></section>
       </div>
-      <aside class="toc">
-        <h3>On This Page</h3>
-        <a href="#confidentiality-note">Confidentiality Note</a>
-<a href="#work-sample-summary">Work Sample Summary</a>
-<a href="#problem-statement">Problem Statement</a>
-<a href="#mermaid-architecture-diagram">Mermaid Architecture Diagram</a>
-<a href="#my-responsibilities">My Responsibilities</a>
-<a href="#implementation-approach">Implementation Approach</a>
-<a href="#reliability-security-and-operations-focus">Reliability, Security and Operations Focus</a>
-<a href="#validation-checklist">Validation Checklist</a>
-<a href="#expected-outcomes">Expected Outcomes</a>
-<a href="#technologies-used">Technologies Used</a>
+      <aside class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <a href="#overview">Overview</a>
+        <a href="#business-problem">Business Problem</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#responsibilities">Responsibilities</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#challenges">Challenges</a>
+        <a href="#code">Code Snippet</a>
+        <a href="#deployment-flow">Timeline</a>
+        <a href="#outcome">Outcome</a>
+        <div class="toc-actions">
+          <a class="button primary" href="downloads/01-smart-building-eks-migration-poc.pdf">PDF</a>
+          <a class="button ghost" href="downloads/01-smart-building-eks-migration-poc.docx">Word</a>
+        </div>
       </aside>
     </div>
   </main>
+
+  
 </body>
 </html>

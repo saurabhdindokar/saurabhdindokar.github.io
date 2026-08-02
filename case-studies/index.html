@@ -1,277 +1,99 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>README</title>
-  <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({ startOnLoad: true, theme: "base" });
-  </script>
-  <style>
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f4f6f8; line-height: 1.55; }
-    main { max-width: 1080px; margin: 0 auto; padding: 28px; background: #fff; min-height: 100vh; }
-    h1 { color: #102a43; border-bottom: 3px solid #0f766e; padding-bottom: 8px; }
-    h2 { color: #1f4e79; margin-top: 28px; }
-    h3 { color: #17324d; margin-top: 22px; }
-    p, li { font-size: 14.5px; }
-    code { background: #eef2f7; padding: 2px 5px; border-radius: 4px; font-family: Consolas, "Courier New", monospace; }
-    pre { background: #0f172a; color: #e5e7eb; border-radius: 8px; padding: 14px; overflow-x: auto; }
-    pre code { background: transparent; color: inherit; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-    th, td { border: 1px solid #d7dee8; padding: 9px; text-align: left; vertical-align: top; }
-    th { background: #eef5fb; }
-    .diagram { overflow-x: auto; border: 1px solid #d7dee8; border-radius: 8px; padding: 14px; background: #fff; margin: 12px 0; }
-    .mermaid { min-width: 760px; }
-  </style>
+  <title>Senior AWS DevOps Case Studies | Saurabh Dindokar</title>
+  <meta name="description" content="Public-safe senior AWS DevOps case studies with AWS migration, Kubernetes, ECS, CI/CD, monitoring, backup, security and operations experience.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/case-studies">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Senior AWS DevOps Case Studies | Saurabh Dindokar">
+  <meta property="og:description" content="Public-safe senior AWS DevOps case studies with AWS migration, Kubernetes, ECS, CI/CD, monitoring, backup, security and operations experience.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/case-studies">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Senior AWS DevOps Case Studies | Saurabh Dindokar">
+  <meta name="twitter:description" content="Public-safe senior AWS DevOps case studies with AWS migration, Kubernetes, ECS, CI/CD, monitoring, backup, security and operations experience.">
+  <link rel="stylesheet" href="../assets/portfolio.css">
+  <script defer src="../assets/site.js"></script>
+  
 </head>
 <body>
-  <main>
-<h1>Public-Safe DevOps Case Studies With Architecture Diagrams</h1>
-<p>Prepared for: <strong>Saurabh Dindokar</strong>  </p>
-<p>Role: <strong>AWS DevOps Engineer</strong>  </p>
-<p>Usage: <strong>Naukri work sample, GitHub portfolio, LinkedIn featured/project content</strong></p>
-<h2>Confidentiality Note</h2>
-<p>These case studies are written for public career use. Real client names, organization names, private repository names, production URLs, IP addresses, credentials, account identifiers, internal screenshots, and confidential architecture exports are intentionally excluded.</p>
-<h2>Case Study 1: Smart Building Management Platform - AWS EKS Migration And Kubernetes Stabilization</h2>
-<h3>Project Overview</h3>
-<p>This project involved AWS EKS migration and stabilization for a large multi-service smart building management platform. The platform included backend services, frontend applications, messaging components, search/data services, and integration-heavy workloads.</p>
-<p>The main engineering focus was to make the platform ready for Kubernetes operations with better deployment structure, container image flow, ALB ingress routing, pod-level health checks, monitoring visibility, and support-ready documentation.</p>
-<h3>Architecture Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Dev[Developer Commit] --&gt; Jenkins[Jenkins CI/CD]
-  Jenkins --&gt; Nexus[Nexus / Build Artifacts]
-  Jenkins --&gt; ECR[Amazon ECR]
-  ECR --&gt; EKS[AWS EKS Cluster]
-  ALB[Application Load Balancer] --&gt; Ingress[AWS Load Balancer Controller]
-  Ingress --&gt; EKS
-  EKS --&gt; Scala[Scala Services]
-  EKS --&gt; Node[Node.js Services]
-  EKS --&gt; Java[Java Services]
-  EKS --&gt; Angular[Angular Web]
-  EKS --&gt; Kafka[Kafka / Zookeeper]
-  EKS --&gt; ES[Elasticsearch]
-  EKS --&gt; Mongo[MongoDB]
-  EKS --&gt; CW[CloudWatch Logs / Metrics]
-  Argo[ArgoCD Desired State] --&gt; EKS
-</div></div>
-<h3>Problem</h3>
-<ul>
-<li>Kubernetes workloads needed stronger production readiness.</li>
-<li>Multiple stacks needed consistent health-check behavior.</li>
-<li>Deployments required safer traffic routing and rollout validation.</li>
-<li>Teams needed clearer runbooks for troubleshooting and handover.</li>
-<h3>My Work</h3>
-<li>Supported AWS VPC, subnet, IAM, EKS, ECR, ALB ingress, and Kubernetes planning.</li>
-<li>Worked on Kubernetes manifests for Deployments, Services, ingress routing, probes, and storage concepts.</li>
-<li>Added and documented service health checks across Scala, Node.js, Angular, and Java services.</li>
-<li>Configured liveness and readiness probes so Kubernetes could restart unhealthy pods and avoid routing traffic to unready pods.</li>
-<li>Documented Jenkins/Nexus image flow, ECR publishing, ArgoCD deployment flow, CloudWatch monitoring, and troubleshooting steps.</li>
-<h3>Result</h3>
-<li>Improved pod-level stability through liveness/readiness probes.</li>
-<li>Reduced deployment risk by making readiness checks part of rollout behavior.</li>
-<li>Improved operational visibility through CloudWatch and structured handover notes.</li>
-<li>Created a reusable Kubernetes onboarding pattern for future services.</li>
-<h3>Technologies</h3>
-<p>AWS EKS, Amazon ECR, ALB, AWS Load Balancer Controller, IAM, VPC, CloudWatch, Kubernetes, Docker, Jenkins, Nexus, ArgoCD, Kafka, Elasticsearch, MongoDB, Scala, Node.js, Angular, Java.</p>
-<h2>Case Study 2: Smart Building Management Platform - Jenkins To AWS CI/CD Modernization</h2>
-<h3>Project Overview</h3>
-<p>This project focused on documenting and improving the migration path from Jenkins-heavy workflows toward AWS-native CI/CD services. The work covered source integration, build automation, Docker image creation, ECR publishing, S3 artifact handling, IAM permissions, CloudWatch logs, and deployment handover.</p>
-<h3>CI/CD Flow Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Repo[Git Repository] --&gt; Trigger[Pipeline Trigger]
-  Trigger --&gt; Jenkins[Jenkins Existing Flow]
-  Trigger --&gt; CodePipeline[AWS CodePipeline Target Flow]
-  CodePipeline --&gt; CodeBuild[AWS CodeBuild]
-  CodeBuild --&gt; Docker[Docker Build / Tag]
-  Docker --&gt; ECR[Amazon ECR]
-  CodeBuild --&gt; S3[S3 Artifacts]
-  ECR --&gt; Deploy[EKS / ECS Deployment]
-  Deploy --&gt; Logs[CloudWatch Logs]
-  IAM[IAM Roles / Policies] --&gt; CodePipeline
-  IAM --&gt; CodeBuild
-</div></div>
-<h3>Problem</h3>
-<li>Build and release workflows depended on Jenkins knowledge and manual coordination.</li>
-<li>Docker image tagging, artifact handling, and release visibility needed clearer structure.</li>
-<li>AWS-native CI/CD migration required documented service permissions and operational steps.</li>
-<h3>My Work</h3>
-<li>Documented existing Jenkins pipeline behavior and release flow.</li>
-<li>Planned CodePipeline and CodeBuild structure for build and deployment automation.</li>
-<li>Documented Docker image build, tagging, ECR push, S3 artifact storage, IAM roles, and CloudWatch logging.</li>
-<li>Prepared support/handover documentation so future releases could be reviewed and troubleshot consistently.</li>
-<h3>Result</h3>
-<li>Created a clear migration path from Jenkins-driven releases to AWS-native CI/CD.</li>
-<li>Improved visibility around build logs, image publishing, and artifact handling.</li>
-<li>Reduced dependency on undocumented release knowledge.</li>
-<h3>Technologies</h3>
-<p>Jenkins, AWS CodePipeline, AWS CodeBuild, Docker, Amazon ECR, Amazon S3, IAM, CloudWatch, Bitbucket/Git, Kubernetes, CI/CD.</p>
-<h2>Case Study 3: Smart Building Management Platform - Monitoring, Backup And Cost Optimization</h2>
-<h3>Project Overview</h3>
-<p>This work improved operational readiness for monitoring, alerting, backup planning, recovery documentation, Elasticsearch data handling, MongoDB backup/restore, Jenkins backup planning, and CloudWatch log cost control.</p>
-<h3>Operations Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart TB
-  Apps[Applications / Services] --&gt; Logs[CloudWatch Logs]
-  Apps --&gt; Metrics[CloudWatch Metrics]
-  Logs --&gt; Alarms[Alarms / Notifications]
-  Jenkins[Jenkins Server] --&gt; Snapshots[EBS Snapshot Backup Plan]
-  ES[Elasticsearch] --&gt; ESBackup[Snapshot / Data Migration Notes]
-  Mongo[MongoDB] --&gt; MongoBackup[Backup / Restore Runbook]
-  PV[Kubernetes Persistent Volumes] --&gt; PVBackup[PV Backup Planning]
-  Logs --&gt; Retention[Retention Policy / Cost Control]
-  Alarms --&gt; Runbooks[Incident Runbooks]
-  ESBackup --&gt; Runbooks
-  MongoBackup --&gt; Runbooks
-</div></div>
-<h3>Problem</h3>
-<li>Monitoring, backup, and recovery processes needed stronger documentation.</li>
-<li>Log retention and backup storage needed cost-aware planning.</li>
-<li>Support teams needed repeatable runbooks.</li>
-<h3>My Work</h3>
-<li>Documented CloudWatch logging, monitoring, alerting, and notification practices.</li>
-<li>Prepared Jenkins backup planning using EBS snapshot concepts.</li>
-<li>Documented persistent volume backup concepts, Elasticsearch backup/data migration, and MongoDB backup/restore steps.</li>
-<li>Added CloudWatch log retention and cost optimization guidance.</li>
-<h3>Result</h3>
-<li>Improved operational readiness and backup/recovery clarity.</li>
-<li>Created repeatable runbooks for recurring support activities.</li>
-<li>Reduced risk from undocumented backup and monitoring processes.</li>
-<h3>Technologies</h3>
-<p>AWS CloudWatch, AWS Lambda concepts, EBS Snapshots, EC2, S3, Jenkins, Elasticsearch, MongoDB, Kubernetes PVs, monitoring, alerting, backup automation, cost optimization.</p>
-<h2>Case Study 4: IoT Healthcare Platform - AWS ECS/Fargate Migration And Cloud Operations</h2>
-<h3>Project Overview</h3>
-<p>This project involved AWS migration planning and cloud operations design for a platform with frontend applications, backend APIs, database services, storage, networking, security, monitoring, and disaster recovery requirements.</p>
-<p>The target architecture used managed AWS services such as ECS/Fargate, ECR, ALB, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, DocumentDB, RDS PostgreSQL, and ElastiCache Redis.</p>
-<h3>Architecture Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart TB
-  Users[Users] --&gt; Route53[Route 53]
-  Route53 --&gt; CDN[CloudFront]
-  CDN --&gt; S3[S3 Frontend Hosting]
-  Route53 --&gt; ALB[Application Load Balancer]
-  ALB --&gt; ECS[ECS Fargate Services]
-  ECS --&gt; ECR[Amazon ECR Images]
-  ECS --&gt; DocDB[DocumentDB]
-  ECS --&gt; RDS[RDS PostgreSQL]
-  ECS --&gt; Redis[ElastiCache Redis]
-  ECS --&gt; Secrets[Secrets Manager]
-  ECS --&gt; CW[CloudWatch Logs / Metrics]
-  WAF[AWS WAF] --&gt; CDN
-  WAF --&gt; ALB
-</div></div>
-<h3>Problem</h3>
-<li>The platform needed a structured AWS migration path.</li>
-<li>Security, networking, database migration, monitoring, and DR needed clear planning.</li>
-<li>Production support required complete handover documentation.</li>
-<h3>My Work</h3>
-<li>Planned ECS/Fargate migration for backend APIs and supporting services.</li>
-<li>Covered multi-account AWS governance concepts, IAM Identity Center, roles, policies, VPC design, public/private subnets, ALB, ECR, S3, CloudFront, Route 53, WAF, and Secrets Manager.</li>
-<li>Supported migration planning for DocumentDB, RDS PostgreSQL, ElastiCache Redis, S3 object storage, signed URL flows, and environment configuration.</li>
-<li>Prepared CI/CD and production handover documentation covering image publishing, ECS deployment, environment variables, secrets, monitoring, alerting, DR/failover, and decommission planning.</li>
-<h3>Result</h3>
-<li>Produced a structured AWS migration and operations plan.</li>
-<li>Improved clarity for cloud service ownership, security controls, monitoring, DR, and production handover.</li>
-<h3>Technologies</h3>
-<p>AWS Organizations, Control Tower concepts, IAM Identity Center, VPC, ECS Fargate, ECR, ALB, S3, CloudFront, Route 53, WAF, CloudWatch, DocumentDB, RDS PostgreSQL, ElastiCache Redis, Secrets Manager, GitHub Actions.</p>
-<h2>Case Study 5: Fitness And Wellness Application - Windows Server, IIS And Cloud Monitoring</h2>
-<h3>Project Overview</h3>
-<p>This project focused on deployment planning and documentation for a Windows-based application stack using IIS, .NET hosting, WordPress hosting, database backup planning, CloudWatch dashboard setup, data transfer estimation, and cloud deployment proposal documentation.</p>
-<h3>Deployment Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Users[Users] --&gt; DNS[DNS / Domain]
-  DNS --&gt; IIS[IIS on Windows Server]
-  IIS --&gt; DotNet[.NET Core Application]
-  IIS --&gt; WP[WordPress Site]
-  DotNet --&gt; DB[(SQL Server / MySQL)]
-  WP --&gt; DB
-  Server[Windows EC2 / Server] --&gt; CW[CloudWatch Agent / Dashboard]
-  Backup[Database Backup Process] --&gt; Storage[Backup Storage]
-  Admin[Admin / DevOps] --&gt; PowerShell[PowerShell / Remote Execution]
-  PowerShell --&gt; IIS
-</div></div>
-<h3>Problem</h3>
-<li>The project needed a clear hosting and deployment approach for a Windows/IIS-based application.</li>
-<li>Monitoring, backup process, and deployment documentation needed to be understandable for operations.</li>
-<h3>My Work</h3>
-<li>Documented Windows server setup, IIS website setup, application pool configuration, .NET Core hosting, and WordPress hosting on the same domain.</li>
-<li>Prepared CloudWatch dashboard setup documentation for Windows server monitoring.</li>
-<li>Documented database backup process and AWS data transfer estimation.</li>
-<li>Supported reusable deployment planning using S3 artifact concepts, SSM/remote execution concepts, PowerShell, IIS, .NET, SQL Server/MySQL, PHP, and WordPress.</li>
-<h3>Result</h3>
-<li>Created a clearer deployment and operations plan for Windows server hosting.</li>
-<li>Improved documentation for IIS setup, app hosting, monitoring, backup, and production deployment.</li>
-<h3>Technologies</h3>
-<p>AWS EC2, Windows Server, IIS, CloudWatch, S3, SSM concepts, PowerShell, .NET Core, WordPress, SQL Server/MySQL, PHP.</p>
-<h2>Case Study 6: Enterprise Automation Platform - Infrastructure As Code, Jenkins And Monitoring</h2>
-<h3>Project Overview</h3>
-<p>This project covered infrastructure provisioning, CI administration, configuration management, deployment support, monitoring, logging, microservice packaging, and shell automation across non-production environments.</p>
-<h3>IaC And Operations Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart TB
-  Git[Git Repository] --&gt; Jenkins[Jenkins CI]
-  Jenkins --&gt; Deploy[Deployment Automation]
-  Terraform[Terraform IaC] --&gt; Dev[Dev Environment]
-  Terraform --&gt; QA[QA Environment]
-  Terraform --&gt; Stage[Stage Environment]
-  Ansible[Ansible Configuration] --&gt; Dev
-  Ansible --&gt; QA
-  Ansible --&gt; Stage
-  Helm[Helm Packages] --&gt; K8s[Kubernetes / Microservices]
-  Apps[Applications] --&gt; ELK[ELK / Elasticsearch Logs]
-  Apps --&gt; Grafana[Dashboards / Monitoring]
-  Shell[Shell Scripts] --&gt; Ops[Daily Operations]
-</div></div>
-<h3>Problem</h3>
-<li>Infrastructure provisioning needed repeatability across environments.</li>
-<li>CI/CD and configuration management needed better automation.</li>
-<li>Logs, dashboards, and day-to-day operational tasks needed stronger visibility.</li>
-<h3>My Work</h3>
-<li>Automated infrastructure provisioning for Dev, QA, and Stage environments using Terraform.</li>
-<li>Used Ansible for configuration management, application configuration, package management, and operational commands.</li>
-<li>Installed, configured, and administered Jenkins CI on Linux machines.</li>
-<li>Created dashboards and management reports using ELK/Elasticsearch.</li>
-<li>Developed Helm packages for microservice deployment and log management.</li>
-<li>Automated recurring operational tasks with shell scripts.</li>
-<h3>Result</h3>
-<li>Improved infrastructure repeatability, CI execution, configuration management, microservice deployment, and monitoring visibility across non-production environments.</li>
-<h3>Technologies</h3>
-<p>Terraform, Ansible, Jenkins, Linux, AWS, Git, GitHub, Helm, Kubernetes, ELK/Elasticsearch, Shell scripting, CI/CD.</p>
-<h2>Case Study 7: Digital Media Platform - Kubernetes, AWS S3, Jenkins And Application Monitoring</h2>
-<h3>Project Overview</h3>
-<p>This project involved production support and DevOps activities around application availability, monitoring, AWS S3 backups, Terraform backend versioning, Jenkins performance, GitHub repository maintenance, and Kubernetes-based container orchestration.</p>
-<h3>Support And Delivery Diagram</h3>
-<div class="diagram"><div class="mermaid">
-flowchart LR
-  Developers[Developers] --&gt; GitHub[GitHub Repositories]
-  GitHub --&gt; Jenkins[Jenkins Master / Agents]
-  Jenkins --&gt; Docker[Docker Images]
-  Docker --&gt; K8s[Kubernetes]
-  K8s --&gt; App[Application Workloads]
-  App --&gt; Prom[Prometheus]
-  Prom --&gt; Grafana[Grafana Dashboards]
-  App --&gt; S3[S3 Files / Backups]
-  Terraform[Terraform Backend Versioning] --&gt; S3
-  Ops[Release Support] --&gt; Jenkins
-  Ops --&gt; K8s
-</div></div>
-<h3>Problem</h3>
-<li>The application needed reliable monitoring, release support, backup storage, repository maintenance, and improved Jenkins/Kubernetes operations.</li>
-<h3>My Work</h3>
-<li>Supported application availability and performance improvement activities.</li>
-<li>Monitored build machines, deployment machines, and application environments using Prometheus and Grafana.</li>
-<li>Created S3 buckets for files and backups.</li>
-<li>Used Terraform backend versioning concepts.</li>
-<li>Supported continuous delivery for releases.</li>
-<li>Implemented Jenkins master-agent structure to improve Jenkins performance.</li>
-<li>Maintained GitHub repositories and supported Kubernetes orchestration for Docker containers.</li>
-<h3>Result</h3>
-<li>Improved support readiness through monitoring, S3-based backup storage, Jenkins performance improvements, GitHub repository maintenance, and Kubernetes-based deployment support.</li>
-<h3>Technologies</h3>
-<p>AWS S3, Terraform, Jenkins, GitHub, Kubernetes, Docker, Prometheus, Grafana, CI/CD, release support.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Case study navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Project POCs</a><a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Public-Safe DevOps Portfolio</p>
+      <h1>Senior AWS DevOps Case Studies</h1>
+      <p class="subtitle">Recruiter-friendly case studies covering business problem, architecture, implementation, validation, monitoring, rollback, security, and operational outcome.</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section feature reveal">
+      <h2>Case Study Library</h2>
+      <p>These case studies use generic project names and intentionally remove confidential client information. They are designed for Naukri, LinkedIn, GitHub, and interview discussion.</p>
+      <p class="note">No real client names, private URLs, credentials, account IDs, IP addresses, internal screenshots, or organization-owned source code are included.</p>
+    </section>
+    <section class="project-list">
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>01</span><span>Smart Building Management Platform</span></div>
+        <h2>On-Prem to AWS EKS Migration</h2>
+        <p>Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.</p>
+        <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">AWS Load Balancer Controller</span><span class="tag">Jenkins</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/01-smart-building-eks-migration-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/01-smart-building-eks-migration-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/01-smart-building-eks-migration-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>02</span><span>Smart Building Management Platform</span></div>
+        <h2>CI/CD Modernization and Release Control</h2>
+        <p>Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.</p>
+        <div class="tags"><span class="tag">Jenkins</span><span class="tag">AWS CodePipeline</span><span class="tag">AWS CodeBuild</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">Amazon S3</span><span class="tag">IAM</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/02-smart-building-cicd-modernization-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/02-smart-building-cicd-modernization-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/02-smart-building-cicd-modernization-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>03</span><span>Smart Building Management Platform</span></div>
+        <h2>Monitoring, Backup and Cost Optimization</h2>
+        <p>Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.</p>
+        <div class="tags"><span class="tag">AWS CloudWatch</span><span class="tag">Amazon S3</span><span class="tag">EBS Snapshots</span><span class="tag">Jenkins</span><span class="tag">Kubernetes PV</span><span class="tag">Elasticsearch</span><span class="tag">MongoDB</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/03-smart-building-monitoring-backup-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/03-smart-building-monitoring-backup-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/03-smart-building-monitoring-backup-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>04</span><span>IoT Healthcare Platform</span></div>
+        <h2>AWS ECS/Fargate Migration and Cloud Operations</h2>
+        <p>AWS migration and operations design using ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, RDS PostgreSQL, DocumentDB, Redis, and production handover documentation.</p>
+        <div class="tags"><span class="tag">AWS ECS/Fargate</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">S3</span><span class="tag">CloudFront</span><span class="tag">Route 53</span><span class="tag">AWS WAF</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/04-iot-healthcare-ecs-migration-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/04-iot-healthcare-ecs-migration-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/04-iot-healthcare-ecs-migration-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>05</span><span>Fitness and Wellness Application</span></div>
+        <h2>Windows IIS and AWS Hybrid Deployment</h2>
+        <p>Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.</p>
+        <div class="tags"><span class="tag">AWS EC2</span><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">.NET</span><span class="tag">WordPress</span><span class="tag">CloudWatch</span><span class="tag">S3</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/05-fitness-wellness-windows-iis-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/05-fitness-wellness-windows-iis-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/05-fitness-wellness-windows-iis-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>06</span><span>Enterprise Automation Platform</span></div>
+        <h2>Infrastructure as Code and Monitoring Automation</h2>
+        <p>Infrastructure provisioning, configuration management, Jenkins administration, Helm packaging, ELK/Elasticsearch dashboards, Kubernetes deployment support, and shell automation across Dev, QA, and Stage environments.</p>
+        <div class="tags"><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Jenkins</span><span class="tag">Linux</span><span class="tag">AWS</span><span class="tag">Git</span><span class="tag">GitHub</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/06-enterprise-automation-iac-monitoring-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/06-enterprise-automation-iac-monitoring-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/06-enterprise-automation-iac-monitoring-poc.docx">Word</a></div>
+      </article>
+      <article class="project-card premium-card reveal">
+        <div class="card-topline"><span>07</span><span>Digital Media Platform</span></div>
+        <h2>Kubernetes Monitoring and Release Support</h2>
+        <p>Production support and delivery experience around Kubernetes operations, Jenkins master-agent optimization, GitHub repository maintenance, S3 backups, Terraform backend versioning, Prometheus, Grafana, and release support.</p>
+        <div class="tags"><span class="tag">AWS S3</span><span class="tag">Terraform</span><span class="tag">Jenkins</span><span class="tag">GitHub</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Prometheus</span></div>
+        <div class="links"><a class="button primary" href="../project-pocs/07-digital-media-kubernetes-monitoring-poc.html">Open Case Study</a><a class="button" href="../project-pocs/downloads/07-digital-media-kubernetes-monitoring-poc.pdf">PDF</a><a class="button ghost" href="../project-pocs/downloads/07-digital-media-kubernetes-monitoring-poc.docx">Word</a></div>
+      </article>
+    </section>
   </main>
+
+  
 </body>
 </html>

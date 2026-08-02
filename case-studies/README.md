@@ -8,11 +8,11 @@ Usage: **Naukri work sample, GitHub portfolio, LinkedIn featured/project content
 
 These case studies are written for public career use. Real client names, organization names, private repository names, production URLs, IP addresses, credentials, account identifiers, internal screenshots, and confidential architecture exports are intentionally excluded.
 
-## Case Study 1: Smart Building Management Platform - AWS EKS Migration And Kubernetes Stabilization
+## Case Study 1: Smart Building Management Platform - On-Prem To AWS EKS Migration
 
 ### Project Overview
 
-This project involved AWS EKS migration and stabilization for a large multi-service smart building management platform. The platform included backend services, frontend applications, messaging components, search/data services, and integration-heavy workloads.
+This project involved a full migration from a self-managed deployment model to AWS EKS for a large multi-service smart building management platform. The platform included backend services, frontend applications, messaging components, search/data services, and integration-heavy workloads.
 
 The main engineering focus was to make the platform ready for Kubernetes operations with better deployment structure, container image flow, ALB ingress routing, pod-level health checks, monitoring visibility, and support-ready documentation.
 
@@ -338,4 +338,3 @@ flowchart LR
 ### Technologies
 
 AWS S3, Terraform, Jenkins, GitHub, Kubernetes, Docker, Prometheus, Grafana, CI/CD, release support.
-

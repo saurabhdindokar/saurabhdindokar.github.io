@@ -1,146 +1,131 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POC 02: Smart Building Management Platform - CI/CD Modernization | Saurabh Dindokar</title>
+  <title>Smart Building Management Platform - CI/CD Modernization and Release Control | Saurabh Dindokar</title>
+  <meta name="description" content="Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/project-pocs/02-smart-building-cicd-modernization-poc.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smart Building Management Platform - CI/CD Modernization and Release Control | Saurabh Dindokar">
+  <meta property="og:description" content="Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/project-pocs/02-smart-building-cicd-modernization-poc.html">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Smart Building Management Platform - CI/CD Modernization and Release Control | Saurabh Dindokar">
+  <meta name="twitter:description" content="Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.">
   <link rel="stylesheet" href="../assets/portfolio.css">
+  <script defer src="../assets/site.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
     mermaid.initialize({
       startOnLoad: true,
       theme: "base",
       themeVariables: {
-        primaryColor: "#ffffff",
+        primaryColor: "#f8fafc",
         primaryBorderColor: "#0f766e",
-        primaryTextColor: "#111827",
-        lineColor: "#1f4e79",
-        fontFamily: "Arial"
+        primaryTextColor: "#0f172a",
+        secondaryColor: "#e0f2fe",
+        tertiaryColor: "#f0fdfa",
+        lineColor: "#2563eb",
+        fontFamily: "Inter, Segoe UI, Arial"
       }
     });
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap hero">
-      <p class="eyebrow">AWS DevOps Work Sample</p>
-      <h1>POC 02: Smart Building Management Platform - CI/CD Modernization</h1>
-      <p class="subtitle">Public-safe work sample for moving release flow from a traditional Jenkins-heavy pattern toward AWS-native CI/CD using CodePipeline, CodeBuild, ECR, S3 artifacts, IAM, and CloudWatch logs.</p>
-      <div class="meta-grid">
-        <div class="meta"><b>Engineer</b>Saurabh Dindokar</div>
-        <div class="meta"><b>Role</b>AWS DevOps Engineer</div>
-        <div class="meta"><b>Project</b>Smart Building Management Platform</div>
-      </div>
-    </div>
-    <div class="wrap">
-      <nav class="nav">
-        <a class="nav-link" href="./">All POCs</a>
-        <a class="nav-link" href="../">Portfolio Home</a>
-        <a class="button primary" href="downloads/02-smart-building-cicd-modernization-poc.pdf?v=portfolio-v3">Download PDF</a>
-        <a class="button ghost" href="downloads/02-smart-building-cicd-modernization-poc.docx?v=portfolio-v3">Download Word</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation">
+        <a class="nav-link" href="../">Home</a>
+        <a class="nav-link" href="./">All Projects</a>
+        <a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Portfolio Project 02</p>
+      <h1>Smart Building Management Platform - CI/CD Modernization and Release Control</h1>
+      <p class="subtitle">Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Role</b>Senior AWS DevOps Engineer</div>
+        <div class="meta"><b>Availability</b>Public-safe case study</div>
+        <div class="meta"><b>Focus</b>Reliability, automation, handover</div>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="section feature">
-      <h2>Technology Stack</h2>
-      <div class="logo-strip">
-        <div class="logo-tile"><img src="../assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
-        <div class="logo-tile"><img src="../assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
-        <div class="logo-tile"><img src="../assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
-        <div class="logo-tile"><img src="../assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
-        <div class="logo-tile"><img src="../assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
-        <div class="logo-tile"><img src="../assets/logos/grafana.svg" alt="Monitoring"><span>Monitoring</span></div>
-      </div>
-    </section>
+  <main id="main">
     <div class="case-layout">
       <div>
-<section class="section" id="confidentiality-note"><h2>Confidentiality Note</h2>
-<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
-</section>
-<section class="section" id="work-sample-summary"><h2>Work Sample Summary</h2>
-<p>Public-safe work sample for moving release flow from a traditional Jenkins-heavy pattern toward AWS-native CI/CD using CodePipeline, CodeBuild, ECR, S3 artifacts, IAM, and CloudWatch logs.</p>
-</section>
-<section class="section" id="problem-statement"><h2>Problem Statement</h2>
-<ul>
-<li>The release workflow required a cleaner build, artifact, image, and deployment chain.</li>
-<li>Manual dependency on one CI/CD path increased operational risk during repeated deployments.</li>
-<li>The team needed documented plan-only migration steps that could be reviewed before production implementation.</li>
-</ul>
-</section>
-<section class="section" id="mermaid-architecture-diagram"><h2>Mermaid Architecture Diagram</h2>
-<div class="diagram-shell"><pre class="mermaid">flowchart LR
-  Git[Source Repository] --&gt; Pipeline[AWS CodePipeline]
-  Pipeline --&gt; CodeBuild[AWS CodeBuild]
-  CodeBuild --&gt; Unit[Build / Unit Checks]
-  Unit --&gt; Image[Docker Image]
+        <section class="section feature reveal" id="overview">
+          <div class="section-heading"><p class="eyebrow">Overview</p><h2>CI/CD Modernization and Release Control</h2></div>
+          <p>Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.</p>
+          <p class="note">Public-safe portfolio project. Real client names, internal project names, credentials, private URLs, IP addresses, account IDs, and organization-owned source code are intentionally excluded.</p>
+          <div class="tags"><span class="tag">Jenkins</span><span class="tag">AWS CodePipeline</span><span class="tag">AWS CodeBuild</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">Amazon S3</span><span class="tag">IAM</span><span class="tag">CloudWatch</span><span class="tag">Git</span><span class="tag">Kubernetes</span></div>
+        </section>
+        <section class="section reveal" id="business-problem"><h2>Business Problem</h2><p>Release activities depended heavily on manual coordination and undocumented pipeline behavior. The team needed clearer build visibility, repeatable artifact handling, safer image promotion, and a migration path toward AWS-native CI/CD controls.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  Repo[Git Repository] --&gt; Trigger[Pull Request or Release Tag]
+  Trigger --&gt; Jenkins[Jenkins Pipeline]
+  Jenkins --&gt; Test[Build and Test]
+  Test --&gt; Image[Docker Build and Tag]
   Image --&gt; ECR[Amazon ECR]
-  CodeBuild --&gt; Artifact[S3 Build Artifacts]
-  Pipeline --&gt; Deploy[ECS/EKS Deployment Stage]
-  Deploy --&gt; Env[Dev / Staging / Production]
-  Env --&gt; CW[CloudWatch Logs]
-  IAM[IAM Roles and Least Privilege] --&gt; Pipeline
-  IAM --&gt; CodeBuild
-  Manual[Manual Approval Gate] --&gt; Deploy</pre></div>
-</section>
-<section class="section" id="my-responsibilities"><h2>My Responsibilities</h2>
-<ul>
-<li>Mapped existing Jenkins release stages into AWS-native pipeline stages.</li>
-<li>Prepared pipeline flow for source, build, Docker image publishing, artifact storage, approval, and deployment.</li>
-<li>Documented IAM role boundaries for pipeline, build, ECR, S3, and CloudWatch access.</li>
-<li>Defined rollback and artifact traceability notes for safer releases.</li>
-</ul>
-</section>
-<section class="section" id="implementation-approach"><h2>Implementation Approach</h2>
-<ul>
-<li>Pipeline stages separate source fetch, build validation, image creation, image push, and deployment.</li>
-<li>Build logs and failure traces are routed to CloudWatch for easy troubleshooting.</li>
-<li>Environment-specific deployment stages can use approval gates for production control.</li>
-<li>Artifacts and image tags are traceable so a previous version can be redeployed when needed.</li>
-</ul>
-</section>
-<section class="section" id="reliability-security-and-operations-focus"><h2>Reliability, Security and Operations Focus</h2>
-<ul>
-<li>Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</li>
-<li>Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</li>
-<li>The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</li>
-</ul>
-</section>
-<section class="section" id="validation-checklist"><h2>Validation Checklist</h2>
-<ul>
-<li>Review architecture and confirm each component has a clear responsibility.</li>
-<li>Validate deployment or automation steps in a non-production environment first.</li>
-<li>Confirm logs, health checks, backup behavior, and rollback steps are documented.</li>
-<li>Confirm access, secrets, and network boundaries follow least-privilege expectations.</li>
-<li>Capture final runbook notes for handover and support readiness.</li>
-</ul>
-</section>
-<section class="section" id="expected-outcomes"><h2>Expected Outcomes</h2>
-<ul>
-<li>Improved release traceability.</li>
-<li>Cleaner AWS-native build and deployment workflow.</li>
-<li>Reduced manual deployment dependency.</li>
-<li>Better CI/CD documentation for future onboarding.</li>
-</ul>
-</section>
-<section class="section" id="technologies-used"><h2>Technologies Used</h2>
-<p>AWS CodePipeline, AWS CodeBuild, Jenkins, Docker, Amazon ECR, S3, IAM, CloudWatch, ECS/EKS</p>
-</section>
+  Jenkins --&gt; Artifacts[S3 Build Artifacts]
+  ECR --&gt; Deploy[Deployment Stage]
+  Deploy --&gt; EKS[EKS or ECS Runtime]
+  Deploy --&gt; CW[CloudWatch Logs]
+  IAM[IAM Roles] --&gt; Jenkins
+  IAM --&gt; ECR
+  IAM --&gt; Artifacts
+  Approval[Release Approval] --&gt; Deploy
+  Rollback[Rollback Runbook] --&gt; Deploy</pre></div></section>
+        <section class="section reveal" id="responsibilities"><h2>My Responsibilities</h2><ul><li>Mapped existing Jenkins release behavior and documented ownership boundaries.</li><li>Designed CodePipeline and CodeBuild-oriented stages for future AWS-native automation.</li><li>Documented Docker image tagging, ECR publishing, artifact handling, IAM roles, and CloudWatch log review.</li><li>Prepared deployment validation and rollback notes for release support.</li></ul></section>
+        <section class="section reveal" id="implementation"><h2>Implementation</h2><ul><li>Separated build, test, image publish, and deploy concerns into reviewable stages.</li><li>Defined release metadata conventions so deployments could be traced to a commit and image tag.</li><li>Captured workflow output and operational notes for troubleshooting failed deployments.</li><li>Aligned IAM permissions with least-privilege pipeline responsibilities.</li></ul></section>
+        <section class="section reveal" id="challenges"><h2>Challenges</h2><ul><li>Existing release knowledge was distributed across people and pipelines.</li><li>Build logs and deployment evidence needed to be easier to review.</li><li>Pipeline design had to support both current Jenkins use and future AWS-native services.</li></ul></section>
+        <section class="section reveal" id="solution"><h2>Solution</h2><p>The solution combined automation, clear infrastructure boundaries, operational validation, and documentation-first handover. The design focuses on traceable releases, least-privilege access, predictable runtime behavior, and observable production systems.</p></section>
+        <section class="section reveal" id="code"><h2>Code Snippet</h2><p>Representative public-safe snippet showing the type of implementation pattern used.</p><pre class="code-block"><code>pipeline {
+  agent any
+  stages {
+    stage('Build') { steps { sh 'docker build -t app:${BUILD_NUMBER} .' } }
+    stage('Publish') { steps { sh 'docker push ${ECR_REPOSITORY}:app-${BUILD_NUMBER}' } }
+    stage('Deploy') { steps { sh 'kubectl rollout status deployment/application-service' } }
+  }
+  post {
+    failure { sh './scripts/collect-deployment-diagnostics.sh' }
+  }
+}</code></pre></section>
+        <section class="section reveal" id="deployment-flow"><h2>Deployment Flow</h2><ol class="timeline-list"><li><span>1</span><p>Pipeline discovery</p></li><li><span>2</span><p>Build and artifact mapping</p></li><li><span>3</span><p>IAM and logging design</p></li><li><span>4</span><p>Release validation</p></li><li><span>5</span><p>Handover documentation</p></li></ol></section>
+        <section class="section reveal" id="validation"><h2>Validation</h2><ul><li>Verified deployment health before routing user traffic.</li><li>Reviewed logs, metrics, events, and runtime configuration.</li><li>Documented rollback and post-deployment checks for support teams.</li></ul></section>
+        <section class="section reveal" id="monitoring-security"><h2>Monitoring and Security</h2><ul><li>Monitoring focused on logs, runtime status, health checks, alarms, and deployment evidence.</li><li>Security guidance covered IAM roles, security groups, secrets handling, and private network boundaries where applicable.</li><li>Operational notes included backup, restore, rollback, and incident response expectations.</li></ul></section>
+        <section class="section reveal" id="outcome"><h2>Outcome and Impact</h2><ul><li>Created a clear migration path from Jenkins-heavy release workflows to structured AWS CI/CD.</li><li>Improved deployment traceability through image tagging and artifact documentation.</li><li>Reduced release dependency on undocumented manual steps.</li></ul></section>
+        <section class="section reveal" id="lessons"><h2>Lessons Learned</h2><ul><li>Reliable DevOps delivery depends on validation, not only deployment automation.</li><li>Runbooks and handover notes reduce operational risk during production support.</li><li>Health checks, logs, access boundaries, and rollback steps should be designed before go-live.</li></ul></section>
+        <section class="section reveal" id="incident-experience"><h2>Related Incident Experience</h2><ul><li>Kubernetes deployment issue</li><li>Storage lifecycle recovery</li><li>Service startup failure</li><li>Pipeline rollback</li></ul></section>
+        <section class="section reveal" id="screenshots"><h2>Pipeline Screenshots Placeholder</h2><div class="placeholder-grid"><div>Jenkins pipeline evidence placeholder</div><div>CloudWatch dashboard placeholder</div><div>Deployment validation placeholder</div></div></section>
       </div>
-      <aside class="toc">
-        <h3>On This Page</h3>
-        <a href="#confidentiality-note">Confidentiality Note</a>
-<a href="#work-sample-summary">Work Sample Summary</a>
-<a href="#problem-statement">Problem Statement</a>
-<a href="#mermaid-architecture-diagram">Mermaid Architecture Diagram</a>
-<a href="#my-responsibilities">My Responsibilities</a>
-<a href="#implementation-approach">Implementation Approach</a>
-<a href="#reliability-security-and-operations-focus">Reliability, Security and Operations Focus</a>
-<a href="#validation-checklist">Validation Checklist</a>
-<a href="#expected-outcomes">Expected Outcomes</a>
-<a href="#technologies-used">Technologies Used</a>
+      <aside class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <a href="#overview">Overview</a>
+        <a href="#business-problem">Business Problem</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#responsibilities">Responsibilities</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#challenges">Challenges</a>
+        <a href="#code">Code Snippet</a>
+        <a href="#deployment-flow">Timeline</a>
+        <a href="#outcome">Outcome</a>
+        <div class="toc-actions">
+          <a class="button primary" href="downloads/02-smart-building-cicd-modernization-poc.pdf">PDF</a>
+          <a class="button ghost" href="downloads/02-smart-building-cicd-modernization-poc.docx">Word</a>
+        </div>
       </aside>
     </div>
   </main>
+
+  
 </body>
 </html>

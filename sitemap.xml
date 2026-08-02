@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://saurabhdindokar.github.io/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/case-studies/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/presentations/aws-devops-portfolio-presentation.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/01-smart-building-eks-migration-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/02-smart-building-cicd-modernization-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/03-smart-building-monitoring-backup-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/04-iot-healthcare-ecs-migration-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/05-fitness-wellness-windows-iis-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/06-enterprise-automation-iac-monitoring-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://saurabhdindokar.github.io/project-pocs/07-digital-media-kubernetes-monitoring-poc.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>

@@ -1,147 +1,125 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POC 03: Smart Building Management Platform - Monitoring, Backup and Cost Optimization | Saurabh Dindokar</title>
+  <title>Smart Building Management Platform - Monitoring, Backup and Cost Optimization | Saurabh Dindokar</title>
+  <meta name="description" content="Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/project-pocs/03-smart-building-monitoring-backup-poc.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smart Building Management Platform - Monitoring, Backup and Cost Optimization | Saurabh Dindokar">
+  <meta property="og:description" content="Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/project-pocs/03-smart-building-monitoring-backup-poc.html">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Smart Building Management Platform - Monitoring, Backup and Cost Optimization | Saurabh Dindokar">
+  <meta name="twitter:description" content="Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.">
   <link rel="stylesheet" href="../assets/portfolio.css">
+  <script defer src="../assets/site.js"></script>
   <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
     mermaid.initialize({
       startOnLoad: true,
       theme: "base",
       themeVariables: {
-        primaryColor: "#ffffff",
+        primaryColor: "#f8fafc",
         primaryBorderColor: "#0f766e",
-        primaryTextColor: "#111827",
-        lineColor: "#1f4e79",
-        fontFamily: "Arial"
+        primaryTextColor: "#0f172a",
+        secondaryColor: "#e0f2fe",
+        tertiaryColor: "#f0fdfa",
+        lineColor: "#2563eb",
+        fontFamily: "Inter, Segoe UI, Arial"
       }
     });
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap hero">
-      <p class="eyebrow">AWS DevOps Work Sample</p>
-      <h1>POC 03: Smart Building Management Platform - Monitoring, Backup and Cost Optimization</h1>
-      <p class="subtitle">Public-safe work sample covering monitoring, alerting, backup automation, retention control, Jenkins backup, database backup, log visibility, and practical cost optimization checks.</p>
-      <div class="meta-grid">
-        <div class="meta"><b>Engineer</b>Saurabh Dindokar</div>
-        <div class="meta"><b>Role</b>AWS DevOps Engineer</div>
-        <div class="meta"><b>Project</b>Smart Building Management Platform</div>
-      </div>
-    </div>
-    <div class="wrap">
-      <nav class="nav">
-        <a class="nav-link" href="./">All POCs</a>
-        <a class="nav-link" href="../">Portfolio Home</a>
-        <a class="button primary" href="downloads/03-smart-building-monitoring-backup-poc.pdf?v=portfolio-v3">Download PDF</a>
-        <a class="button ghost" href="downloads/03-smart-building-monitoring-backup-poc.docx?v=portfolio-v3">Download Word</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation">
+        <a class="nav-link" href="../">Home</a>
+        <a class="nav-link" href="./">All Projects</a>
+        <a class="nav-link" href="../resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Resume</a>
       </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Portfolio Project 03</p>
+      <h1>Smart Building Management Platform - Monitoring, Backup and Cost Optimization</h1>
+      <p class="subtitle">Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.</p>
+      <div class="meta-grid">
+        <div class="meta"><b>Role</b>Senior AWS DevOps Engineer</div>
+        <div class="meta"><b>Availability</b>Public-safe case study</div>
+        <div class="meta"><b>Focus</b>Reliability, automation, handover</div>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="section feature">
-      <h2>Technology Stack</h2>
-      <div class="logo-strip">
-        <div class="logo-tile"><img src="../assets/logos/aws.svg" alt="AWS"><span>AWS</span></div>
-        <div class="logo-tile"><img src="../assets/logos/kubernetes.svg" alt="Kubernetes"><span>Kubernetes</span></div>
-        <div class="logo-tile"><img src="../assets/logos/docker.svg" alt="Docker"><span>Docker</span></div>
-        <div class="logo-tile"><img src="../assets/logos/jenkins.svg" alt="Jenkins"><span>Jenkins</span></div>
-        <div class="logo-tile"><img src="../assets/logos/terraform.svg" alt="Terraform"><span>Terraform</span></div>
-        <div class="logo-tile"><img src="../assets/logos/grafana.svg" alt="Monitoring"><span>Monitoring</span></div>
-      </div>
-    </section>
+  <main id="main">
     <div class="case-layout">
       <div>
-<section class="section" id="confidentiality-note"><h2>Confidentiality Note</h2>
-<p>This document is intentionally public-safe. It does not include real client names, internal project names, organization-owned source code, private URLs, IP addresses, credentials, account IDs, screenshots, or any confidential implementation details.</p>
-</section>
-<section class="section" id="work-sample-summary"><h2>Work Sample Summary</h2>
-<p>Public-safe work sample covering monitoring, alerting, backup automation, retention control, Jenkins backup, database backup, log visibility, and practical cost optimization checks.</p>
-</section>
-<section class="section" id="problem-statement"><h2>Problem Statement</h2>
-<ul>
-<li>Operational teams needed better visibility into compute, deployment, backup, and application health.</li>
-<li>Backup activity required documented scripts, retention behavior, and restoration verification.</li>
-<li>Cloud resources needed periodic cost review for unused or oversized components.</li>
-</ul>
-</section>
-<section class="section" id="mermaid-architecture-diagram"><h2>Mermaid Architecture Diagram</h2>
-<div class="diagram-shell"><pre class="mermaid">flowchart TB
+        <section class="section feature reveal" id="overview">
+          <div class="section-heading"><p class="eyebrow">Overview</p><h2>Monitoring, Backup and Cost Optimization</h2></div>
+          <p>Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.</p>
+          <p class="note">Public-safe portfolio project. Real client names, internal project names, credentials, private URLs, IP addresses, account IDs, and organization-owned source code are intentionally excluded.</p>
+          <div class="tags"><span class="tag">AWS CloudWatch</span><span class="tag">Amazon S3</span><span class="tag">EBS Snapshots</span><span class="tag">Jenkins</span><span class="tag">Kubernetes PV</span><span class="tag">Elasticsearch</span><span class="tag">MongoDB</span><span class="tag">Linux</span><span class="tag">Shell Scripting</span></div>
+        </section>
+        <section class="section reveal" id="business-problem"><h2>Business Problem</h2><p>Monitoring, backup, recovery, and cost controls needed clearer ownership and repeatable runbooks. Operational teams required better visibility into logs, alarms, restore steps, and recurring support activities.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart TB
   Apps[Application Workloads] --&gt; Logs[CloudWatch Logs]
   Apps --&gt; Metrics[CloudWatch Metrics]
-  Metrics --&gt; Alarms[CloudWatch Alarms]
-  Alarms --&gt; Notify[Email / Incident Notification]
-  Jenkins[Jenkins Server] --&gt; JenkinsBackup[Jenkins Home Backup]
-  Mongo[MongoDB / Document Store] --&gt; DbDump[Database Dump]
-  Search[Elasticsearch / Search Layer] --&gt; Snapshot[Snapshot / Backup Export]
-  JenkinsBackup --&gt; S3[S3 Backup Bucket]
-  DbDump --&gt; S3
-  Snapshot --&gt; S3
-  S3 --&gt; Lifecycle[S3 Lifecycle and Retention]
-  Cost[Cost Review] --&gt; Rightsize[Rightsizing / Cleanup]
-  Cost --&gt; Lifecycle</pre></div>
-</section>
-<section class="section" id="my-responsibilities"><h2>My Responsibilities</h2>
-<ul>
-<li>Prepared backup and retention approach for CI/CD server data and database components.</li>
-<li>Documented CloudWatch dashboards, alarms, log groups, and troubleshooting checkpoints.</li>
-<li>Created cost optimization checklist covering unused resources, storage lifecycle, right sizing, and backup retention.</li>
-<li>Defined restore verification steps so backup success is not assumed without validation.</li>
-</ul>
-</section>
-<section class="section" id="implementation-approach"><h2>Implementation Approach</h2>
-<ul>
-<li>Backup scripts create timestamped archives and store them in a controlled S3 path.</li>
-<li>Retention rules keep recent backups while reducing long-term storage cost.</li>
-<li>CloudWatch alarms are mapped to actionable failure conditions, not noisy generic metrics only.</li>
-<li>Cost review focuses on EC2/EBS snapshots, S3 lifecycle, idle resources, and oversized compute.</li>
-</ul>
-</section>
-<section class="section" id="reliability-security-and-operations-focus"><h2>Reliability, Security and Operations Focus</h2>
-<ul>
-<li>Health checks, validation steps, and rollback planning were treated as part of deployment quality, not afterthoughts.</li>
-<li>Secrets, access boundaries, private networking, backup retention, and monitoring visibility were documented wherever applicable.</li>
-<li>The POC is written so another engineer can understand the flow, reproduce the approach, and extend it safely without exposing confidential data.</li>
-</ul>
-</section>
-<section class="section" id="validation-checklist"><h2>Validation Checklist</h2>
-<ul>
-<li>Review architecture and confirm each component has a clear responsibility.</li>
-<li>Validate deployment or automation steps in a non-production environment first.</li>
-<li>Confirm logs, health checks, backup behavior, and rollback steps are documented.</li>
-<li>Confirm access, secrets, and network boundaries follow least-privilege expectations.</li>
-<li>Capture final runbook notes for handover and support readiness.</li>
-</ul>
-</section>
-<section class="section" id="expected-outcomes"><h2>Expected Outcomes</h2>
-<ul>
-<li>Improved backup confidence through restore validation.</li>
-<li>Better operational visibility for incidents.</li>
-<li>Reduced avoidable cloud spend through retention and cleanup planning.</li>
-<li>Clear support runbook for monitoring and backup ownership.</li>
-</ul>
-</section>
-<section class="section" id="technologies-used"><h2>Technologies Used</h2>
-<p>CloudWatch, S3, Jenkins, Shell Scripting, Elasticsearch, MongoDB, AWS Cost Explorer, EC2, EBS, IAM</p>
-</section>
+  Logs --&gt; Retention[Retention Policy]
+  Metrics --&gt; Alarms[Alarms and Notifications]
+  Jenkins[Jenkins Server] --&gt; EBS[EBS Snapshot Plan]
+  PV[Kubernetes Persistent Volumes] --&gt; PVBackup[PV Backup Notes]
+  ES[Elasticsearch] --&gt; ESBackup[Snapshot or Export Notes]
+  Mongo[MongoDB] --&gt; MongoBackup[Backup and Restore Runbook]
+  Retention --&gt; Cost[Cost Review]
+  Alarms --&gt; Incidents[Incident Runbooks]
+  S3[S3 Lifecycle] --&gt; Cost
+  Restore[Restore Validation] --&gt; Incidents</pre></div></section>
+        <section class="section reveal" id="responsibilities"><h2>My Responsibilities</h2><ul><li>Documented CloudWatch log review, metrics, alarms, and notification practices.</li><li>Prepared backup and restore notes for Jenkins, persistent volumes, Elasticsearch, and MongoDB concepts.</li><li>Defined retention and lifecycle guidance to reduce avoidable storage and log cost.</li><li>Created support runbooks for recurring investigation and recovery scenarios.</li></ul></section>
+        <section class="section reveal" id="implementation"><h2>Implementation</h2><ul><li>Mapped critical services to observable logs and metrics.</li><li>Defined backup checkpoints and restore validation steps.</li><li>Added retention guidance for logs and object storage.</li><li>Documented escalation and handover flow for support teams.</li></ul></section>
+        <section class="section reveal" id="challenges"><h2>Challenges</h2><ul><li>Different services had different backup and restore expectations.</li><li>Log growth needed cost-aware retention without losing useful support data.</li><li>Operational steps needed to be usable during production pressure.</li></ul></section>
+        <section class="section reveal" id="solution"><h2>Solution</h2><p>The solution combined automation, clear infrastructure boundaries, operational validation, and documentation-first handover. The design focuses on traceable releases, least-privilege access, predictable runtime behavior, and observable production systems.</p></section>
+        <section class="section reveal" id="code"><h2>Code Snippet</h2><p>Representative public-safe snippet showing the type of implementation pattern used.</p><pre class="code-block"><code>#!/usr/bin/env bash
+set -euo pipefail
+backup_dir="/backup/$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$backup_dir"
+echo "Collecting service health, logs, and backup evidence into $backup_dir"
+kubectl get pods -A &gt; "$backup_dir/pods.txt"
+kubectl get events -A --sort-by=.lastTimestamp &gt; "$backup_dir/events.txt"</code></pre></section>
+        <section class="section reveal" id="deployment-flow"><h2>Deployment Flow</h2><ol class="timeline-list"><li><span>1</span><p>Monitoring review</p></li><li><span>2</span><p>Backup inventory</p></li><li><span>3</span><p>Retention planning</p></li><li><span>4</span><p>Restore validation</p></li><li><span>5</span><p>Runbook handover</p></li></ol></section>
+        <section class="section reveal" id="validation"><h2>Validation</h2><ul><li>Verified deployment health before routing user traffic.</li><li>Reviewed logs, metrics, events, and runtime configuration.</li><li>Documented rollback and post-deployment checks for support teams.</li></ul></section>
+        <section class="section reveal" id="monitoring-security"><h2>Monitoring and Security</h2><ul><li>Monitoring focused on logs, runtime status, health checks, alarms, and deployment evidence.</li><li>Security guidance covered IAM roles, security groups, secrets handling, and private network boundaries where applicable.</li><li>Operational notes included backup, restore, rollback, and incident response expectations.</li></ul></section>
+        <section class="section reveal" id="outcome"><h2>Outcome and Impact</h2><ul><li>Improved recovery confidence through restore validation documentation.</li><li>Improved support speed through structured CloudWatch and runbook guidance.</li><li>Reduced operational ambiguity around backup ownership and retention.</li></ul></section>
+        <section class="section reveal" id="lessons"><h2>Lessons Learned</h2><ul><li>Reliable DevOps delivery depends on validation, not only deployment automation.</li><li>Runbooks and handover notes reduce operational risk during production support.</li><li>Health checks, logs, access boundaries, and rollback steps should be designed before go-live.</li></ul></section>
+        <section class="section reveal" id="incident-experience"><h2>Related Incident Experience</h2><ul><li>Kubernetes deployment issue</li><li>Storage lifecycle recovery</li><li>Service startup failure</li><li>Pipeline rollback</li></ul></section>
+        <section class="section reveal" id="screenshots"><h2>Pipeline Screenshots Placeholder</h2><div class="placeholder-grid"><div>Jenkins pipeline evidence placeholder</div><div>CloudWatch dashboard placeholder</div><div>Deployment validation placeholder</div></div></section>
       </div>
-      <aside class="toc">
-        <h3>On This Page</h3>
-        <a href="#confidentiality-note">Confidentiality Note</a>
-<a href="#work-sample-summary">Work Sample Summary</a>
-<a href="#problem-statement">Problem Statement</a>
-<a href="#mermaid-architecture-diagram">Mermaid Architecture Diagram</a>
-<a href="#my-responsibilities">My Responsibilities</a>
-<a href="#implementation-approach">Implementation Approach</a>
-<a href="#reliability-security-and-operations-focus">Reliability, Security and Operations Focus</a>
-<a href="#validation-checklist">Validation Checklist</a>
-<a href="#expected-outcomes">Expected Outcomes</a>
-<a href="#technologies-used">Technologies Used</a>
+      <aside class="toc" aria-label="Table of contents">
+        <h2>On This Page</h2>
+        <a href="#overview">Overview</a>
+        <a href="#business-problem">Business Problem</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#responsibilities">Responsibilities</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#challenges">Challenges</a>
+        <a href="#code">Code Snippet</a>
+        <a href="#deployment-flow">Timeline</a>
+        <a href="#outcome">Outcome</a>
+        <div class="toc-actions">
+          <a class="button primary" href="downloads/03-smart-building-monitoring-backup-poc.pdf">PDF</a>
+          <a class="button ghost" href="downloads/03-smart-building-monitoring-backup-poc.docx">Word</a>
+        </div>
       </aside>
     </div>
   </main>
+
+  
 </body>
 </html>
