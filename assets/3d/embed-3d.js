@@ -10,8 +10,11 @@
     return new URL(path, "http://placeholder" + base).pathname;
   }
 
-  /* 1. Force the dark 3D theme */
-  document.documentElement.setAttribute("data-theme", "dark");
+  /* 1. Keep the page's saved theme; default to dark for the 3D presentation. */
+  var savedTheme = localStorage.getItem("theme");
+  if (!document.documentElement.getAttribute("data-theme")) {
+    document.documentElement.setAttribute("data-theme", savedTheme || "dark");
+  }
   document.body && document.body.setAttribute("data-3d-embed", "true");
 
   /* 2. Inject theme CSS */
@@ -43,7 +46,18 @@
     document.head.appendChild(map);
   }
 
-  /* 5. Boot the 3D scene */
+  /* 5. Keep canvas appearance synchronized with the page theme. */
+  function syncCanvasTheme() {
+    var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    document.body.setAttribute("data-3d-theme", isDark ? "dark" : "light");
+  }
+  syncCanvasTheme();
+  new MutationObserver(syncCanvasTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"]
+  });
+
+  /* 6. Boot the 3D scene */
   import(resolve("assets/3d/main.js"))
     .then(function (mod) {
       mod.default(canvas);

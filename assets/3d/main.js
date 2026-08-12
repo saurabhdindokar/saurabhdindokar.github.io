@@ -3,8 +3,15 @@ import * as THREE from "three";
 export default function init3D(canvas) {
   if (!canvas) return null;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const compactDevice = window.matchMedia("(max-width: 700px)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !compactDevice,
+    alpha: true,
+    powerPreference: compactDevice ? "low-power" : "high-performance"
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, compactDevice ? 1.25 : 1.75));
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
@@ -30,7 +37,7 @@ export default function init3D(canvas) {
   pointLight(0x7c3aed, 0, -11, -13);
 
   /* ---------- star field ---------- */
-  const STAR_COUNT = 1700;
+  const STAR_COUNT = compactDevice ? 520 : 1200;
   const starGeo = new THREE.BufferGeometry();
   {
     const pos = new Float32Array(STAR_COUNT * 3);
@@ -48,7 +55,7 @@ export default function init3D(canvas) {
   scene.add(stars);
 
   /* ---------- network topology ---------- */
-  const NODE_COUNT = 42;
+  const NODE_COUNT = compactDevice ? 24 : 38;
   const nodePositions = [];
   const nodeColors = [0xff9900, 0x22d3ee, 0x7c3aed, 0x34d399];
   const nodes = new THREE.Group();
@@ -107,7 +114,8 @@ export default function init3D(canvas) {
 
   /* ---------- data packets ---------- */
   const packets = [];
-  for (let i = 0; i < 26; i++) {
+  const PACKET_COUNT = compactDevice ? 10 : 22;
+  for (let i = 0; i < PACKET_COUNT; i++) {
     const geo = new THREE.SphereGeometry(0.09 + Math.random() * 0.08, 8, 8);
     const color = nodeColors[i % nodeColors.length];
     const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95 });
@@ -181,7 +189,8 @@ export default function init3D(canvas) {
     img.src = src;
   }
 
-  for (let i = 0; i < 40; i++) {
+  const LOGO_COUNT = compactDevice ? 14 : 30;
+  for (let i = 0; i < LOGO_COUNT; i++) {
     const name = LOGO_NAMES[i % LOGO_NAMES.length];
     const tex = new THREE.Texture();
     const mat = new THREE.SpriteMaterial({
@@ -235,8 +244,11 @@ export default function init3D(canvas) {
   let t = 0;
   const clock = new THREE.Clock();
 
+  let frameId = 0;
   function animate() {
-    requestAnimationFrame(animate);
+    frameId = 0;
+    if (document.hidden) return;
+    frameId = requestAnimationFrame(animate);
     const dt = Math.min(clock.getDelta(), 0.05);
     t += dt;
 
@@ -290,9 +302,22 @@ export default function init3D(canvas) {
 
     renderer.render(scene, camera);
   }
-  animate();
+  if (reducedMotion) {
+    renderer.render(scene, camera);
+  } else {
+    animate();
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && !reducedMotion && !frameId) animate();
+  });
 
   return {
-    mouse: () => ({ x: mouse.x, y: mouse.y })
+    mouse: () => ({ x: mouse.x, y: mouse.y }),
+    destroy: () => {
+      if (frameId) cancelAnimationFrame(frameId);
+      frameId = 0;
+      renderer.dispose();
+    }
   };
 }

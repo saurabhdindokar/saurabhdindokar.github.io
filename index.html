@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Saurabh Dindokar | AWS DevOps &amp; Cloud Engineer — 3D Portfolio</title>
   <meta name="description" content="Interactive 3D AWS DevOps and Cloud Engineer portfolio covering AWS, Kubernetes, Terraform, CI/CD, SRE, cloud operations, monitoring and production reliability.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Saurabh Dindokar | AWS DevOps &amp; Cloud Engineer Portfolio">
+  <meta property="og:description" content="AWS DevOps portfolio covering AWS, Kubernetes, CI/CD, cloud operations, SRE, monitoring and production reliability.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/">
+  <meta property="og:image" content="https://saurabhdindokar.github.io/assets/social/linkedin-portfolio-home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Saurabh Dindokar | AWS DevOps &amp; Cloud Engineer Portfolio">
+  <meta name="twitter:description" content="AWS DevOps portfolio covering AWS, Kubernetes, CI/CD, cloud operations, SRE, monitoring and production reliability.">
+  <meta name="twitter:image" content="https://saurabhdindokar.github.io/assets/social/linkedin-portfolio-home.png">
+  <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark';</script>
   <link rel="stylesheet" href="assets/3d/portfolio-3d.css">
   <script type="importmap">
     {
@@ -17,6 +32,8 @@
 </head>
 <body>
 
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <canvas id="scene3d" aria-hidden="true"></canvas>
   <div class="overlay-vignette" aria-hidden="true"></div>
 
@@ -25,20 +42,22 @@
       <a class="brand" href="#top" aria-label="Saurabh Dindokar portfolio home">
         <span class="brand-mark">SD</span><span>Saurabh Dindokar</span>
       </a>
-      <button class="nav-burger" id="navBurger" aria-label="Toggle navigation">☰</button>
+      <button class="nav-burger" id="navBurger" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">☰</button>
       <nav aria-label="Primary navigation">
         <ul class="nav-links" id="navLinks">
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#incidents">Incidents</a></li>
           <li><a href="#skills">Tech Stack</a></li>
           <li><a href="#timeline">Timeline</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <button class="home-theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Light</button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero" id="top">
       <div class="wrap hero-inner">
         <div class="hero-copy">
@@ -79,7 +98,7 @@
             </div>
           </div>
           <div class="metric-grid">
-            <div class="metric"><b data-count="5">5</b><span>Yrs IT Experience</span></div>
+            <div class="metric"><b data-count="4" data-suffix="+">4+</b><span>Years Experience</span></div>
             <div class="metric"><b data-count="7">7</b><span>Case Studies</span></div>
             <div class="metric"><b>2x</b><span>AWS Certified</span></div>
             <div class="metric"><b data-count="3">3</b><span>Awards</span></div>
@@ -212,6 +231,24 @@
       </div>
     </section>
 
+    <section class="section" id="incidents">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Production Operations</p>
+          <h2>Incident response and reliability experience</h2>
+          <p>Examples of the operational situations I have handled through investigation, recovery, validation, documentation and preventive action.</p>
+        </div>
+        <div class="incident-grid">
+          <article class="incident-card reveal"><h3>Kubernetes deployment issue</h3><p>Investigated rollout status, pod events, logs, configuration and health probes; restored a stable release path and documented validation and rollback steps.</p></article>
+          <article class="incident-card reveal"><h3>Storage lifecycle recovery</h3><p>Reviewed backup, snapshot, retention and restore requirements; captured recovery checks and operational ownership for support teams.</p></article>
+          <article class="incident-card reveal"><h3>Service startup failure</h3><p>Validated process state, dependencies, ports, service logs and health endpoints; corrected startup handling and improved readiness visibility.</p></article>
+          <article class="incident-card reveal"><h3>Pipeline rollback</h3><p>Compared release evidence, image and configuration changes, selected the safest rollback path, validated service recovery and improved deployment controls.</p></article>
+          <article class="incident-card reveal"><h3>SSL and endpoint validation</h3><p>Reviewed certificate, hostname, routing and web-server configuration; validated the complete request path after controlled updates.</p></article>
+          <article class="incident-card reveal"><h3>Monitoring and troubleshooting</h3><p>Correlated CloudWatch, Prometheus, Grafana, application logs and platform events to identify failure domains and support root-cause analysis.</p></article>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="skills">
       <div class="wrap">
         <div class="section-heading reveal">
@@ -327,7 +364,26 @@
       var topbar = document.getElementById('topbar');
       var burger = document.getElementById('navBurger');
       var navLinks = document.getElementById('navLinks');
-      if (burger) burger.addEventListener('click', function () { navLinks.classList.toggle('open'); });
+      var themeToggle = document.getElementById('themeToggle');
+      function syncThemeLabel() {
+        if (themeToggle) themeToggle.textContent = document.documentElement.dataset.theme === 'dark' ? 'Light' : 'Dark';
+      }
+      syncThemeLabel();
+      if (themeToggle) themeToggle.addEventListener('click', function () {
+        document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', document.documentElement.dataset.theme);
+        syncThemeLabel();
+      });
+      if (burger) burger.addEventListener('click', function () {
+        var open = navLinks.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      if (navLinks) navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navLinks.classList.remove('open');
+          if (burger) burger.setAttribute('aria-expanded', 'false');
+        });
+      });
       window.addEventListener('scroll', function () {
         topbar.classList.toggle('scrolled', window.scrollY > 20);
       }, { passive: true });
@@ -347,7 +403,7 @@
         function step(ts) {
           if (!t0) t0 = ts;
           var p = Math.min((ts - t0) / 900, 1);
-          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + (el.dataset.suffix || '');
           if (p < 1) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
@@ -361,7 +417,7 @@
 
       var heroWindow = document.getElementById('heroWindow');
       window.addEventListener('pointermove', function (e) {
-        if (!heroWindow) return;
+        if (!heroWindow || window.matchMedia('(max-width: 900px), (prefers-reduced-motion: reduce)').matches) return;
         var r = (e.clientX / window.innerWidth) * 2 - 1;
         var s = (e.clientY / window.innerHeight) * 2 - 1;
         heroWindow.style.transform =
