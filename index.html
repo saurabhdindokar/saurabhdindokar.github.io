@@ -3,506 +3,400 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saurabh Dindokar | AWS DevOps & Cloud Engineer Portfolio</title>
-  <meta name="description" content="AWS DevOps and Cloud Engineer portfolio covering AWS, Kubernetes, Terraform, CI/CD, SRE practices, platform engineering, cloud operations, monitoring, backup, rollback and production operations.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://saurabhdindokar.github.io">
+  <title>Saurabh Dindokar | AWS DevOps &amp; Cloud Engineer — 3D Portfolio</title>
+  <meta name="description" content="Interactive 3D AWS DevOps and Cloud Engineer portfolio covering AWS, Kubernetes, Terraform, CI/CD, SRE, cloud operations, monitoring and production reliability.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Saurabh Dindokar | AWS DevOps & Cloud Engineer Portfolio">
-  <meta property="og:description" content="AWS DevOps and Cloud Engineer portfolio covering AWS, Kubernetes, Terraform, CI/CD, SRE practices, platform engineering, cloud operations, monitoring, backup, rollback and production operations.">
-  <meta property="og:url" content="https://saurabhdindokar.github.io">
-  <meta property="og:image" content="https://saurabhdindokar.github.io/assets/social/linkedin-portfolio-home.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="627">
-  <meta property="og:site_name" content="Saurabh Dindokar AWS DevOps Portfolio">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Saurabh Dindokar | AWS DevOps & Cloud Engineer Portfolio">
-  <meta name="twitter:description" content="AWS DevOps and Cloud Engineer portfolio covering AWS, Kubernetes, Terraform, CI/CD, SRE practices, platform engineering, cloud operations, monitoring, backup, rollback and production operations.">
-  <meta name="twitter:image" content="https://saurabhdindokar.github.io/assets/social/linkedin-portfolio-home.png">
-  <link rel="stylesheet" href="assets/portfolio.css">
-  <script defer src="assets/site.js"></script>
-  <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: "base",
-      themeVariables: {
-        primaryColor: "#f8fafc",
-        primaryBorderColor: "#0f766e",
-        primaryTextColor: "#0f172a",
-        secondaryColor: "#e0f2fe",
-        tertiaryColor: "#f0fdfa",
-        lineColor: "#2563eb",
-        fontFamily: "Inter, Segoe UI, Arial"
+  <link rel="stylesheet" href="assets/3d/portfolio-3d.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
       }
-    });
+    }
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  
-  <header class="site-header home-hero">
+
+  <canvas id="scene3d" aria-hidden="true"></canvas>
+  <div class="overlay-vignette" aria-hidden="true"></div>
+
+  <header class="topbar" id="topbar">
     <div class="wrap nav-row">
-      <a class="brand" href="./" aria-label="Saurabh Dindokar portfolio home">
+      <a class="brand" href="#top" aria-label="Saurabh Dindokar portfolio home">
         <span class="brand-mark">SD</span><span>Saurabh Dindokar</span>
       </a>
-      <nav class="nav" aria-label="Primary navigation">
-  <a class="nav-link" href="#about">About</a>
-  <a class="nav-link" href="#projects">Projects</a>
-  <a class="nav-link" href="#incidents">Incidents</a>
-  <a class="nav-link" href="#skills">Tech Stack</a>
-  <a class="nav-link" href="#timeline">Timeline</a>
-  <a class="nav-link" href="#contact">Contact</a>
-</nav>
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
-    </div>
-    <div class="wrap hero-grid">
-      <section class="hero-copy" aria-labelledby="hero-title">
-        <p class="eyebrow">AWS DevOps | Cloud Operations | SRE | Platform Engineering</p>
-        <h1 id="hero-title"><span>Saurabh Dindokar</span><small>AWS | Kubernetes | CI/CD | Cloud Operations | SRE</small></h1>
-        <p class="hero-statement">I build scalable AWS infrastructure, production-grade CI/CD pipelines, Kubernetes platforms and cloud automation with a strong focus on reliability, security, operational excellence, and support-ready delivery.</p>
-        <div class="availability-row" aria-label="Availability">
-          <span class="status-dot" aria-hidden="true"></span>
-          <strong>Available Immediately</strong>
-          <span>Immediate Joiner</span>
-        </div>
-        <div class="hero-actions">
-          <a class="button primary large" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Download Resume</a>
-          <a class="button large" href="#projects">View Case Studies</a>
-        </div>
-        <div class="social-links" aria-label="Social profile links">
-          <a class="social-link" href="https://github.com/saurabhdindokar" rel="me" aria-label="GitHub profile">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.1.77-.24.77-.54v-2.08c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1 2.63.71 3.27-.55.1-.73.39-1.23.71-1.51-2.5-.29-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15a10.68 10.68 0 0 1 5.64 0c2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.33-2.63 5.27-5.14 5.55.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg>
-            <span>GitHub</span>
-          </a>
-          <a class="social-link" href="https://www.linkedin.com/in/saurabhdindokar/" rel="me" aria-label="LinkedIn profile">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM.43 8.05h4.1V23H.43V8.05Zm7.02 0h3.93v2.04h.06c.55-1.04 1.9-2.14 3.91-2.14 4.18 0 4.95 2.75 4.95 6.33V23h-4.1v-7.73c0-1.84-.03-4.21-2.57-4.21-2.57 0-2.96 2-2.96 4.08V23H7.45V8.05Z" transform="translate(1.8 .5)"/></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a class="social-link" href="https://www.instagram.com/saurabhdindokar/" rel="me" aria-label="Instagram profile">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3.45A4.55 4.55 0 1 1 12 16.55a4.55 4.55 0 0 1 0-9.1Zm0 2A2.55 2.55 0 1 0 12 14.55a2.55 2.55 0 0 0 0-5.1Zm4.85-2.42a1.05 1.05 0 1 1-1.05 1.05 1.05 1.05 0 0 1 1.05-1.05Z"/></svg>
-            <span>Instagram</span>
-          </a>
-          <a class="social-link" href="https://www.facebook.com/saurabhdindokar/" rel="me" aria-label="Facebook profile">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 8.2V6.55c0-.8.54-.99.92-.99h2.34V2.02L14.24 2C10.66 2 9.85 4.68 9.85 6.4v1.8H7.5v3.97h2.35V22h4.35v-9.83h2.95l.39-3.97H14.2Z"/></svg>
-            <span>Facebook</span>
-          </a>
-          <a class="social-link" href="mailto:sirdindokar@gmail.com" aria-label="Email Saurabh Dindokar">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A2.5 2.5 0 0 1 23 7.5v9A2.5 2.5 0 0 1 20.5 19h-17A2.5 2.5 0 0 1 1 16.5v-9A2.5 2.5 0 0 1 3.5 5Zm0 2a.5.5 0 0 0-.5.5v.34l9 5.37 9-5.37V7.5a.5.5 0 0 0-.5-.5h-17Zm17 10a.5.5 0 0 0 .5-.5v-6.33l-8.49 5.06a1 1 0 0 1-1.02 0L3 10.17v6.33a.5.5 0 0 0 .5.5h17Z"/></svg>
-            <span>Email</span>
-          </a>
-        </div>
-      </section>
-      <aside class="hero-panel glass-card" aria-label="Profile highlights">
-        <div class="profile-visual">
-          <img src="assets/profile/saurabh-dindokar-profile.jpg" alt="Saurabh Dindokar, AWS DevOps Engineer" width="720" height="720" loading="eager">
-          <div>
-            <strong>Saurabh Dindokar</strong>
-            <span>AWS DevOps / Cloud Engineer</span>
-            <small>Immediate Joiner - Pune, India</small>
-          </div>
-        </div>
-        <div class="panel-header"><span>Production Mindset</span><span class="live-pill">Ready</span></div>
-        <div class="metric-grid compact">
-          <div class="metric"><b>Ops</b><span>DevOps Experience</span><em>Cloud and DevOps delivery</em></div>
-          <div class="metric"><b data-count="7">7</b><span>Work Samples</span><em>Public-safe case studies</em></div>
-          <div class="metric"><b>2x</b><span>AWS Certified</span><em>SAA-C03 and SOA-C03</em></div>
-          <div class="metric"><b data-count="3">3</b><span>Awards</span><em>Performer, Mentor, Lead</em></div>
-        </div>
-        <div class="mini-architecture">
-          <div><img src="assets/logos/git.svg" alt="" loading="lazy"><strong>Git</strong></div><span></span>
-          <div><img src="assets/logos/jenkins.svg" alt="" loading="lazy"><strong>Jenkins</strong></div><span></span>
-          <div><img src="assets/logos/aws.svg" alt="" loading="lazy"><strong>ECR</strong></div><span></span>
-          <div><img src="assets/logos/kubernetes.svg" alt="" loading="lazy"><strong>EKS/ECS</strong></div><span></span>
-          <div><img src="assets/logos/aws.svg" alt="" loading="lazy"><strong>CloudWatch</strong></div>
-        </div>
-      </aside>
+      <button class="nav-burger" id="navBurger" aria-label="Toggle navigation">☰</button>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Tech Stack</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main id="main">
-    <section class="section feature reveal" id="about">
-      <div class="section-heading">
-        <p class="eyebrow">About</p>
-        <h2>DevOps engineer focused on reliable cloud delivery.</h2>
-      </div>
-      <div class="two-col">
-        <div>
-          <p>I have hands-on DevOps and infrastructure experience across AWS cloud migration, Kubernetes/EKS delivery, ECS/Fargate migration, CI/CD modernization, monitoring, backup, rollback planning, and production handover.</p>
-          <p>My DevOps philosophy is practical: infrastructure should be repeatable, releases should be traceable, systems should expose useful health signals, and support teams should never depend only on tribal knowledge. I focus on automation, documentation, least-privilege access, observability, and operational discipline.</p>
-          <p>I have also handled mentoring and team-lead responsibilities, including KT, task planning, handover documentation, and helping junior engineers understand production-grade DevOps practices.</p>
+  <main>
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="pulse"></span> Available Immediately · Pune, India</p>
+          <h1>Saurabh <span class="grad">Dindokar</span>
+            <span class="sub">AWS DevOps &amp; Cloud Engineer</span>
+          </h1>
+          <p class="statement">I build scalable AWS infrastructure, production-grade CI/CD pipelines, Kubernetes platforms and cloud automation — engineered for reliability, security, observability and support-ready delivery.</p>
+          <p class="status-line"><span class="dot"></span> Open to DevOps · Cloud · SRE · Platform Engineering · MLOps roles</p>
+          <div class="hero-actions">
+            <a class="button primary" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">Download Resume</a>
+            <a class="button ghost" href="#projects">View Case Studies</a>
+          </div>
+          <div class="social-row">
+            <a class="social-chip" href="https://github.com/saurabhdindokar" rel="me">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.82c.56.1.77-.24.77-.54v-2.08c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 .1 2.63.71 3.27-.55.1-.73.39-1.23.71-1.51-2.5-.29-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15a10.68 10.68 0 0 1 5.64 0c2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.33-2.63 5.27-5.14 5.55.4.35.76 1.04.76 2.1v3.11c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z"/></svg>
+              GitHub
+            </a>
+            <a class="social-chip" href="https://www.linkedin.com/in/saurabhdindokar/" rel="me">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM.43 8.05h4.1V23H.43V8.05Zm7.02 0h3.93v2.04h.06c.55-1.04 1.9-2.14 3.91-2.14 4.18 0 4.95 2.75 4.95 6.33V23h-4.1v-7.73c0-1.84-.03-4.21-2.57-4.21-2.57 0-2.96 2-2.96 4.08V23H7.45V8.05Z"/></svg>
+              LinkedIn
+            </a>
+            <a class="social-chip" href="mailto:sirdindokar@gmail.com">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A2.5 2.5 0 0 1 23 7.5v9A2.5 2.5 0 0 1 20.5 19h-17A2.5 2.5 0 0 1 1 16.5v-9A2.5 2.5 0 0 1 3.5 5Zm0 2a.5.5 0 0 0-.5.5v.34l9 5.37 9-5.37V7.5a.5.5 0 0 0-.5-.5h-17Zm17 10a.5.5 0 0 0 .5-.5v-6.33l-8.49 5.06a1 1 0 0 1-1.02 0L3 10.17v6.33a.5.5 0 0 0 .5.5h17Z"/></svg>
+              Email
+            </a>
+          </div>
         </div>
-        <div class="note">
-          This portfolio is public-safe. It does not expose real client names, internal project names, private repositories, credentials, private URLs, IP addresses, account IDs, screenshots, or organization-owned source code.
+
+        <div class="hero-window" id="heroWindow">
+          <div class="win-bar"><i></i><i></i><i></i><span class="win-title">saurabh@aws-devops: ~/infrastructure</span></div>
+          <div class="hero-profile">
+            <img src="assets/profile/saurabh-dindokar-profile.jpg" alt="Saurabh Dindokar, AWS DevOps Engineer">
+            <div class="who">
+              <strong>Saurabh Dindokar</strong>
+              <span>AWS DevOps / Cloud Engineer</span>
+              <small>2x AWS Certified · Immediate Joiner</small>
+            </div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric"><b data-count="5">5</b><span>Yrs IT Experience</span></div>
+            <div class="metric"><b data-count="7">7</b><span>Case Studies</span></div>
+            <div class="metric"><b>2x</b><span>AWS Certified</span></div>
+            <div class="metric"><b data-count="3">3</b><span>Awards</span></div>
+          </div>
+          <div class="terminal" aria-hidden="true">
+            <span class="ln"><span class="p">saurabh</span>@aws-devops:~$ <span class="o">aws</span> cloudformation describe-stacks --stack-name career --region ap-south-1</span>
+            <span class="ln">"StackStatus": "<span class="k">CREATE_COMPLETE</span>",</span>
+            <span class="ln">"Outputs": { "Role": "<span class="k">AWS DevOps Engineer</span>", "Ready": "<span class="k">true</span>" }</span>
+            <span class="ln"><span class="p">saurabh</span>@aws-devops:~$ <span class="o">kubectl</span> get pods -n production</span>
+            <span class="ln"><span id="typeLine"></span><span class="cursor"></span></span>
+          </div>
+        </div>
+      </div>
+      <p class="scroll-hint">Scroll to explore ↓</p>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">About</p>
+          <h2>DevOps engineer focused on reliable cloud delivery.</h2>
+        </div>
+        <div class="two-col">
+          <div class="panel reveal">
+            <p>I have hands-on DevOps and infrastructure experience across AWS cloud migration, Kubernetes/EKS delivery, ECS/Fargate migration, CI/CD modernization, monitoring, backup, rollback planning, and production handover.</p>
+            <p>My DevOps philosophy is practical: infrastructure should be repeatable, releases should be traceable, systems should expose useful health signals, and support teams should never depend only on tribal knowledge. I focus on automation, documentation, least-privilege access, observability, and operational discipline.</p>
+            <p>I have also handled mentoring and team-lead responsibilities, including KT, task planning, handover documentation, and helping junior engineers understand production-grade DevOps practices.</p>
+          </div>
+          <div class="note reveal">
+            This portfolio is public-safe. It does not expose real client names, internal project names, private repositories, credentials, private URLs, IP addresses, account IDs, screenshots, or organization-owned source code.
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section reveal" aria-labelledby="metrics-title">
-      <div class="section-heading">
-        <p class="eyebrow">Recruiter Snapshot</p>
-        <h2 id="metrics-title">What you can understand in 30 seconds</h2>
-      </div>
-      <div class="metric-grid">
-        <div class="metric"><b>Ops</b><span>Hands-on DevOps and infrastructure experience</span></div>
-        <div class="metric"><b>7</b><span>Public-safe enterprise work samples</span></div>
-        <div class="metric"><b>2x</b><span>AWS Certified: Solutions Architect and CloudOps</span></div>
-        <div class="metric"><b>Now</b><span>Available immediately</span></div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="projects">
-      <div class="section-heading">
-        <p class="eyebrow">Projects</p>
-        <h2>Enterprise AWS DevOps case studies</h2>
-        <p>Each case study is written like a real delivery story: business problem, architecture, implementation, challenges, validation, monitoring, rollback and outcomes.</p>
-      </div>
-      <div class="grid">
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>01</span><span>Smart Building Management Platform</span></div>
-          <h3>On-Prem to AWS EKS Migration</h3>
-          <p>Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.</p>
-          <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">AWS Load Balancer Controller</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/01-smart-building-eks-migration-poc.html" aria-label="Open On-Prem to AWS EKS Migration case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/01-smart-building-eks-migration-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>02</span><span>Smart Building Management Platform</span></div>
-          <h3>CI/CD Modernization and Release Control</h3>
-          <p>Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.</p>
-          <div class="tags"><span class="tag">Jenkins</span><span class="tag">AWS CodePipeline</span><span class="tag">AWS CodeBuild</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">Amazon S3</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/02-smart-building-cicd-modernization-poc.html" aria-label="Open CI/CD Modernization and Release Control case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/02-smart-building-cicd-modernization-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>03</span><span>Smart Building Management Platform</span></div>
-          <h3>Monitoring, Backup and Cost Optimization</h3>
-          <p>Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.</p>
-          <div class="tags"><span class="tag">AWS CloudWatch</span><span class="tag">Amazon S3</span><span class="tag">EBS Snapshots</span><span class="tag">Jenkins</span><span class="tag">Kubernetes PV</span><span class="tag">Elasticsearch</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/03-smart-building-monitoring-backup-poc.html" aria-label="Open Monitoring, Backup and Cost Optimization case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/03-smart-building-monitoring-backup-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>04</span><span>IoT Healthcare Platform</span></div>
-          <h3>AWS ECS/Fargate Migration and Cloud Operations</h3>
-          <p>AWS migration and operations design using ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, RDS PostgreSQL, DocumentDB, Redis, and production handover documentation.</p>
-          <div class="tags"><span class="tag">AWS ECS/Fargate</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">S3</span><span class="tag">CloudFront</span><span class="tag">Route 53</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/04-iot-healthcare-ecs-migration-poc.html" aria-label="Open AWS ECS/Fargate Migration and Cloud Operations case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/04-iot-healthcare-ecs-migration-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>05</span><span>Fitness and Wellness Application</span></div>
-          <h3>Windows IIS and AWS Hybrid Deployment</h3>
-          <p>Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.</p>
-          <div class="tags"><span class="tag">AWS EC2</span><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">.NET</span><span class="tag">WordPress</span><span class="tag">CloudWatch</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/05-fitness-wellness-windows-iis-poc.html" aria-label="Open Windows IIS and AWS Hybrid Deployment case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/05-fitness-wellness-windows-iis-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>06</span><span>Enterprise Automation Platform</span></div>
-          <h3>Infrastructure as Code and Monitoring Automation</h3>
-          <p>Infrastructure provisioning, configuration management, Jenkins administration, Helm packaging, ELK/Elasticsearch dashboards, Kubernetes deployment support, and shell automation across Dev, QA, and Stage environments.</p>
-          <div class="tags"><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Jenkins</span><span class="tag">Linux</span><span class="tag">AWS</span><span class="tag">Git</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/06-enterprise-automation-iac-monitoring-poc.html" aria-label="Open Infrastructure as Code and Monitoring Automation case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/06-enterprise-automation-iac-monitoring-poc.pdf">PDF</a>
-          </div>
-        </article>
-        <article class="project-card premium-card reveal">
-          <div class="card-topline"><span>07</span><span>Digital Media Platform</span></div>
-          <h3>Kubernetes Monitoring and Release Support</h3>
-          <p>Production support and delivery experience around Kubernetes operations, Jenkins master-agent optimization, GitHub repository maintenance, S3 backups, Terraform backend versioning, Prometheus, Grafana, and release support.</p>
-          <div class="tags"><span class="tag">AWS S3</span><span class="tag">Terraform</span><span class="tag">Jenkins</span><span class="tag">GitHub</span><span class="tag">Kubernetes</span><span class="tag">Docker</span></div>
-          <div class="links">
-            <a class="button primary" href="project-pocs/07-digital-media-kubernetes-monitoring-poc.html" aria-label="Open Kubernetes Monitoring and Release Support case study">Open Case Study</a>
-            <a class="button ghost" href="project-pocs/downloads/07-digital-media-kubernetes-monitoring-poc.pdf">PDF</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section reveal" id="architecture">
-      <div class="section-heading">
-        <p class="eyebrow">Architecture</p>
-        <h2>Representative AWS platform architecture</h2>
-      </div>
-      <div class="diagram-shell">
-        <pre class="mermaid">flowchart TB
-  Users[Users] --> R53[Route 53]
-  R53 --> ALB[Application Load Balancer]
-  ALB --> TG[Target Groups]
-  subgraph VPC[AWS VPC]
-    subgraph Public[Public Subnets]
-      IGW[Internet Gateway]
-      ALB
-      NAT[NAT Gateway]
-    end
-    subgraph Private[Private Subnets]
-      EKS[AWS EKS]
-      ECS[ECS Fargate]
-      EC2[EC2 Workloads]
-      RDS[(Private RDS)]
-    end
-  end
-  Git[Git Repository] --> CI[Jenkins / AWS CI-CD]
-  CI --> ECR[Amazon ECR]
-  ECR --> EKS
-  ECR --> ECS
-  EKS --> CW[CloudWatch]
-  ECS --> CW
-  EKS --> S3[S3 Backups]
-  ECS --> Secrets[Secrets Manager]
-  IAM[IAM Roles] --> CI
-  IAM --> EKS
-  IAM --> ECS
-  SG[Security Groups] --> ALB
-  SG --> EKS
-  SG --> ECS
-  SG --> RDS</pre>
-      </div>
-    </section>
-
-    <section class="section reveal" id="incidents">
-      <div class="section-heading">
-        <p class="eyebrow">Production Incidents</p>
-        <h2>Incident experience and prevention mindset</h2>
-      </div>
-      <div class="incident-grid">
-        <article class="incident-card reveal">
-          <h3>Kubernetes deployment issue</h3>
-          <dl>
-            <dt>Situation</dt><dd>A rollout did not move forward cleanly after a release.</dd>
-            <dt>Investigation</dt><dd>Checked rollout status, pod events, container logs, image tag, environment references, and readiness probe behavior.</dd>
-            <dt>Root Cause</dt><dd>Pods were not becoming ready because the application startup and health response were not aligned.</dd>
-            <dt>Resolution</dt><dd>Adjusted health-check behavior and documented rollout validation commands.</dd>
-            <dt>Prevention</dt><dd>Standardized liveness/readiness probes and added release checklist steps.</dd>
-          </dl>
-        </article>
-        <article class="incident-card reveal">
-          <h3>Storage lifecycle recovery</h3>
-          <dl>
-            <dt>Situation</dt><dd>Storage usage and backup retention required review during operations.</dd>
-            <dt>Investigation</dt><dd>Reviewed S3 lifecycle rules, backup paths, retention assumptions, and restore expectations.</dd>
-            <dt>Root Cause</dt><dd>Retention and restore ownership were not clear enough for support handover.</dd>
-            <dt>Resolution</dt><dd>Documented retention, backup validation, and restore verification.</dd>
-            <dt>Prevention</dt><dd>Added lifecycle review and restore testing as part of operational runbooks.</dd>
-          </dl>
-        </article>
-        <article class="incident-card reveal">
-          <h3>Service startup failure</h3>
-          <dl>
-            <dt>Situation</dt><dd>A service failed to start after configuration or deployment change.</dd>
-            <dt>Investigation</dt><dd>Reviewed system logs, environment variables, service dependencies, container startup logs, and recent release changes.</dd>
-            <dt>Root Cause</dt><dd>Runtime configuration or dependency readiness caused service startup failure.</dd>
-            <dt>Resolution</dt><dd>Corrected configuration and restarted the affected service with validation.</dd>
-            <dt>Prevention</dt><dd>Captured startup checks and dependency validation in deployment notes.</dd>
-          </dl>
-        </article>
-        <article class="incident-card reveal">
-          <h3>Pipeline rollback</h3>
-          <dl>
-            <dt>Situation</dt><dd>A release needed rollback after validation failed.</dd>
-            <dt>Investigation</dt><dd>Reviewed pipeline output, image tags, deployment revision, logs, and health endpoints.</dd>
-            <dt>Root Cause</dt><dd>New release did not pass runtime validation.</dd>
-            <dt>Resolution</dt><dd>Rolled back to the previous stable image/revision and verified service health.</dd>
-            <dt>Prevention</dt><dd>Added rollback commands and validation criteria to the release runbook.</dd>
-          </dl>
-        </article>
-        <article class="incident-card reveal">
-          <h3>SSL renewal</h3>
-          <dl>
-            <dt>Situation</dt><dd>Certificate renewal or SSL configuration required planned operational handling.</dd>
-            <dt>Investigation</dt><dd>Reviewed certificate expiry, listener configuration, DNS, and application endpoint validation.</dd>
-            <dt>Root Cause</dt><dd>Certificate lifecycle needed clearer ownership and tracking.</dd>
-            <dt>Resolution</dt><dd>Renewed/validated certificate configuration and confirmed secure endpoint access.</dd>
-            <dt>Prevention</dt><dd>Added SSL expiry tracking and renewal checklist.</dd>
-          </dl>
-        </article>
-        <article class="incident-card reveal">
-          <h3>Production troubleshooting</h3>
-          <dl>
-            <dt>Situation</dt><dd>Production symptoms required structured triage across infra and application layers.</dd>
-            <dt>Investigation</dt><dd>Checked DNS, ALB, target health, pods/tasks, logs, CPU/memory, database connectivity, and recent deployments.</dd>
-            <dt>Root Cause</dt><dd>Issue scope required layer-by-layer isolation.</dd>
-            <dt>Resolution</dt><dd>Identified affected layer and documented recovery action.</dd>
-            <dt>Prevention</dt><dd>Created reusable troubleshooting flow for future incidents.</dd>
-          </dl>
-        </article>
-      </div>
-    </section>
-
-    <section class="section reveal" id="skills">
-      <div class="section-heading">
-        <p class="eyebrow">Tech Stack</p>
-        <h2>Categorized DevOps capability map</h2>
-      </div>
-      <div class="skills-grid">
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/aws.svg" alt="Cloud" loading="lazy"></div>
-          <h3>Cloud</h3>
-          <p>AWS, EKS, ECS/Fargate, EC2, S3, RDS, IAM, VPC, ALB, CloudWatch</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/kubernetes.svg" alt="Containers" loading="lazy"></div>
-          <h3>Containers</h3>
-          <p>Docker, Kubernetes, ECR, Helm, Health Probes</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/jenkins.svg" alt="CI/CD" loading="lazy"></div>
-          <h3>CI/CD</h3>
-          <p>Jenkins, CodeBuild, CodePipeline, ArgoCD, GitOps</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/terraform.svg" alt="Infrastructure as Code" loading="lazy"></div>
-          <h3>Infrastructure as Code</h3>
-          <p>Terraform, Ansible, Environment Modules, State Planning</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/grafana.svg" alt="Monitoring" loading="lazy"></div>
-          <h3>Monitoring</h3>
-          <p>CloudWatch, Prometheus, Grafana, ELK, Runbooks</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/docker.svg" alt="Databases" loading="lazy"></div>
-          <h3>Databases</h3>
-          <p>RDS PostgreSQL, MySQL, MongoDB, DocumentDB, Redis</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/linux.svg" alt="Operating Systems" loading="lazy"></div>
-          <h3>Operating Systems</h3>
-          <p>Linux, Windows Server, IIS, Nginx, systemd</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/docker.svg" alt="Programming" loading="lazy"></div>
-          <h3>Programming</h3>
-          <p>Shell Scripting, YAML, JSON, PowerShell, Basic Python</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/docker.svg" alt="Security" loading="lazy"></div>
-          <h3>Security</h3>
-          <p>IAM, Security Groups, Secrets Manager, WAF, Least Privilege</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/docker.svg" alt="Networking" loading="lazy"></div>
-          <h3>Networking</h3>
-          <p>VPC, Subnets, Route 53, ALB, NAT Gateway, Ingress</p>
-        </article>
-        <article class="skill-card reveal">
-          <div class="skill-icon"><img src="assets/logos/github.svg" alt="Tools" loading="lazy"></div>
-          <h3>Tools</h3>
-          <p>Git, GitHub, Jira, VS Code, Documentation</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section reveal" id="timeline">
-      <div class="section-heading">
-        <p class="eyebrow">Timeline</p>
-        <h2>Career milestones</h2>
-      </div>
-      <div class="timeline" role="list">
-        <article role="listitem"><time>Foundation</time><h3>DevOps and infrastructure foundation</h3><p>Worked across Linux, Jenkins, Terraform, Ansible, monitoring, GitHub, Kubernetes concepts, and infrastructure operations.</p></article>
-        <article role="listitem"><time>AWS Delivery</time><h3>AWS DevOps delivery</h3><p>Delivered AWS migration, EKS/ECS, CI/CD, monitoring, backup, release validation, and production handover work.</p></article>
-        <article role="listitem"><time>Recognition</time><h3>AWS certification and recognition</h3><p>Earned AWS certifications and received Best Performer, Best Mentor, and Best Team Lead recognition.</p></article>
-        <article role="listitem"><time>Now</time><h3>Immediate joiner</h3><p>Available immediately for DevOps, Cloud Engineer, Cloud Operations, SRE, Platform Engineering, and MLOps-related roles.</p></article>
-      </div>
-    </section>
-
-    <section class="section reveal" id="certifications">
-      <div class="section-heading">
-        <p class="eyebrow">Certifications</p>
-        <h2>2x AWS Certified</h2>
-      </div>
-      <article class="cert-card">
-        <img src="assets/logos/aws.svg" alt="AWS" loading="lazy">
-        <div>
-          <h3>AWS Certified Solutions Architect - Associate</h3>
-          <a class="button primary" href="https://www.credly.com/badges/523c4485-e853-457e-bcc3-cdd6bac4a83c/linked_in_profile">Verify Credential</a>
+    <section class="section" id="projects">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Projects</p>
+          <h2>Enterprise AWS DevOps case studies</h2>
+          <p>Each case study is written like a real delivery story: business problem, architecture, implementation, challenges, validation, monitoring, rollback and outcomes.</p>
         </div>
-      </article>
-      <article class="cert-card">
-        <img src="assets/logos/aws.svg" alt="AWS" loading="lazy">
-        <div>
-          <h3>AWS Certified CloudOps Engineer - Associate</h3>
-          <a class="button primary" href="https://skillsprofile.skillbuilder.aws/user/saurabhdindokar/certification-badges">View AWS Skills Profile</a>
+        <div class="project-grid">
+
+          <article class="project-card reveal">
+            <span class="num">01</span>
+            <h3>On-Prem to AWS EKS Migration</h3>
+            <div class="sub">Smart Building Management Platform</div>
+            <p>Full enterprise migration from self-managed hosting to AWS EKS with Dockerization, Jenkins CI/CD, ECR, ArgoCD GitOps, ALB ingress, Kubernetes health probes, CloudWatch visibility, rollback planning, and production handover.</p>
+            <div class="tags"><span class="tag">AWS EKS</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/01-smart-building-eks-migration-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/01-smart-building-eks-migration-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">02</span>
+            <h3>CI/CD Modernization and Release Control</h3>
+            <div class="sub">Smart Building Management Platform</div>
+            <p>Modernized build and release workflows around Jenkins, AWS-native CI/CD concepts, Docker image publishing, ECR, artifacts, IAM, CloudWatch logs, approvals, and rollback-aware handover.</p>
+            <div class="tags"><span class="tag">Jenkins</span><span class="tag">AWS CodePipeline</span><span class="tag">AWS CodeBuild</span><span class="tag">Docker</span><span class="tag">Amazon ECR</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/02-smart-building-cicd-modernization-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/02-smart-building-cicd-modernization-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">03</span>
+            <h3>Monitoring, Backup and Cost Optimization</h3>
+            <div class="sub">Smart Building Management Platform</div>
+            <p>Operational reliability work covering CloudWatch, backup planning, EBS snapshot concepts, log retention, S3 lifecycle, restore validation, Elasticsearch/MongoDB notes, and incident runbooks.</p>
+            <div class="tags"><span class="tag">AWS CloudWatch</span><span class="tag">Amazon S3</span><span class="tag">EBS Snapshots</span><span class="tag">Jenkins</span><span class="tag">Kubernetes PV</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/03-smart-building-monitoring-backup-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/03-smart-building-monitoring-backup-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">04</span>
+            <h3>AWS ECS/Fargate Migration and Cloud Operations</h3>
+            <div class="sub">IoT Healthcare Platform</div>
+            <p>AWS migration and operations design using ECS/Fargate, ALB, ECR, S3, CloudFront, Route 53, WAF, Secrets Manager, CloudWatch, RDS PostgreSQL, DocumentDB, Redis, and production handover documentation.</p>
+            <div class="tags"><span class="tag">AWS ECS/Fargate</span><span class="tag">Amazon ECR</span><span class="tag">ALB</span><span class="tag">S3</span><span class="tag">CloudFront</span><span class="tag">Route 53</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/04-iot-healthcare-ecs-migration-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/04-iot-healthcare-ecs-migration-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">05</span>
+            <h3>Windows IIS and AWS Hybrid Deployment</h3>
+            <div class="sub">Fitness and Wellness Application</div>
+            <p>Hybrid deployment support for Windows Server, IIS, .NET hosting, WordPress, CloudWatch monitoring, database backup planning, deployment validation, PowerShell automation, and rollback documentation.</p>
+            <div class="tags"><span class="tag">AWS EC2</span><span class="tag">Windows Server</span><span class="tag">IIS</span><span class="tag">.NET</span><span class="tag">WordPress</span><span class="tag">CloudWatch</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/05-fitness-wellness-windows-iis-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/05-fitness-wellness-windows-iis-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">06</span>
+            <h3>Infrastructure as Code and Monitoring Automation</h3>
+            <div class="sub">Enterprise Automation Platform</div>
+            <p>Infrastructure provisioning, configuration management, Jenkins administration, Helm packaging, ELK/Elasticsearch dashboards, Kubernetes deployment support, and shell automation across Dev, QA, and Stage environments.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">Jenkins</span><span class="tag">Linux</span><span class="tag">AWS</span><span class="tag">Git</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/06-enterprise-automation-iac-monitoring-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/06-enterprise-automation-iac-monitoring-poc.pdf">PDF</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">07</span>
+            <h3>Kubernetes Monitoring and Release Support</h3>
+            <div class="sub">Digital Media Platform</div>
+            <p>Production support and delivery experience around Kubernetes operations, Jenkins master-agent optimization, GitHub repository maintenance, S3 backups, Terraform backend versioning, Prometheus, Grafana, and release support.</p>
+            <div class="tags"><span class="tag">AWS S3</span><span class="tag">Terraform</span><span class="tag">Jenkins</span><span class="tag">GitHub</span><span class="tag">Kubernetes</span><span class="tag">Docker</span></div>
+            <div class="links">
+              <a class="button primary small" href="project-pocs/07-digital-media-kubernetes-monitoring-poc.html">Open Case Study</a>
+              <a class="button ghost small" href="project-pocs/downloads/07-digital-media-kubernetes-monitoring-poc.pdf">PDF</a>
+            </div>
+          </article>
+
         </div>
-      </article>
-    </section>
-
-    <section class="section reveal" id="awards">
-      <div class="section-heading">
-        <p class="eyebrow">Awards</p>
-        <h2>Recognition</h2>
-      </div>
-      <div class="grid three">
-        <article class="award-card"><h3>Best Performer</h3><p>Recognized for consistent delivery ownership, production support discipline, and dependable DevOps execution.</p></article>
-        <article class="award-card"><h3>Best Mentor</h3><p>Recognized for guiding team members, documenting processes, and supporting knowledge transfer.</p></article>
-        <article class="award-card"><h3>Best Team Lead</h3><p>Recognized for coordination, accountability, task ownership, and helping the team move delivery forward.</p></article>
       </div>
     </section>
 
-    <section class="section contact-section reveal" id="contact">
-      <div class="section-heading">
-        <p class="eyebrow">Contact</p>
-        <h2>Available immediately for DevOps, Cloud, SRE, Platform and MLOps-related roles</h2>
+    <section class="section" id="skills">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Tech Stack</p>
+          <h2>Categorized DevOps capability map</h2>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/aws.svg" alt="Cloud" loading="lazy"></div><h3>Cloud</h3><p>AWS, EKS, ECS/Fargate, EC2, S3, RDS, IAM, VPC, ALB, CloudWatch</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/kubernetes.svg" alt="Containers" loading="lazy"></div><h3>Containers</h3><p>Docker, Kubernetes, ECR, Helm, Health Probes</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/jenkins.svg" alt="CI/CD" loading="lazy"></div><h3>CI/CD</h3><p>Jenkins, CodeBuild, CodePipeline, ArgoCD, GitOps</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/terraform.svg" alt="IaC" loading="lazy"></div><h3>Infrastructure as Code</h3><p>Terraform, Ansible, Environment Modules, State Planning</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/grafana.svg" alt="Monitoring" loading="lazy"></div><h3>Monitoring</h3><p>CloudWatch, Prometheus, Grafana, ELK, Runbooks</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/docker.svg" alt="Databases" loading="lazy"></div><h3>Databases</h3><p>RDS PostgreSQL, MySQL, MongoDB, DocumentDB, Redis</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/linux.svg" alt="OS" loading="lazy"></div><h3>Operating Systems</h3><p>Linux, Windows Server, IIS, Nginx, systemd</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/git.svg" alt="Tools" loading="lazy"></div><h3>Tools</h3><p>Git, GitHub, Jira, VS Code, Documentation</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/aws.svg" alt="Security" loading="lazy"></div><h3>Security</h3><p>IAM, Security Groups, Secrets Manager, WAF, Least Privilege</p></article>
+          <article class="skill-card reveal"><div class="icon"><img src="assets/logos/nginx.svg" alt="Networking" loading="lazy"></div><h3>Networking</h3><p>VPC, Subnets, Route 53, ALB, NAT Gateway, Ingress</p></article>
+        </div>
       </div>
-      <div class="contact-grid">
-        <a class="contact-item" href="mailto:sirdindokar@gmail.com">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 5h17A2.5 2.5 0 0 1 23 7.5v9A2.5 2.5 0 0 1 20.5 19h-17A2.5 2.5 0 0 1 1 16.5v-9A2.5 2.5 0 0 1 3.5 5Zm0 2a.5.5 0 0 0-.5.5v.34l9 5.37 9-5.37V7.5a.5.5 0 0 0-.5-.5h-17Zm17 10a.5.5 0 0 0 .5-.5v-6.33l-8.49 5.06a1 1 0 0 1-1.02 0L3 10.17v6.33a.5.5 0 0 0 .5.5h17Z"/></svg></span>
-          <span><strong>Email</strong><small>sirdindokar@gmail.com</small></span>
-        </a>
-        <a class="contact-item" href="https://github.com/saurabhdindokar" rel="me">
-          <span class="contact-icon" aria-hidden="true"><img src="assets/logos/github.svg" alt=""></span>
-          <span><strong>GitHub</strong><small>saurabhdindokar</small></span>
-        </a>
-        <a class="contact-item" href="https://www.linkedin.com/in/saurabhdindokar/" rel="me">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM.43 8.05h4.1V23H.43V8.05Zm7.02 0h3.93v2.04h.06c.55-1.04 1.9-2.14 3.91-2.14 4.18 0 4.95 2.75 4.95 6.33V23h-4.1v-7.73c0-1.84-.03-4.21-2.57-4.21-2.57 0-2.96 2-2.96 4.08V23H7.45V8.05Z" transform="translate(1.8 .5)"/></svg></span>
-          <span><strong>LinkedIn</strong><small>saurabhdindokar</small></span>
-        </a>
-        <a class="contact-item" href="https://www.instagram.com/saurabhdindokar/" rel="me">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm4.2 3.45A4.55 4.55 0 1 1 12 16.55a4.55 4.55 0 0 1 0-9.1Zm0 2A2.55 2.55 0 1 0 12 14.55a2.55 2.55 0 0 0 0-5.1Zm4.85-2.42a1.05 1.05 0 1 1-1.05 1.05 1.05 1.05 0 0 1 1.05-1.05Z"/></svg></span>
-          <span><strong>Instagram</strong><small>saurabhdindokar</small></span>
-        </a>
-        <a class="contact-item" href="https://www.facebook.com/saurabhdindokar/" rel="me">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.2 8.2V6.55c0-.8.54-.99.92-.99h2.34V2.02L14.24 2C10.66 2 9.85 4.68 9.85 6.4v1.8H7.5v3.97h2.35V22h4.35v-9.83h2.95l.39-3.97H14.2Z"/></svg></span>
-          <span><strong>Facebook</strong><small>saurabhdindokar</small></span>
-        </a>
-        <a class="contact-item" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6V2Zm7 1.8V8h4.2L13 3.8ZM8 10v2h8v-2H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z"/></svg></span>
-          <span><strong>Resume PDF</strong><small>Download latest resume</small></span>
-        </a>
-        <span class="contact-item">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg></span>
-          <span><strong>Location</strong><small>Pune, India</small></span>
-        </span>
-        <span class="contact-item">
-          <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5.55 3.84 8.74 9 10 5.16-1.26 9-4.45 9-10V6l-9-4Zm-1 14.2-3.6-3.6 1.42-1.42L11 13.36l4.9-4.9 1.42 1.42L11 16.2Z"/></svg></span>
-          <span><strong>Availability</strong><small>Immediate Joiner</small></span>
-        </span>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Timeline</p>
+          <h2>Career milestones</h2>
+        </div>
+        <div class="timeline">
+          <article class="reveal"><time>Foundation</time><h3>DevOps and infrastructure foundation</h3><p>Worked across Linux, Jenkins, Terraform, Ansible, monitoring, GitHub, Kubernetes concepts, and infrastructure operations.</p></article>
+          <article class="reveal"><time>AWS Delivery</time><h3>AWS DevOps delivery</h3><p>Delivered AWS migration, EKS/ECS, CI/CD, monitoring, backup, release validation, and production handover work.</p></article>
+          <article class="reveal"><time>Recognition</time><h3>AWS certification and recognition</h3><p>Earned AWS certifications and received Best Performer, Best Mentor, and Best Team Lead recognition.</p></article>
+          <article class="reveal"><time>Now</time><h3>Immediate joiner</h3><p>Available immediately for DevOps, Cloud Engineer, Cloud Operations, SRE, Platform Engineering, and MLOps-related roles.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="certifications">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Certifications</p>
+          <h2>2x AWS Certified</h2>
+        </div>
+        <article class="cert-card reveal">
+          <img src="assets/logos/aws.svg" alt="AWS" loading="lazy">
+          <div>
+            <h3>AWS Certified Solutions Architect — Associate</h3>
+            <a class="button primary small" href="https://www.credly.com/badges/523c4485-e853-457e-bcc3-cdd6bac4a83c/linked_in_profile">Verify Credential</a>
+          </div>
+        </article>
+        <article class="cert-card reveal">
+          <img src="assets/logos/aws.svg" alt="AWS" loading="lazy">
+          <div>
+            <h3>AWS Certified CloudOps Engineer — Associate</h3>
+            <a class="button primary small" href="https://skillsprofile.skillbuilder.aws/user/saurabhdindokar/certification-badges">View AWS Skills Profile</a>
+          </div>
+        </article>
+        <div class="section-heading reveal" style="margin-top: 54px;">
+          <p class="eyebrow">Awards</p>
+          <h2>Recognition</h2>
+        </div>
+        <div class="grid three">
+          <article class="award-card reveal"><h3>Best Performer</h3><p>Recognized for consistent delivery ownership, production support discipline, and dependable DevOps execution.</p></article>
+          <article class="award-card reveal"><h3>Best Mentor</h3><p>Recognized for guiding team members, documenting processes, and supporting knowledge transfer.</p></article>
+          <article class="award-card reveal"><h3>Best Team Lead</h3><p>Recognized for coordination, accountability, task ownership, and helping the team move delivery forward.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Available immediately for DevOps, Cloud, SRE, Platform and MLOps-related roles</h2>
+        </div>
+        <div class="contact-grid">
+          <a class="contact-item reveal" href="mailto:sirdindokar@gmail.com">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M3.5 5h17A2.5 2.5 0 0 1 23 7.5v9A2.5 2.5 0 0 1 20.5 19h-17A2.5 2.5 0 0 1 1 16.5v-9A2.5 2.5 0 0 1 3.5 5Zm0 2a.5.5 0 0 0-.5.5v.34l9 5.37 9-5.37V7.5a.5.5 0 0 0-.5-.5h-17Zm17 10a.5.5 0 0 0 .5-.5v-6.33l-8.49 5.06a1 1 0 0 1-1.02 0L3 10.17v6.33a.5.5 0 0 0 .5.5h17Z"/></svg></span>
+            <span><strong>Email</strong><small>sirdindokar@gmail.com</small></span>
+          </a>
+          <a class="contact-item reveal" href="https://github.com/saurabhdindokar" rel="me">
+            <span class="icon"><img src="assets/logos/github.svg" alt="GitHub"></span>
+            <span><strong>GitHub</strong><small>saurabhdindokar</small></span>
+          </a>
+          <a class="contact-item reveal" href="https://www.linkedin.com/in/saurabhdindokar/" rel="me">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM.43 8.05h4.1V23H.43V8.05Zm7.02 0h3.93v2.04h.06c.55-1.04 1.9-2.14 3.91-2.14 4.18 0 4.95 2.75 4.95 6.33V23h-4.1v-7.73c0-1.84-.03-4.21-2.57-4.21-2.57 0-2.96 2-2.96 4.08V23H7.45V8.05Z"/></svg></span>
+            <span><strong>LinkedIn</strong><small>saurabhdindokar</small></span>
+          </a>
+          <a class="contact-item reveal" href="resume/Saurabh_Dindokar_AWS_DevOps_Resume.pdf">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6V2Zm7 1.8V8h4.2L13 3.8ZM8 10v2h8v-2H8Zm0 4v2h8v-2H8Zm0 4v2h5v-2H8Z"/></svg></span>
+            <span><strong>Resume PDF</strong><small>Download latest resume</small></span>
+          </a>
+          <span class="contact-item reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg></span>
+            <span><strong>Location</strong><small>Pune, India</small></span>
+          </span>
+          <span class="contact-item reveal">
+            <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5.55 3.84 8.74 9 10 5.16-1.26 9-4.45 9-10V6l-9-4Zm-1 14.2-3.6-3.6 1.42-1.42L11 13.36l4.9-4.9 1.42 1.42L11 16.2Z"/></svg></span>
+            <span><strong>Availability</strong><small>Immediate Joiner</small></span>
+          </span>
+        </div>
       </div>
     </section>
   </main>
 
-  <script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Saurabh Dindokar",
-  "jobTitle": "AWS DevOps Engineer",
-  "url": "https://saurabhdindokar.github.io",
-  "image": "https://saurabhdindokar.github.io/assets/profile/saurabh-dindokar-profile.jpg",
-  "email": "mailto:sirdindokar@gmail.com",
-  "sameAs": ["https://github.com/saurabhdindokar", "https://www.linkedin.com/in/saurabhdindokar/", "https://www.instagram.com/saurabhdindokar/", "https://www.facebook.com/saurabhdindokar/"]
-}</script>
+  <footer>
+    <div class="wrap">
+      © 2026 Saurabh Dindokar · AWS DevOps &amp; Cloud Engineer · Built with Three.js 3D
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var topbar = document.getElementById('topbar');
+      var burger = document.getElementById('navBurger');
+      var navLinks = document.getElementById('navLinks');
+      if (burger) burger.addEventListener('click', function () { navLinks.classList.toggle('open'); });
+      window.addEventListener('scroll', function () {
+        topbar.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+
+      var revealEls = document.querySelectorAll('.reveal');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(function (el) { io.observe(el); });
+
+      var counters = document.querySelectorAll('[data-count]');
+      function runCount(el) {
+        var target = parseInt(el.dataset.count, 10);
+        var t0 = null;
+        function step(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / 900, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function (el) { cio.observe(el); });
+
+      var heroWindow = document.getElementById('heroWindow');
+      window.addEventListener('pointermove', function (e) {
+        if (!heroWindow) return;
+        var r = (e.clientX / window.innerWidth) * 2 - 1;
+        var s = (e.clientY / window.innerHeight) * 2 - 1;
+        heroWindow.style.transform =
+          'rotateY(' + (r * 8) + 'deg) rotateX(' + (-s * 8) + 'deg)';
+      }, { passive: true });
+
+      var typeLine = document.getElementById('typeLine');
+      if (typeLine) {
+        var phrases = [
+          'NAME                                STATUS   READY',
+          'member-portal-6b9c7d               Running  1/1',
+          'api-gateway-2f1a4e                Running  1/1',
+          'cloud-automation-b8d22e           Running  1/1',
+          '✔ deployment "career" successfully rolled out'
+        ];
+        var pi = 0, ci = 0, deleting = false;
+        function type() {
+          var p = phrases[pi];
+          typeLine.textContent = p.slice(0, ci);
+          if (!deleting) {
+            if (ci < p.length) { ci++; setTimeout(type, 34); }
+            else { deleting = true; setTimeout(type, 900); }
+          } else {
+            if (ci > 0) { ci--; setTimeout(type, 8); }
+            else { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(type, 250); }
+          }
+        }
+        type();
+      }
+    })();
+  </script>
+
+  <script type="module">
+    import init3D from "./assets/3d/main.js";
+    init3D(document.getElementById("scene3d"));
+  </script>
 </body>
 </html>
