@@ -274,6 +274,11 @@ section { position: relative; z-index: 2; }
 .project-card .sub { color: var(--cyan); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
 .project-card p { color: var(--muted); font-size: 0.94rem; margin-bottom: 16px; }
 .project-card .tags { margin-top: auto; }
+.project-card-featured { grid-column: 1 / -1; min-height: 0; }
+.project-card-featured .tags { margin-top: 0; }
+.project-proof { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 18px; color: var(--muted); font-size: 0.8rem; }
+.project-proof strong { color: var(--cyan); margin-right: 2px; }
+.project-proof span { border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; background: rgba(255, 255, 255, 0.03); }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .tag {
   font-size: 0.76rem; font-weight: 600;
@@ -422,6 +427,7 @@ footer a { color: var(--aws); text-decoration: none; }
   .terminal { font-size: 0.72rem; padding: 14px; }
   .project-card, .panel, .cert-card, .award-card, .incident-card { padding: 20px; }
   .project-grid { grid-template-columns: minmax(0, 1fr); }
+  .project-card-featured { grid-column: auto; }
   .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .contact-item { min-width: 0; }
