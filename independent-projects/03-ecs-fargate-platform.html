@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private ECS Fargate Application Platform | Saurabh Dindokar</title>
+  <meta name="description" content="A Terraform platform for an ECS Fargate service behind an Application Load Balancer, with ECR image controls, private tasks, CloudWatch logs, Container Insights, rolling deployments and target-tracking autoscaling.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/03-ecs-fargate-platform.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 03</p>
+      <h1>Private ECS Fargate Application Platform</h1>
+      <p class="subtitle">A Terraform platform for an ECS Fargate service behind an Application Load Balancer, with ECR image controls, private tasks, CloudWatch logs, Container Insights, rolling deployments and target-tracking autoscaling.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Immutable delivery, private tasks, autoscaling and observable deployments</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A Terraform platform for an ECS Fargate service behind an Application Load Balancer, with ECR image controls, private tasks, CloudWatch logs, Container Insights, rolling deployments and target-tracking autoscaling.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No plan or AWS deployment is claimed. The default Nginx image uses HTTP and a writable root filesystem; both are explicitly unsuitable as final production settings.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon ECS</span><span class="tag">AWS Fargate</span><span class="tag">Amazon ECR</span><span class="tag">Application Load Balancer</span><span class="tag">CloudWatch</span><span class="tag">Container Insights</span><span class="tag">Application Auto Scaling</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>Containerized workloads need a repeatable platform that separates public ingress from private runtime tasks, gives deployment and service-health visibility, and avoids granting application permissions before the workload requires them.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  User((User)) --&gt; ALB[Application Load Balancer]
+  ALB --&gt; TG[IP Target Group]
+  TG --&gt; ECS[ECS Fargate Service]
+  ECR[ECR Repository] --&gt; ECS
+  ECS --&gt; Logs[CloudWatch Logs]
+  Insights[Container Insights] --&gt; Metrics[Service Metrics]
+  Metrics --&gt; Scale[Target Tracking]
+  Scale --&gt; ECS
+  ExecRole[Execution Role] --&gt; ECS
+  TaskRole[Empty-by-default Task Role] --&gt; ECS</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Created ECR lifecycle and image-scanning controls for application artifacts.</li><li>Ran Fargate tasks without public IPs and allowed inbound traffic only from the ALB security group.</li><li>Separated the ECS execution role from an application task role that has no workload permissions by default.</li><li>Added CloudWatch log retention, ECS Container Insights, health checks and target-tracking autoscaling.</li><li>Configured rolling deployment parameters so replacement tasks become healthy before old tasks are removed.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>The sample public Nginx image keeps infrastructure testing independent of application source code.</li><li>A production release should use an immutable ECR digest.</li><li>Application permissions are added only when a workload proves the need.</li><li>HTTPS and hardened container settings are documented as production gates.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>Tasks are private and accept traffic only from the ALB.</li><li>ECR scanning and lifecycle controls reduce unmanaged image accumulation.</li><li>Execution and application roles are separated for least privilege.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>ALB target health participates in deployment decisions.</li><li>Target tracking adjusts task count based on service metrics.</li><li>CloudWatch logs and Container Insights provide deployment and runtime evidence.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>Fargate, ALB, NAT Gateway, CloudWatch ingestion and public IPv4 costs are identified.</li><li>ECR lifecycle rules and bounded log retention control storage growth.</li><li>Cleanup includes ALB, NAT, ENIs, ECR images and log groups.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No plan or AWS deployment is claimed. The default Nginx image uses HTTP and a writable root filesystem; both are explicitly unsuitable as final production settings.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Build and scan an immutable image</p></li><li><span>2</span><p>Publish to ECR</p></li><li><span>3</span><p>Register task definition</p></li><li><span>4</span><p>Roll out through ECS</p></li><li><span>5</span><p>Validate ALB health and service events</p></li><li><span>6</span><p>Review logs and scaling alarms</p></li><li><span>7</span><p>Rollback task definition if validation fails</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/03-ecs-fargate-platform.pdf">PDF</a><a class="button ghost" href="downloads/03-ecs-fargate-platform.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

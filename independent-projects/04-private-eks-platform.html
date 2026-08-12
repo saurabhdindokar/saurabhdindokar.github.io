@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private Amazon EKS Platform Foundation | Saurabh Dindokar</title>
+  <meta name="description" content="A Terraform foundation for a private-endpoint Amazon EKS cluster with managed nodes, KMS envelope encryption, control-plane logging, core managed add-ons and controlled rolling node updates.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/04-private-eks-platform.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 04</p>
+      <h1>Private Amazon EKS Platform Foundation</h1>
+      <p class="subtitle">A Terraform foundation for a private-endpoint Amazon EKS cluster with managed nodes, KMS envelope encryption, control-plane logging, core managed add-ons and controlled rolling node updates.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Private cluster access, managed nodes, KMS and controlled upgrades</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A Terraform foundation for a private-endpoint Amazon EKS cluster with managed nodes, KMS envelope encryption, control-plane logging, core managed add-ons and controlled rolling node updates.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No plan, cluster deployment, pod scheduling, node drain or upgrade test is claimed. Ingress, GitOps, policy and observability add-ons are intentionally outside this foundation.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon EKS</span><span class="tag">Kubernetes</span><span class="tag">Managed Node Groups</span><span class="tag">AWS KMS</span><span class="tag">IAM</span><span class="tag">CloudWatch</span><span class="tag">VPC CNI</span><span class="tag">CoreDNS</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>Creating an EKS control plane is only the start of a platform. The foundation must define private access, node lifecycle, secrets encryption, audit visibility and a clear boundary between cluster creation and separately reviewed platform add-ons.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart TB
+  Admin[Approved Private Connectivity] --&gt; API[Private EKS API]
+  API --&gt; CP[EKS Control Plane]
+  CP --&gt; NG[Managed Node Group]
+  NG --&gt; Pods[System and Application Pods]
+  ECR[Amazon ECR] --&gt; NG
+  KMS[KMS Envelope Encryption] --&gt; API
+  Logs[Control Plane Logs] --&gt; CW[CloudWatch]
+  Addons[VPC CNI CoreDNS kube-proxy] --&gt; CP
+  SSM[Systems Manager] --&gt; NG</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Configured a private EKS API endpoint that requires approved connectivity inside the VPC.</li><li>Added a managed node group in private subnets with controlled rolling update settings.</li><li>Enabled KMS envelope encryption for Kubernetes secrets and EKS control-plane logging.</li><li>Managed core add-ons explicitly rather than treating their lifecycle as invisible.</li><li>Documented the next platform layers: workload identity, ingress, DNS, certificates, autoscaling, policy, observability, backup and GitOps.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>Private API access reduces internet exposure but requires VPN, Direct Connect or a controlled in-VPC runner.</li><li>Cluster creation and add-on lifecycle are separated so each platform capability can be reviewed and upgraded deliberately.</li><li>Node replacement is treated as an operational change with drain and skew checks.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>The Kubernetes API endpoint is private.</li><li>KMS protects Kubernetes secret data at rest.</li><li>IAM, security groups and private worker subnets form explicit access boundaries.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>Managed node rolling updates limit disruption.</li><li>Control-plane logs support investigation of API, audit and authentication activity.</li><li>Core add-on health and Kubernetes version skew are part of the upgrade runbook.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>EKS control-plane and NAT Gateway charges continue while idle.</li><li>The runbook requires cleanup checks for workload load balancers, EBS volumes, ENIs, NAT, EIPs and log groups.</li><li>Optional platform add-ons should be selected with operational value and cost in mind.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No plan, cluster deployment, pod scheduling, node drain or upgrade test is claimed. Ingress, GitOps, policy and observability add-ons are intentionally outside this foundation.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Review IAM, KMS and private connectivity</p></li><li><span>2</span><p>Review Terraform plan</p></li><li><span>3</span><p>Create control plane and managed nodes</p></li><li><span>4</span><p>Verify logs and core add-ons</p></li><li><span>5</span><p>Test scheduling and node drain</p></li><li><span>6</span><p>Plan version upgrade and rollback</p></li><li><span>7</span><p>Destroy and inspect residual cloud resources</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/04-private-eks-platform.pdf">PDF</a><a class="button ghost" href="downloads/04-private-eks-platform.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

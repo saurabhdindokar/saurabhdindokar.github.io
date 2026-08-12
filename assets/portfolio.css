@@ -244,21 +244,22 @@ main { max-width: 1200px; margin: 0 auto; padding: 30px 24px 70px; }
 .feature { box-shadow: var(--shadow); }
 .section-heading { max-width: 860px; margin-bottom: 20px; }
 .two-col { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 24px; align-items: start; }
-.grid, .skills-grid, .incident-grid, .metric-grid, .logo-strip, .contact-grid { display: grid; gap: 16px; }
+.grid, .project-grid, .skills-grid, .incident-grid, .metric-grid, .logo-strip, .contact-grid { display: grid; gap: 16px; }
 .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .incident-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .metric-grid.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-.premium-card, .skill-card, .incident-card, .award-card, .metric, .cert-card, .logo-tile {
+.premium-card, .project-card, .skill-card, .incident-card, .award-card, .metric, .cert-card, .logo-tile {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255,255,255,.74);
   padding: 18px;
   box-shadow: 0 1px 0 rgba(15,23,42,.04);
 }
-[data-theme="dark"] .premium-card, [data-theme="dark"] .skill-card, [data-theme="dark"] .incident-card, [data-theme="dark"] .award-card, [data-theme="dark"] .metric, [data-theme="dark"] .cert-card, [data-theme="dark"] .logo-tile {
+[data-theme="dark"] .premium-card, [data-theme="dark"] .project-card, [data-theme="dark"] .skill-card, [data-theme="dark"] .incident-card, [data-theme="dark"] .award-card, [data-theme="dark"] .metric, [data-theme="dark"] .cert-card, [data-theme="dark"] .logo-tile {
   background: rgba(15, 23, 42, .74);
 }
 .premium-card, .project-card { display: flex; flex-direction: column; min-height: 330px; }
@@ -452,7 +453,7 @@ a.contact-item:hover {
   .reveal { opacity: 1; transform: none; }
 }
 @media (max-width: 980px) {
-  .hero-grid, .two-col, .grid, .three, .skills-grid, .incident-grid, .project-list, .case-layout, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid, .two-col, .grid, .project-grid, .three, .skills-grid, .incident-grid, .project-list, .case-layout, .contact-grid { grid-template-columns: 1fr; }
   .metric-grid, .logo-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nav-row { align-items: flex-start; flex-direction: column; }
   .toc { position: static; }

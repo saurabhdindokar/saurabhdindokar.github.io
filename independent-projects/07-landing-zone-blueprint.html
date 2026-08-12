@@ -1,0 +1,66 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS Multi-Account Landing Zone Blueprint | Saurabh Dindokar</title>
+  <meta name="description" content="A safety-first Terraform blueprint for organizational units, an example regional Service Control Policy, centralized organization CloudTrail, KMS-encrypted versioned log storage and lifecycle retention around a Control Tower-managed landing zone.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/07-landing-zone-blueprint.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 07</p>
+      <h1>AWS Multi-Account Landing Zone Blueprint</h1>
+      <p class="subtitle">A safety-first Terraform blueprint for organizational units, an example regional Service Control Policy, centralized organization CloudTrail, KMS-encrypted versioned log storage and lifecycle retention around a Control Tower-managed landing zone.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Organizations, preventive guardrails and centralized audit logging</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A safety-first Terraform blueprint for organizational units, an example regional Service Control Policy, centralized organization CloudTrail, KMS-encrypted versioned log storage and lifecycle retention around a Control Tower-managed landing zone.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No sandbox plan, Organizations change, SCP test, Control Tower initialization or organization-trail deployment is claimed.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">AWS Organizations</span><span class="tag">AWS Control Tower</span><span class="tag">Service Control Policies</span><span class="tag">AWS CloudTrail</span><span class="tag">Amazon S3</span><span class="tag">AWS KMS</span><span class="tag">IAM Identity Center</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>A multi-account foundation needs isolation, preventive controls and centralized evidence before application teams scale. The blueprint models Terraform-managed components adjacent to Control Tower without falsely claiming to reproduce Control Tower itself.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart TB
+  Org[AWS Organizations Root]
+  Org --&gt; Sec[Security OU]
+  Org --&gt; Infra[Infrastructure OU]
+  Org --&gt; Work[Workloads OU]
+  Org --&gt; Sand[Sandbox OU]
+  SCP[Approved-Region SCP] --&gt; Sand
+  Accounts[Member Accounts] --&gt; Trail[Organization CloudTrail]
+  Trail --&gt; KMS[AWS KMS]
+  Trail --&gt; Logs[Central Versioned S3 Log Archive]
+  Identity[IAM Identity Center] --&gt; Accounts
+  CT[AWS Control Tower Lifecycle] --&gt; Org</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Made AWS Organizations creation opt-in and protected it from accidental destroy.</li><li>Defined Security, Infrastructure, Workloads and Sandbox organizational units.</li><li>Created an approved-region SCP example and attached it only to the Sandbox OU.</li><li>Built a versioned, public-blocked, KMS-encrypted S3 log archive with Glacier transition and retention controls.</li><li>Configured a multi-region organization CloudTrail with global events and log-file validation.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>Control Tower setup and lifecycle remain in the supported Control Tower workflow.</li><li>The Terraform code models adjacent foundations and an adoption path instead of claiming Control Tower installation.</li><li>SCPs are tested in an isolated OU before broader attachment.</li><li>Organization creation is disabled by default to prevent unsafe experimentation.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>Organization CloudTrail centralizes audit evidence.</li><li>Log files use KMS encryption, S3 versioning, public-access blocking and validation.</li><li>The regional SCP is a preventive guardrail, not a substitute for IAM permissions.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>Dedicated Security, Infrastructure, Workloads and Sandbox boundaries support account isolation.</li><li>Lifecycle and versioning protect log evidence while controlling long-term storage.</li><li>Real adoption should include dedicated Audit and Log Archive accounts plus delegated security administration.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>Log ingestion, KMS requests and S3 retention are design inputs.</li><li>Logs transition to Glacier Instant Retrieval after 90 days and expire according to a variable retention period.</li><li>The blueprint avoids any automatic organization apply and warns against using an employer management account.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No sandbox plan, Organizations change, SCP test, Control Tower initialization or organization-trail deployment is claimed.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Establish management-account safeguards</p></li><li><span>2</span><p>Initialize Control Tower through supported lifecycle</p></li><li><span>3</span><p>Create or adopt organizational units</p></li><li><span>4</span><p>Test SCP in Sandbox OU</p></li><li><span>5</span><p>Configure central KMS and log archive</p></li><li><span>6</span><p>Enable organization trail</p></li><li><span>7</span><p>Review controls and delegated administration</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/07-landing-zone-blueprint.pdf">PDF</a><a class="button ghost" href="downloads/07-landing-zone-blueprint.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

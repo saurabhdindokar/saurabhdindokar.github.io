@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Multi-AZ VPC Foundation | Saurabh Dindokar</title>
+  <meta name="description" content="A reusable Terraform network foundation with public ingress subnets, private application subnets, isolated data subnets, controlled outbound routing, VPC Flow Logs, an S3 gateway endpoint and private Systems Manager endpoints.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/01-secure-multi-az-vpc.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 01</p>
+      <h1>Secure Multi-AZ VPC Foundation</h1>
+      <p class="subtitle">A reusable Terraform network foundation with public ingress subnets, private application subnets, isolated data subnets, controlled outbound routing, VPC Flow Logs, an S3 gateway endpoint and private Systems Manager endpoints.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Networking, private access, observability and cost-aware egress</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A reusable Terraform network foundation with public ingress subnets, private application subnets, isolated data subnets, controlled outbound routing, VPC Flow Logs, an S3 gateway endpoint and private Systems Manager endpoints.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No Terraform plan, AWS apply or live connectivity test is claimed.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">AWS VPC</span><span class="tag">Subnets</span><span class="tag">Route Tables</span><span class="tag">NAT Gateway</span><span class="tag">VPC Endpoints</span><span class="tag">Systems Manager</span><span class="tag">CloudWatch Logs</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>Application platforms need predictable network boundaries before compute or databases are introduced. The lab addresses subnet separation, routing, administrative access, audit visibility and the cost trade-off between no NAT, a shared NAT Gateway and one NAT Gateway per Availability Zone.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart TB
+  Internet((Internet)) --&gt; IGW[Internet Gateway]
+  IGW --&gt; PubA[Public Subnet AZ-A]
+  IGW --&gt; PubB[Public Subnet AZ-B]
+  PubA --&gt; NATA[NAT Gateway optional]
+  PubB --&gt; NATB[NAT Gateway optional]
+  NATA --&gt; AppA[Private App Subnet AZ-A]
+  NATB --&gt; AppB[Private App Subnet AZ-B]
+  AppA --&gt; DataA[Isolated Data Subnet AZ-A]
+  AppB --&gt; DataB[Isolated Data Subnet AZ-B]
+  AppA --&gt; SSM[SSM Interface Endpoints]
+  AppB --&gt; SSM
+  AppA --&gt; S3[S3 Gateway Endpoint]
+  AppB --&gt; S3
+  VPC[VPC Flow Logs] --&gt; CW[CloudWatch Logs]</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Built a reusable network module with VPC, subnet, route-table, NAT and endpoint options.</li><li>Separated public, private application and isolated data CIDR ranges across two Availability Zones.</li><li>Kept public IP assignment disabled by default and avoided inbound SSH by designing for Systems Manager access.</li><li>Added VPC Flow Logs with explicit CloudWatch retention and private S3 routing through a gateway endpoint.</li><li>Created development and production examples with different availability and cost choices.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>NAT mode defaults to none so validation cannot create accidental hourly and data-processing charges.</li><li>Production can use one NAT Gateway per Availability Zone to remove a single-AZ egress dependency.</li><li>Data subnets receive no default internet route.</li><li>Systems Manager endpoints support administration without opening SSH ingress.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>Private and isolated subnet boundaries reduce direct internet exposure.</li><li>Endpoint security-group paths are explicit, and administration is designed around Systems Manager.</li><li>Flow Logs provide network-flow evidence for troubleshooting and review.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>Subnets span two Availability Zones.</li><li>Production NAT can be deployed per Availability Zone.</li><li>The module exposes outputs needed by later ALB, compute and database layers.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>NAT Gateways and interface endpoints can incur hourly and data-processing charges.</li><li>The development example keeps NAT disabled; the production example makes higher availability explicit.</li><li>CloudWatch log retention is bounded instead of unlimited.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No Terraform plan, AWS apply or live connectivity test is claimed.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Select non-overlapping CIDRs and Availability Zones</p></li><li><span>2</span><p>Review NAT and endpoint cost</p></li><li><span>3</span><p>Validate Terraform</p></li><li><span>4</span><p>Review plan in a sandbox</p></li><li><span>5</span><p>Verify routes, DNS, Flow Logs and SSM</p></li><li><span>6</span><p>Destroy and verify chargeable resources</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/01-secure-multi-az-vpc.pdf">PDF</a><a class="button ghost" href="downloads/01-secure-multi-az-vpc.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

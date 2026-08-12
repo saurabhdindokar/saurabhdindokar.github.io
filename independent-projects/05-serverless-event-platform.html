@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reliable Serverless Event-Driven Platform | Saurabh Dindokar</title>
+  <meta name="description" content="An event-driven Terraform design where S3 object-created events pass through EventBridge to an encrypted SQS queue, Lambda processes bounded batches, failed messages reach a DLQ and CloudWatch alarms notify through encrypted SNS.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/05-serverless-event-platform.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 05</p>
+      <h1>Reliable Serverless Event-Driven Platform</h1>
+      <p class="subtitle">An event-driven Terraform design where S3 object-created events pass through EventBridge to an encrypted SQS queue, Lambda processes bounded batches, failed messages reach a DLQ and CloudWatch alarms notify through encrypted SNS.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Durable event buffering, retries, dead-letter handling and bounded concurrency</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>An event-driven Terraform design where S3 object-created events pass through EventBridge to an encrypted SQS queue, Lambda processes bounded batches, failed messages reach a DLQ and CloudWatch alarms notify through encrypted SNS.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No plan, event injection, retry exhaustion, DLQ alarm or AWS deployment is claimed. The sample handler is not a business processor.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon S3</span><span class="tag">Amazon EventBridge</span><span class="tag">Amazon SQS</span><span class="tag">AWS Lambda</span><span class="tag">Amazon SNS</span><span class="tag">CloudWatch</span><span class="tag">AWS KMS</span><span class="tag">Python</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>Direct event-to-function integration can hide retry pressure and make failure recovery harder. The platform introduces a durable queue, a dead-letter path, bounded concurrency and operational alarms so failed work remains visible and recoverable.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  Upload[Object Upload] --&gt; S3[Versioned KMS-encrypted S3]
+  S3 --&gt; EB[EventBridge Rule]
+  EB --&gt; Q[Encrypted SQS Work Queue]
+  Q --&gt; Lambda[Python Lambda Processor]
+  Q --&gt; DLQ[Dead-Letter Queue]
+  DLQ --&gt; Alarm[CloudWatch Alarm]
+  Alarm --&gt; SNS[Encrypted SNS Topic]
+  Lambda --&gt; Logs[CloudWatch Logs]
+  Lambda --&gt; XRay[X-Ray Tracing]</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Enabled S3 public-access blocking, versioning, KMS encryption and bounded object lifecycle.</li><li>Routed S3 events through EventBridge into SQS using a source-restricted queue policy.</li><li>Configured queue visibility timeout above Lambda timeout and a DLQ after three receives.</li><li>Limited Lambda concurrency, enabled X-Ray and used partial-batch response support.</li><li>Created a DLQ-visible-message alarm with optional encrypted SNS email notification.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>SQS decouples event arrival rate from processing capacity.</li><li>Reserved concurrency protects downstream systems.</li><li>The DLQ retains failed messages for investigation rather than silently discarding them.</li><li>The handler logs metadata only; production business logic must be idempotent.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>S3 public access is blocked and objects use a customer-managed KMS key.</li><li>Queue policies restrict EventBridge sends to the expected rule.</li><li>The Lambda role contains only queue and log permissions required by the sample.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>Queue buffering absorbs bursts and supports retry.</li><li>Partial-batch failure reporting prevents successful records from being retried unnecessarily.</li><li>DLQ alarms make exhausted retries operationally visible.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>S3 lifecycle expires lab objects and old versions.</li><li>Reserved concurrency bounds Lambda scaling.</li><li>CloudWatch retention and optional notification subscription are explicit.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No plan, event injection, retry exhaustion, DLQ alarm or AWS deployment is claimed. The sample handler is not a business processor.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Upload object</p></li><li><span>2</span><p>Match EventBridge rule</p></li><li><span>3</span><p>Buffer event in SQS</p></li><li><span>4</span><p>Invoke Lambda in bounded batches</p></li><li><span>5</span><p>Retry failures</p></li><li><span>6</span><p>Move exhausted messages to DLQ</p></li><li><span>7</span><p>Alarm and investigate before redrive</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/05-serverless-event-platform.pdf">PDF</a><a class="button ghost" href="downloads/05-serverless-event-platform.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

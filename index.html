@@ -99,7 +99,7 @@
           </div>
           <div class="metric-grid">
             <div class="metric"><b data-count="4" data-suffix="+">4+</b><span>Years Experience</span></div>
-            <div class="metric"><b data-count="7">7</b><span>Case Studies</span></div>
+            <div class="metric"><b data-count="14">14</b><span>Work Samples</span><em>7 professional + 7 independent</em></div>
             <div class="metric"><b>2x</b><span>AWS Certified</span></div>
             <div class="metric"><b data-count="3">3</b><span>Awards</span></div>
           </div>
@@ -138,22 +138,26 @@
       <div class="wrap">
         <div class="section-heading reveal">
           <p class="eyebrow">Projects</p>
-          <h2>Enterprise AWS DevOps case studies</h2>
-          <p>Each case study is written like a real delivery story: business problem, architecture, implementation, challenges, validation, monitoring, rollback and outcomes.</p>
+          <h2>Professional delivery and independent engineering</h2>
+          <p>Two clearly separated evidence tracks show the work delivered in professional environments and the infrastructure projects built independently for deeper hands-on practice.</p>
+        </div>
+        <div class="portfolio-track-grid reveal">
+          <a class="portfolio-track professional" href="project-pocs/">
+            <span class="track-count">7</span>
+            <span><strong>Professional Delivery</strong><small>Organization work, sanitized for public use</small></span>
+          </a>
+          <a class="portfolio-track independent" href="independent-projects/">
+            <span class="track-count">7</span>
+            <span><strong>Independent Hands-on</strong><small>Self-built AWS and Terraform engineering projects</small></span>
+          </a>
+        </div>
+
+        <div class="project-group-heading reveal">
+          <p class="eyebrow">Professional Delivery</p>
+          <h3>Organization work case studies</h3>
+          <p>Public-safe summaries of migration, delivery, operations and reliability work. Client names, internal repositories and confidential implementation details are excluded.</p>
         </div>
         <div class="project-grid">
-
-          <article class="project-card project-card-featured reveal">
-            <span class="num">LABS</span>
-            <h3>AWS Platform Engineering Labs</h3>
-            <div class="sub">Independent hands-on infrastructure portfolio</div>
-            <p>Seven public-safe Terraform labs covering secure VPC design, a three-tier platform, ECS Fargate, EKS, event-driven serverless processing, IAM governance, and a landing-zone blueprint. Each lab includes architecture documentation, cost guardrails, example variables, reusable modules, and automated validation.</p>
-            <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS VPC</span><span class="tag">ECS Fargate</span><span class="tag">Amazon EKS</span><span class="tag">AWS Lambda</span><span class="tag">IAM</span><span class="tag">AWS Organizations</span><span class="tag">GitHub Actions</span></div>
-            <div class="project-proof" aria-label="Local validation status"><strong>Validated locally</strong><span>terraform fmt</span><span>terraform init</span><span>terraform validate</span></div>
-            <div class="links">
-              <a class="button primary small" href="https://github.com/saurabhdindokar/aws-platform-engineering-labs" target="_blank" rel="noopener noreferrer">View GitHub Labs</a>
-            </div>
-          </article>
 
           <article class="project-card reveal">
             <span class="num">01</span>
@@ -239,6 +243,83 @@
             </div>
           </article>
 
+        </div>
+
+        <div class="project-group-heading independent-heading reveal">
+          <p class="eyebrow">Independent Hands-on Engineering</p>
+          <h3>Self-built AWS platform projects</h3>
+          <p>Separate implementation labs created for practical Infrastructure as Code learning. Terraform formatting, initialization and validation passed; no live AWS deployment is claimed.</p>
+        </div>
+        <div class="project-grid independent-grid">
+          <article class="project-card reveal">
+            <span class="num">I-01</span>
+            <h3>Secure Multi-AZ VPC Foundation</h3>
+            <div class="sub">Network isolation and private access</div>
+            <p>Reusable Terraform networking with public ingress, private application and isolated data subnets, selectable NAT design, Flow Logs, S3 routing and private Systems Manager endpoints.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS VPC</span><span class="tag">NAT Gateway</span><span class="tag">VPC Endpoints</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/01-secure-multi-az-vpc.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/01-secure-multi-az-vpc.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-02</span>
+            <h3>Highly Available Three-Tier AWS Platform</h3>
+            <div class="sub">HTTPS, Auto Scaling and private RDS</div>
+            <p>Terraform design for an HTTPS Application Load Balancer, private EC2 Auto Scaling tier and isolated PostgreSQL database across two Availability Zones.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon EC2</span><span class="tag">ALB</span><span class="tag">Amazon RDS</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/02-three-tier-aws-platform.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/02-three-tier-aws-platform.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-03</span>
+            <h3>Private ECS Fargate Application Platform</h3>
+            <div class="sub">Container delivery and autoscaling</div>
+            <p>Private Fargate tasks behind an ALB with ECR controls, CloudWatch logs, Container Insights, rolling deployments and target-tracking autoscaling.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">ECS Fargate</span><span class="tag">Amazon ECR</span><span class="tag">CloudWatch</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/03-ecs-fargate-platform.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/03-ecs-fargate-platform.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-04</span>
+            <h3>Private Amazon EKS Platform Foundation</h3>
+            <div class="sub">Private API, KMS and managed nodes</div>
+            <p>Private-endpoint EKS foundation with managed node groups, KMS envelope encryption, control-plane logging, managed add-ons and controlled rolling updates.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon EKS</span><span class="tag">AWS KMS</span><span class="tag">CloudWatch</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/04-private-eks-platform.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/04-private-eks-platform.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-05</span>
+            <h3>Reliable Serverless Event Platform</h3>
+            <div class="sub">Durable events, retries and DLQ handling</div>
+            <p>S3 events routed through EventBridge and encrypted SQS to Lambda, with bounded concurrency, partial-batch handling, DLQ alarms and encrypted notifications.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS Lambda</span><span class="tag">EventBridge</span><span class="tag">Amazon SQS</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/05-serverless-event-platform.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/05-serverless-event-platform.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-06</span>
+            <h3>IAM Governance and Cross-Account Access</h3>
+            <div class="sub">Boundaries, MFA and access analysis</div>
+            <p>IAM governance implementation with a permission boundary, explicit cross-account trust, MFA, external ID, time-limited sessions and Access Analyzer.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS IAM</span><span class="tag">AWS STS</span><span class="tag">Access Analyzer</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/06-iam-governance.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/06-iam-governance.pdf">PDF</a></div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="num">I-07</span>
+            <h3>AWS Multi-Account Landing Zone Blueprint</h3>
+            <div class="sub">Organizations, guardrails and audit logging</div>
+            <p>Safety-first Organizations blueprint with organizational units, an isolated SCP example and centralized KMS-encrypted organization CloudTrail evidence.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">AWS Organizations</span><span class="tag">Control Tower</span><span class="tag">CloudTrail</span></div>
+            <div class="project-proof"><strong>Validated</strong><span>fmt</span><span>init</span><span>validate</span></div>
+            <div class="links"><a class="button primary small" href="independent-projects/07-landing-zone-blueprint.html">Open Project</a><a class="button ghost small" href="independent-projects/downloads/07-landing-zone-blueprint.pdf">PDF</a></div>
+          </article>
         </div>
       </div>
     </section>

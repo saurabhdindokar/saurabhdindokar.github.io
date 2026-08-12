@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Highly Available Three-Tier AWS Platform | Saurabh Dindokar</title>
+  <meta name="description" content="A Terraform design for an HTTPS Application Load Balancer, private EC2 Auto Scaling application tier and private PostgreSQL RDS database tier distributed across two Availability Zones.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/02-three-tier-aws-platform.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 02</p>
+      <h1>Highly Available Three-Tier AWS Platform</h1>
+      <p class="subtitle">A Terraform design for an HTTPS Application Load Balancer, private EC2 Auto Scaling application tier and private PostgreSQL RDS database tier distributed across two Availability Zones.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>HTTPS ingress, private compute, Auto Scaling and isolated PostgreSQL</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A Terraform design for an HTTPS Application Load Balancer, private EC2 Auto Scaling application tier and private PostgreSQL RDS database tier distributed across two Availability Zones.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No plan, deployment, ALB health check or RDS connection is claimed. The sample bootstrap application does not connect to the database.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">Amazon EC2</span><span class="tag">Auto Scaling</span><span class="tag">Application Load Balancer</span><span class="tag">Amazon RDS</span><span class="tag">PostgreSQL</span><span class="tag">IAM</span><span class="tag">Systems Manager</span><span class="tag">CloudWatch</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>A traditional web workload needs a clear public entry point without exposing application servers or the database. The design must support replacement of unhealthy instances, controlled instance refresh, encrypted storage, private administration and environment-specific database protection.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  User((User)) --&gt; HTTPS[HTTPS Listener]
+  HTTPS --&gt; ALB[Application Load Balancer]
+  ALB --&gt; TG[Target Group]
+  TG --&gt; ASG[Private EC2 Auto Scaling Group]
+  ASG --&gt; RDS[(Private PostgreSQL RDS)]
+  ASG --&gt; SSM[AWS Systems Manager]
+  CW[CloudWatch Metrics] --&gt; ASG
+  ACM[ACM Certificate] --&gt; HTTPS
+  SM[Managed RDS Secret] --&gt; RDS</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Placed the internet-facing ALB in public subnets and application instances in private subnets.</li><li>Created an EC2 launch template with IMDSv2, encrypted storage, Systems Manager permissions and no public address.</li><li>Configured an Auto Scaling Group with ELB health checks, target tracking and rolling instance refresh.</li><li>Provisioned private, encrypted PostgreSQL RDS with managed master credentials and environment-specific backup and deletion controls.</li><li>Restricted database access to the application security group instead of a CIDR-wide rule.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>The ALB is the only public application entry point.</li><li>HTTPS requires an ACM certificate input; the design avoids presenting HTTP as the production endpoint.</li><li>Instances use Systems Manager instead of SSH ingress.</li><li>The bootstrap page tests ALB-to-instance routing but deliberately does not pretend to be a database-backed application.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>IMDSv2 is required.</li><li>RDS is not publicly accessible and accepts PostgreSQL only from the application security group.</li><li>RDS storage is encrypted and credentials are managed by AWS rather than embedded in user data.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>ALB and Auto Scaling span two Availability Zones.</li><li>ELB health checks replace unhealthy instances.</li><li>Rolling instance refresh preserves healthy capacity during launch-template updates.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>ALB, NAT Gateway, RDS and public IPv4 usage are explicitly called out before apply.</li><li>Development and production examples use different sizing and protection values.</li><li>The teardown checklist includes snapshots, ALB, NAT Gateways, EIPs and ENIs.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No plan, deployment, ALB health check or RDS connection is claimed. The sample bootstrap application does not connect to the database.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Validate network and certificate inputs</p></li><li><span>2</span><p>Review ALB, NAT and RDS cost</p></li><li><span>3</span><p>Review Terraform plan</p></li><li><span>4</span><p>Test target health and SSM access</p></li><li><span>5</span><p>Confirm the database is private</p></li><li><span>6</span><p>Test instance refresh and rollback</p></li><li><span>7</span><p>Destroy and inspect residual resources</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/02-three-tier-aws-platform.pdf">PDF</a><a class="button ghost" href="downloads/02-three-tier-aws-platform.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>

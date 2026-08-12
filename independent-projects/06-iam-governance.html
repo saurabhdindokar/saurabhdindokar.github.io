@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IAM Governance and Cross-Account Access | Saurabh Dindokar</title>
+  <meta name="description" content="A Terraform IAM governance lab demonstrating a permission boundary, cross-account read-only role with MFA and an external ID, one-hour sessions, IAM Access Analyzer, a strict password policy and CloudTrail log-role preparation.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://saurabhdindokar.github.io/independent-projects/06-iam-governance.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/portfolio.css?v=20260813">
+  <script>if(new URLSearchParams(location.search).get("print") === "1") document.documentElement.dataset.theme = "light";</script>
+  <script defer src="../assets/site.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({startOnLoad:true, theme:"base", themeVariables:{primaryColor:"#f8fafc",primaryBorderColor:"#0f766e",primaryTextColor:"#0f172a",secondaryColor:"#e0f2fe",tertiaryColor:"#f0fdfa",lineColor:"#2563eb",fontFamily:"Inter, Segoe UI, Arial"}});
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header compact-hero">
+    <div class="wrap nav-row">
+      <a class="brand" href="../"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+      <nav class="nav" aria-label="Project navigation"><a class="nav-link" href="../">Home</a><a class="nav-link" href="../project-pocs/">Professional Work</a><a class="nav-link" href="./">Independent Projects</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle>Dark</button>
+    </div>
+    <div class="wrap hero">
+      <p class="eyebrow">Independent Hands-on Project 06</p>
+      <h1>IAM Governance and Cross-Account Access</h1>
+      <p class="subtitle">A Terraform IAM governance lab demonstrating a permission boundary, cross-account read-only role with MFA and an external ID, one-hour sessions, IAM Access Analyzer, a strict password policy and CloudTrail log-role preparation.</p>
+      <div class="meta-grid"><div class="meta"><b>Track</b>Self-built hands-on lab</div><div class="meta"><b>Evidence</b>Terraform validated</div><div class="meta"><b>Focus</b>Permission boundaries, explicit trust, MFA and access analysis</div></div>
+    </div>
+  </header>
+  <main id="main">
+    <div class="case-layout">
+      <div>
+        <section class="section feature reveal" id="overview"><div class="section-heading"><p class="eyebrow">Overview</p><h2>Engineering scope</h2></div><p>A Terraform IAM governance lab demonstrating a permission boundary, cross-account read-only role with MFA and an external ID, one-hour sessions, IAM Access Analyzer, a strict password policy and CloudTrail log-role preparation.</p><p class="note"><strong>Evidence boundary:</strong> This is a personal implementation lab. It is not presented as client production work. Format, initialization and validation passed on 2026-08-13. No cross-account role assumption, Policy Simulator test, Access Analyzer finding review or complete CloudTrail trail deployment is claimed.</p><div class="tags"><span class="tag">Terraform</span><span class="tag">AWS IAM</span><span class="tag">AWS STS</span><span class="tag">Permission Boundaries</span><span class="tag">MFA</span><span class="tag">IAM Access Analyzer</span><span class="tag">CloudTrail</span><span class="tag">CloudWatch Logs</span></div></section>
+        <section class="section reveal" id="problem"><h2>Engineering Problem</h2><p>Cross-account access is often implemented with overly broad trust or policies. The lab shows how trust conditions, maximum-permission boundaries, time-limited sessions and external-access analysis combine without creating long-lived access keys.</p></section>
+        <section class="section reveal" id="architecture"><h2>Architecture</h2><div class="diagram-shell"><pre class="mermaid">flowchart LR
+  IdP[IAM Identity Center or Federated Role] --&gt; STS[STS AssumeRole]
+  MFA[MFA and External ID] --&gt; STS
+  STS --&gt; Auditor[Cross-Account Auditor Role]
+  Boundary[Permissions Boundary] --&gt; Auditor
+  View[ViewOnlyAccess] --&gt; Auditor
+  Analyzer[IAM Access Analyzer] --&gt; Findings[External Access Findings]
+  Trail[CloudTrail Role Preparation] --&gt; Logs[CloudWatch Logs]</pre></div></section>
+        <section class="section reveal" id="implementation"><h2>What I Implemented</h2><ul><li>Created a permission boundary that defines the maximum approved service and region scope.</li><li>Defined explicit trusted principals plus MFA and external-ID conditions for STS role assumption.</li><li>Limited role sessions to one hour and attached view-only permissions inside the boundary.</li><li>Enabled account-level IAM Access Analyzer for external-access findings.</li><li>Added strict account password settings and CloudTrail-to-CloudWatch role preparation.</li></ul></section>
+        <section class="section reveal" id="decisions"><h2>Important Technical Decisions</h2><ul><li>IAM Identity Center is preferred for workforce access; the lab creates no IAM users or access keys.</li><li>A permission boundary limits maximum permissions but grants nothing by itself.</li><li>The sample external ID is not treated as a secret and must be replaced at runtime.</li><li>SCPs and identity policies solve different governance problems.</li></ul></section>
+        <section class="section reveal" id="security"><h2>Security Controls</h2><ul><li>MFA, external ID and named principals restrict role trust.</li><li>One-hour sessions reduce credential lifetime.</li><li>Access Analyzer surfaces resource access from outside the account.</li></ul></section>
+        <section class="section reveal" id="reliability"><h2>Reliability and Operations</h2><ul><li>Policy Simulator and CloudTrail review are part of the verification approach.</li><li>Explicit boundaries reduce unintended permission expansion during delegated administration.</li><li>Regional deny behavior includes exceptions for global services.</li></ul></section>
+        <section class="section reveal" id="cost"><h2>Cost and Cleanup Guardrails</h2><ul><li>IAM controls have limited direct cost, while CloudWatch Logs storage depends on retention and ingestion.</li><li>The design uses a 90-day log-group retention value instead of unlimited storage.</li><li>Access Analyzer scope and CloudTrail destinations should be reviewed before broad rollout.</li></ul></section>
+        <section class="section reveal" id="validation"><h2>Validation Evidence</h2><p>The following local checks passed on 2026-08-13:</p><pre class="code-block"><code>terraform fmt -check -recursive
+terraform init -backend=false
+terraform validate</code></pre><p class="note">Format, initialization and validation passed on 2026-08-13. No cross-account role assumption, Policy Simulator test, Access Analyzer finding review or complete CloudTrail trail deployment is claimed.</p></section>
+        <section class="section reveal" id="runbook"><h2>Delivery and Verification Runbook</h2><ol class="timeline-list"><li><span>1</span><p>Define approved principals and regions</p></li><li><span>2</span><p>Apply permission boundary</p></li><li><span>3</span><p>Require MFA and external ID</p></li><li><span>4</span><p>Assume one-hour role</p></li><li><span>5</span><p>Test allowed and denied actions</p></li><li><span>6</span><p>Review CloudTrail and Access Analyzer findings</p></li><li><span>7</span><p>Revoke or tighten unexpected access</p></li></ol></section>
+        <section class="section reveal" id="learnings"><h2>Key Learnings</h2><ul><li>Infrastructure evidence must distinguish code validation, plan review and live deployment.</li><li>Security, reliability, cost and cleanup decisions should be documented before apply.</li><li>A useful platform lab includes verification and rollback thinking, not only resource declarations.</li></ul></section>
+      </div>
+      <aside class="toc" aria-label="Table of contents"><h2>On This Page</h2><a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#architecture">Architecture</a><a href="#implementation">Implementation</a><a href="#decisions">Decisions</a><a href="#security">Security</a><a href="#reliability">Reliability</a><a href="#cost">Cost</a><a href="#validation">Validation</a><a href="#runbook">Runbook</a><div class="toc-actions"><a class="button primary" href="downloads/06-iam-governance.pdf">PDF</a><a class="button ghost" href="downloads/06-iam-governance.docx">Word</a></div></aside>
+    </div>
+  </main>
+</body>
+</html>
