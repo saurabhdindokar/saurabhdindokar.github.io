@@ -343,7 +343,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 30px 24px 70px; }
 }
 .mini-architecture span { flex: 0 0 14px; height: 2px; background: #5eead4; }
 .timeline { position: relative; display: grid; gap: 16px; }
-.timeline article { border-left: 3px solid var(--brand); padding: 2px 0 18px 20px; }
+.timeline article { padding: 2px 0 18px; }
 .timeline time { display: inline-block; color: var(--brand); font-weight: 900; margin-bottom: 6px; }
 .timeline-list { list-style: none; padding: 0; counter-reset: step; }
 .timeline-list li { display: grid; grid-template-columns: 42px 1fr; gap: 12px; margin: 12px 0; align-items: start; }

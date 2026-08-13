@@ -340,8 +340,18 @@ section { position: relative; z-index: 2; }
 
 /* ---------- timeline ---------- */
 .timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
-.timeline article { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 24px; position: relative; }
-.timeline article::before { content: ""; position: absolute; top: 0; left: 26px; width: 3px; height: 100%; background: linear-gradient(180deg, var(--aws), var(--purple)); opacity: 0.5; }
+.timeline article { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px 24px; position: relative; overflow: hidden; }
+.timeline article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 72px;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, var(--aws), var(--cyan), var(--purple));
+  box-shadow: 0 0 18px rgba(34, 211, 238, .3);
+}
 .timeline time { display: inline-block; color: var(--aws); font-weight: 800; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
 .timeline h3 { margin-bottom: 8px; font-size: 1.05rem; }
 .timeline p { color: var(--muted); font-size: 0.9rem; }
