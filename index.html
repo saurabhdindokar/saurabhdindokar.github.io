@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="Saurabh Dindokar | AWS DevOps &amp; Cloud Engineer Portfolio">
   <meta name="twitter:description" content="AWS DevOps portfolio covering AWS, Kubernetes, CI/CD, cloud operations, SRE, monitoring and production reliability.">
   <meta name="twitter:image" content="https://saurabhdindokar.github.io/assets/social/linkedin-portfolio-home.png">
-  <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark';</script>
+  <script>document.documentElement.dataset.theme = 'dark'; try { localStorage.removeItem('theme'); } catch (_) {}</script>
   <link rel="stylesheet" href="assets/3d/portfolio-3d.css">
   <script type="importmap">
     {
@@ -53,7 +53,6 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <button class="home-theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">Light</button>
     </div>
   </header>
 
@@ -457,16 +456,6 @@
       var topbar = document.getElementById('topbar');
       var burger = document.getElementById('navBurger');
       var navLinks = document.getElementById('navLinks');
-      var themeToggle = document.getElementById('themeToggle');
-      function syncThemeLabel() {
-        if (themeToggle) themeToggle.textContent = document.documentElement.dataset.theme === 'dark' ? 'Light' : 'Dark';
-      }
-      syncThemeLabel();
-      if (themeToggle) themeToggle.addEventListener('click', function () {
-        document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('theme', document.documentElement.dataset.theme);
-        syncThemeLabel();
-      });
       if (burger) burger.addEventListener('click', function () {
         var open = navLinks.classList.toggle('open');
         burger.setAttribute('aria-expanded', String(open));

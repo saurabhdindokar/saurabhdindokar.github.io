@@ -1,20 +1,7 @@
 (() => {
   const root = document.documentElement;
-  const storedTheme = localStorage.getItem("theme");
-  if (storedTheme === "dark") root.dataset.theme = "dark";
-
-  const toggle = document.querySelector("[data-theme-toggle]");
-  if (toggle) {
-    const syncLabel = () => {
-      toggle.textContent = root.dataset.theme === "dark" ? "Light" : "Dark";
-    };
-    syncLabel();
-    toggle.addEventListener("click", () => {
-      root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-      localStorage.setItem("theme", root.dataset.theme);
-      syncLabel();
-    });
-  }
+  root.dataset.theme = "dark";
+  try { localStorage.removeItem("theme"); } catch (_) {}
 
   const revealItems = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
