@@ -3,301 +3,190 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Farmer Buddy personal-project technical documentation, architecture, security review and modernization roadmap.">
-  <title>Farmer Buddy — Engineering Handbook</title>
+  <title>Farmer Buddy | Personal Agriculture Platform Project</title>
+  <meta name="description" content="Farmer Buddy is a personal ASP.NET agriculture platform project connecting farmers with crop knowledge, schemes, insurance, expert guidance, weather and educational content.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Farmer Buddy | Personal Agriculture Platform Project">
+  <meta property="og:description" content="A personal agriculture knowledge and community platform built with ASP.NET, C#, SQL Server and IIS.">
+  <meta property="og:url" content="https://saurabhdindokar.github.io/personal-projects/farmer-buddy/">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="layout">
-  <aside class="sidebar">
-    <div class="brand"><div class="mark">🌱</div><div><strong>Farmer Buddy</strong><small>Engineering handbook</small></div></div>
-    <nav aria-label="Documentation navigation">
-      <a href="#overview">1. Overview</a><a href="#discovery">2. Repository discovery</a><a href="#architecture">3. Architecture</a><a href="#journeys">4. User journeys</a><a href="#modules">5. Module inventory</a><a href="#data">6. Data model</a><a href="#security">7. Security review</a><a href="#gaps">8. Gaps and defects</a><a href="#local">9. Local deployment</a><a href="#testing">10. Testing strategy</a><a href="#modernization">11. Target architecture</a><a href="#roadmap">12. Delivery roadmap</a><a href="#portfolio">13. Portfolio story</a><a href="#decisions">14. Decisions</a>
+  <a class="skip-link" href="#main">Skip to project</a>
+
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">SD</span><span>Saurabh Dindokar</span></a>
+    <nav aria-label="Project navigation">
+      <a href="#overview">Overview</a>
+      <a href="#features">Features</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#work">My Work</a>
+      <a class="nav-cta" href="https://github.com/saurabhdindokar/farmer-buddy-personal-project">GitHub</a>
     </nav>
-  </aside>
-  <main class="main">
-    <header class="hero">
-      <div class="kicker">Personal project • legacy modernization • living documentation</div>
-      <h1>Farmer Buddy, understood end to end.</h1>
-      <p>A code-evidence-based guide to what the system does, how its 62 screens fit together, where the original implementation is incomplete, how to run it safely, and how to evolve it into a credible modern agriculture platform.</p>
-      <div class="badges"><span class="badge">ASP.NET Web Forms</span><span class="badge">C# / .NET Framework</span><span class="badge">SQL Server</span><span class="badge">IIS Express</span><span class="badge">Mermaid architecture</span><span class="badge">Sanitized for GitHub</span></div>
-      <div class="actions"><a class="button" href="https://github.com/saurabhdindokar/farmer-buddy-personal-project">View GitHub repository</a><a class="button secondary" href="https://github.com/saurabhdindokar/farmer-buddy-personal-project#run-locally">Run locally</a><a class="button secondary" href="javascript:window.print()">Print / Save PDF</a></div>
-    </header>
-    <div class="content">
-      <section class="section" id="overview">
-        <div class="kicker">01 — Executive overview</div><h2>One product, two historical copies</h2>
-        <p class="lede">“Farmer Hub” and “Farmer Buddy” are not two independent applications. They are two snapshots of the same ASP.NET Web Forms website. The newer root-level copy is the baseline for this personal-project repository; the nested Farmer Hub copy is retained only as historical evidence.</p>
-        <div class="grid"><div class="card metric"><b>62</b><span>ASPX pages</span></div><div class="card metric"><b>69</b><span>C# code-behind files</span></div><div class="card metric"><b>5</b><span>master pages</span></div><div class="card metric"><b>8 + 4</b><span>existing + missing database tables</span></div><div class="card metric"><b>454</b><span>identical files shared by both copies</span></div><div class="card metric"><b>0</b><span>automated tests found</span></div></div>
-        <div class="callout good"><strong>Positioning:</strong> From this point forward the work is described as a personal project and modernization case study. The repository does not claim internship delivery, production usage, or outcomes that cannot be demonstrated from the code.</div>
-        <h3>Product intent</h3><p>The application aims to give farmers and agricultural learners a single portal for crop/product information, articles, government schemes, insurance, educational video, weather, questions to experts, profiles, and administrative content management.</p>
-        <h3>What is demonstrably working</h3><ul class="check"><li>The website-folder project compiles with the installed ASP.NET compiler.</li><li>The public home page is served by IIS Express and returns HTTP 200.</li><li>Core CRUD screens and SQL-bound lists exist for users and administrators.</li><li>The clean project excludes historical personal data, uploaded portraits, IDE state, and embedded secrets.</li></ul>
-      </section>
+  </header>
 
-      <section class="section" id="discovery">
-        <div class="kicker">02 — Repository discovery</div><h2>How the source folders relate</h2>
-        <div class="diagram"><pre class="mermaid">
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Personal Product Engineering</p>
+        <h1>Farmer <span>Buddy</span></h1>
+        <p class="hero-tagline">Agriculture knowledge, support and community—brought together in one practical web platform.</p>
+        <p class="hero-summary">A full-stack personal project designed to help farmers discover useful crop information, government schemes, insurance options, educational content and expert guidance through a single role-based portal.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/saurabhdindokar/farmer-buddy-personal-project">Explore Source Code</a>
+          <a class="button secondary" href="#overview">View Case Study</a>
+        </div>
+        <div class="tech-row" aria-label="Core technology">
+          <span>ASP.NET Web Forms</span><span>C#</span><span>SQL Server</span><span>IIS</span><span>Bootstrap</span>
+        </div>
+      </div>
+
+      <div class="product-window" aria-label="Farmer Buddy product preview">
+        <div class="window-bar"><i></i><i></i><i></i><span>farmerbuddy.local</span></div>
+        <div class="app-shell">
+          <aside class="app-nav">
+            <div class="leaf">🌱</div>
+            <b>Farmer Buddy</b>
+            <span class="active">Dashboard</span><span>Crops</span><span>Schemes</span><span>Ask Expert</span><span>Videos</span>
+          </aside>
+          <div class="app-main">
+            <div class="app-head"><div><small>Good morning</small><strong>Your farming dashboard</strong></div><div class="avatar">FB</div></div>
+            <div class="weather"><div><small>Today</small><b>28°C</b><span>Clear conditions</span></div><div class="sun">☀</div></div>
+            <div class="quick-grid"><div><i>🌾</i><b>Crop Library</b><span>Seasonal guidance</span></div><div><i>🏛</i><b>Schemes</b><span>Support programs</span></div><div><i>💬</i><b>Expert Advice</b><span>Ask a question</span></div><div><i>▶</i><b>Learning</b><span>Videos & articles</span></div></div>
+            <div class="tip"><span>Today’s farming tip</span><b>Check soil moisture before scheduling irrigation.</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Project summary">
+      <div><b>3</b><span>User experiences</span><small>Visitor, farmer and administrator</small></div>
+      <div><b>10+</b><span>Product modules</span><small>Knowledge, support and management</small></div>
+      <div><b>Full stack</b><span>Web application</span><small>Interface, server logic and database</small></div>
+      <div><b>Modernized</b><span>Engineering foundation</span><small>Security, documentation and repeatable build</small></div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="section-heading">
+        <p class="eyebrow">Project Overview</p>
+        <h2>A digital companion for everyday farming decisions</h2>
+        <p>Farmers often need information from many disconnected sources. Farmer Buddy brings the most useful categories into one clear experience and gives administrators a structured way to maintain that content.</p>
+      </div>
+      <div class="problem-grid">
+        <article><span class="number">01</span><h3>The challenge</h3><p>Crop information, schemes, insurance guidance, weather and educational resources are frequently spread across different channels, making them harder to discover and maintain.</p></article>
+        <article><span class="number">02</span><h3>The product idea</h3><p>Create one agriculture portal where users can learn, search, ask questions and manage their profile while authorized administrators keep the information current.</p></article>
+        <article><span class="number">03</span><h3>The engineering goal</h3><p>Turn a working legacy application into a well-understood, secure and maintainable personal product with a clear path toward a modern architecture.</p></article>
+      </div>
+    </section>
+
+    <section class="section feature-section" id="features">
+      <div class="section-heading">
+        <p class="eyebrow">Product Capabilities</p>
+        <h2>Designed around farmer needs</h2>
+        <p>The portal combines learning, discovery, support and content management in one role-based application.</p>
+      </div>
+      <div class="feature-grid">
+        <article><div class="feature-icon">🌾</div><h3>Crop & product knowledge</h3><p>Browse crop-related products, descriptions and pricing information from a searchable catalogue.</p></article>
+        <article><div class="feature-icon">📖</div><h3>Agriculture articles</h3><p>Discover educational articles contributed and maintained through the administration portal.</p></article>
+        <article><div class="feature-icon">🏛</div><h3>Government schemes</h3><p>Explore farmer-support programs with concise descriptions and benefit information.</p></article>
+        <article><div class="feature-icon">🛡</div><h3>Crop insurance</h3><p>Compare insurance providers, plan information and official reference links.</p></article>
+        <article><div class="feature-icon">💬</div><h3>Expert guidance</h3><p>Submit agriculture questions and follow their progress from pending to answered.</p></article>
+        <article><div class="feature-icon">☀</div><h3>Weather information</h3><p>Look up weather conditions to support day-to-day planning and field decisions.</p></article>
+        <article><div class="feature-icon">▶</div><h3>Educational video</h3><p>Watch curated farming and sustainability content inside the learning portal.</p></article>
+        <article><div class="feature-icon">⚙</div><h3>Administration</h3><p>Manage users, content, questions, videos, tips, schemes and insurance records.</p></article>
+      </div>
+    </section>
+
+    <section class="section roles-section">
+      <div class="section-heading">
+        <p class="eyebrow">User Experience</p>
+        <h2>Clear journeys for every role</h2>
+      </div>
+      <div class="role-grid">
+        <article><span>01</span><h3>Visitor</h3><ul><li>Understand the platform</li><li>Create an account</li><li>Access sign-in journeys</li></ul></article>
+        <article class="featured"><span>02</span><h3>Farmer</h3><ul><li>Browse knowledge and resources</li><li>Search schemes and insurance</li><li>Ask experts and manage profile</li></ul></article>
+        <article><span>03</span><h3>Administrator</h3><ul><li>Maintain published content</li><li>Review users and questions</li><li>Monitor platform activity</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section architecture-section" id="architecture">
+      <div class="section-heading">
+        <p class="eyebrow">Solution Architecture</p>
+        <h2>Simple, server-rendered and database-backed</h2>
+        <p>The current solution uses a classic three-layer web architecture. Pages handle the user experience, C# processes application events, and SQL Server stores platform content and user records.</p>
+      </div>
+      <div class="diagram"><pre class="mermaid">
 flowchart LR
-  A["Farmer Hub folder\nEarlier snapshot"] --> C["454 identical shared files"]
-  B["FarmerBuddy-Design-2023\nNewer snapshot"] --> C
-  A --> D["Historical SQL + reports + presentation"]
-  B --> E["12 extra files\nIDE metadata + admin photos"]
-  A --> F["3 changed shared files"]
-  B --> F
-  B --> G["Sanitized Personal Project\nGitHub-safe working copy"]
-  style G fill:#78d44b,color:#07140d,stroke:#2e7d32
-        </pre></div>
-        <div class="table-wrap"><table><thead><tr><th>Location</th><th>Meaning</th><th>Decision</th></tr></thead><tbody><tr><td><code>FarmerBuddy-Design-2023</code></td><td>Newer application snapshot; 469 files and about 37 MB.</td><td>Technical baseline only; leave unchanged.</td></tr><tr><td><code>Farmer Hub/FarmerBuddy-Design-2023</code></td><td>Earlier application snapshot; 457 files and about 35 MB.</td><td>Historical comparison only.</td></tr><tr><td><code>Farmer Hub/FarmerBuddy.sql</code></td><td>Original schema plus plaintext accounts and personal data.</td><td>Never publish. Replaced with clean schema.</td></tr><tr><td><code>FarmerBuddy-Personal-Project</code></td><td>Sanitized modernization workspace.</td><td>Only this folder should become the public repository.</td></tr></tbody></table></div>
-        <p>Only three common files differ between snapshots: <code>web.config</code>, <code>UserLogin.aspx.cs</code>, and <code>USER/LoginMasterPage.master</code>. That level of overlap is decisive evidence that this is version duplication, not two products.</p>
-      </section>
+  A["Visitor / Farmer / Admin"] --> B["Responsive Web Interface"]
+  B --> C["ASP.NET Web Forms"]
+  C --> D["C# Application Logic"]
+  D --> E[("SQL Server")]
+  D --> F["Weather Service"]
+  C --> G["Role-based Portal"]
+  G --> H["Knowledge & Learning"]
+  G --> I["Farmer Support"]
+  G --> J["Content Administration"]
+  classDef green fill:#dff6d2,stroke:#2f7d32,color:#14381a;
+  class E,F green;
+      </pre></div>
+      <div class="architecture-notes">
+        <div><b>Presentation</b><span>ASPX pages, responsive styling and reusable master layouts</span></div>
+        <div><b>Application</b><span>C# event handling, validation, sessions and role-aware navigation</span></div>
+        <div><b>Data</b><span>SQL Server schema for users, content, advice, schemes and media</span></div>
+        <div><b>Integration</b><span>Configurable weather and notification service boundaries</span></div>
+      </div>
+    </section>
 
-      <section class="section" id="architecture">
-        <div class="kicker">03 — Current architecture</div><h2>A server-rendered three-layer website</h2>
-        <p class="lede">Pages and master pages form the presentation layer. C# code-behind performs event handling and business rules. ADO.NET commands and ASP.NET SqlDataSource controls access SQL Server directly; there is no dedicated service or repository layer.</p>
-        <div class="diagram"><pre class="mermaid">
-flowchart TB
-  Browser["Desktop / mobile browser"] --> IIS["IIS Express or IIS"]
-  IIS --> Public["Public Web Forms\nHome, registration, login"]
-  IIS --> User["User area\nArticles, crops, schemes, advice"]
-  IIS --> Admin["Admin area\nContent and user management"]
-  Public --> CB["C# code-behind"]
-  User --> CB
-  Admin --> CB
-  Public --> SDS["SqlDataSource controls"]
-  User --> SDS
-  Admin --> SDS
-  CB --> ADO["System.Data.SqlClient"]
-  SDS --> DB[("SQL Server\nFarmerBuddy")]
-  ADO --> DB
-  CB -.-> Weather["Weather API\nlegacy integration"]
-  CB -.-> SMS["SMS gateway\nlegacy integration"]
-        </pre></div>
-        <div class="grid"><div class="card"><h3>Presentation</h3><p>ASPX markup, five master pages, Bootstrap-era styles, jQuery plugins, images and Web Forms server controls.</p></div><div class="card"><h3>Application logic</h3><p>Page events in code-behind. Validation, redirects, file handling, SMS/weather calls and database commands are mixed together.</p></div><div class="card"><h3>Persistence</h3><p>SQL Server tables accessed through connection strings named <code>FarmerBuddyConnectionString</code> and <code>LIS</code>.</p></div><div class="card"><h3>Deployment</h3><p>A website-folder project targeting .NET Framework 4.5. There is no solution or project file and no package manifest.</p></div></div>
-        <h3>Typical request lifecycle</h3><div class="diagram"><pre class="mermaid">
-sequenceDiagram
-  actor F as Farmer
-  participant P as ASPX page
-  participant C as Code-behind
-  participant S as SQL Server
-  F->>P: Submit login / search / content form
-  P->>C: Raise server-side event
-  C->>C: Read controls and session
-  C->>S: Execute query or command
-  S-->>C: Rows / scalar / affected count
-  C-->>P: Bind controls or redirect
-  P-->>F: Render complete HTML response
-        </pre></div>
-      </section>
+    <section class="section work-section" id="work">
+      <div class="section-heading">
+        <p class="eyebrow">My Engineering Work</p>
+        <h2>From legacy application to credible personal product</h2>
+        <p>I approached Farmer Buddy as both a product and an engineering-modernization exercise: understand what already exists, protect useful behavior, establish a safe foundation and improve it in deliberate phases.</p>
+      </div>
+      <div class="work-list">
+        <article><span>01</span><div><h3>System discovery and architecture</h3><p>Mapped the application modules, user roles, page flows, database responsibilities and external-service boundaries into a clear technical model.</p></div></article>
+        <article><span>02</span><div><h3>Public-safe project foundation</h3><p>Prepared a clean personal-project repository with synthetic data, environment-based configuration and reproducible setup guidance.</p></div></article>
+        <article><span>03</span><div><h3>Authentication and access safeguards</h3><p>Introduced password hashing, database-backed administrator access and centralized protection for role-specific areas.</p></div></article>
+        <article><span>04</span><div><h3>Data and upload improvements</h3><p>Reconstructed a clean relational schema, completed supporting data structures and moved user uploads into a controlled private location.</p></div></article>
+        <article><span>05</span><div><h3>Repeatable local delivery</h3><p>Added scripts for compilation, database initialization and IIS Express startup so the project can be built and demonstrated consistently.</p></div></article>
+        <article><span>06</span><div><h3>Modernization roadmap</h3><p>Defined the path toward a responsive interface, parameterized data access, automated tests, modern identity and a service-oriented ASP.NET Core architecture.</p></div></article>
+      </div>
+    </section>
 
-      <section class="section" id="journeys">
-        <div class="kicker">04 — People and journeys</div><h2>Three main roles, but incomplete authorization</h2>
-        <div class="diagram"><pre class="mermaid">
-flowchart LR
-  Visitor["Visitor"] --> Register["Register"]
-  Visitor --> Browse["View public home"]
-  Register --> Login["User login"]
-  Login --> Farmer["Farmer workspace"]
-  Farmer --> Learn["Articles, crops, video"]
-  Farmer --> Support["Schemes and insurance"]
-  Farmer --> Ask["Ask expert"]
-  Farmer --> Profile["Profile / password"]
-  AdminLogin["Admin login"] --> Admin["Admin dashboard"]
-  Admin --> Content["Manage content"]
-  Admin --> Users["Verify and manage users"]
-  Admin --> Answers["Answer questions"]
-  Expert["Expert role"] -. "represented in data,\nnot fully separated in navigation" .-> Answers
-        </pre></div>
-        <div class="callout danger"><strong>Authorization warning:</strong> directories are not protected by a centralized authentication rule. Knowing a URL may bypass the intended login journey. Proper role-based authorization is a release blocker.</div>
-      </section>
+    <section class="section outcomes-section">
+      <div class="section-heading">
+        <p class="eyebrow">Verified Outcomes</p>
+        <h2>Evidence, not inflated claims</h2>
+      </div>
+      <div class="outcome-grid">
+        <article><b>Successful</b><h3>Full application compile</h3><p>The complete Web Forms application compiles using the installed .NET Framework toolchain.</p></article>
+        <article><b>Verified</b><h3>Local IIS delivery</h3><p>The public application and project documentation render successfully through IIS Express.</p></article>
+        <article><b>Protected</b><h3>Role-specific routes</h3><p>Unauthenticated user and administrator requests are redirected to the appropriate login experience.</p></article>
+        <article><b>Published</b><h3>Open project repository</h3><p>The sanitized codebase, clean schema and supporting documentation are available publicly on GitHub.</p></article>
+      </div>
+    </section>
 
-      <section class="section" id="modules">
-        <div class="kicker">05 — Module inventory</div><h2>Feature coverage by area</h2>
-        <div class="table-wrap"><table><thead><tr><th>Module</th><th>Evidence in code</th><th>Status</th><th>Primary work remaining</th></tr></thead><tbody>
-          <tr><td>Public home</td><td>Default page, master layout, tips feed</td><td><span class="status done">Runs</span></td><td>New visual system, accessible navigation, verified content</td></tr>
-          <tr><td>Registration</td><td>Registration form and insert command</td><td><span class="status partial">Partial</span></td><td>Password hashing, uniqueness validation, safe uploads</td></tr>
-          <tr><td>User login</td><td>PBKDF2 verification and centralized route guard</td><td><span class="status partial">First pass</span></td><td>Session renewal, throttling/lockout and automated authorization tests</td></tr>
-          <tr><td>Admin login</td><td>Database-backed verified Admin role; hardcoded account removed</td><td><span class="status partial">First pass</span></td><td>Admin bootstrap script, lockout, audit trail and role tests</td></tr>
-          <tr><td>Articles</td><td>Add, list, search, view, edit</td><td><span class="status partial">Mostly present</span></td><td>Parameterize search/details and sanitize rich text</td></tr>
-          <tr><td>Crop marketplace</td><td>Product catalogue and admin CRUD</td><td><span class="status partial">Mostly present</span></td><td>Clarify marketplace scope, pricing types, inventory</td></tr>
-          <tr><td>Schemes</td><td>Government scheme list and admin CRUD</td><td><span class="status partial">Mostly present</span></td><td>Correct naming, source links, review/expiry dates</td></tr>
-          <tr><td>Insurance</td><td>Insurance list and admin CRUD</td><td><span class="status partial">Mostly present</span></td><td>URL validation and query parameterization</td></tr>
-          <tr><td>Videos</td><td>Two overlapping video tables and screens</td><td><span class="status partial">Duplicated</span></td><td>Consolidate model and validate embed allowlist</td></tr>
-          <tr><td>Expert advice</td><td>Question, answer, status flow</td><td><span class="status missing">Broken contract</span></td><td>Align <code>eid/question</code> fields and expert permissions</td></tr>
-          <tr><td>Password recovery</td><td>Unsafe legacy password-by-SMS behavior removed</td><td><span class="status missing">Safely disabled</span></td><td>Implement expiring single-use reset tokens without revealing passwords</td></tr>
-          <tr><td>Weather</td><td>External API integration page</td><td><span class="status missing">Legacy</span></td><td>HTTPS endpoint, server-side secret, resilient errors</td></tr>
-          <tr><td>Search</td><td>Admin and user LIKE searches</td><td><span class="status partial">Unsafe</span></td><td>Parameterized queries, paging and empty-state design</td></tr>
-        </tbody></table></div>
-      </section>
+    <section class="next-section">
+      <div>
+        <p class="eyebrow">Product Evolution</p>
+        <h2>What comes next</h2>
+        <p>The next releases focus on a redesigned farmer-first interface, complete database journey testing, improved search and content quality, automated testing, accessibility and gradual migration to ASP.NET Core.</p>
+      </div>
+      <div class="next-steps"><span>01 · Farmer-first UI redesign</span><span>02 · Complete database journeys</span><span>03 · Automated test coverage</span><span>04 · ASP.NET Core migration</span></div>
+    </section>
 
-      <section class="section" id="data">
-        <div class="kicker">06 — Data model</div><h2>Clean compatibility schema</h2>
-        <p class="lede">The historical dump defined eight tables but the application references four more. The new schema adds the missing structures, primary keys, useful constraints and synthetic sample content without copying historical personal records.</p>
-        <div class="diagram"><pre class="mermaid">
-erDiagram
-  REGISTRATION {
-    int id PK
-    nvarchar username UK
-    nvarchar e_mail UK
-    nvarchar password
-    nvarchar user_type
-    bit veriefied
-  }
-  EXPERT_ADVICE {
-    int eid PK
-    nvarchar username FK
-    nvarchar question
-    nvarchar answer
-    nvarchar status
-  }
-  OTP_DATA {
-    bigint id PK
-    nvarchar username FK
-    nvarchar otp
-    datetime expires_at
-  }
-  ARTICLE_DATA { int aid PK nvarchar article_title nvarchar authors }
-  PRODUCT_DATA { int pid PK nvarchar pname decimal mrp_amount decimal sell_amount }
-  GOV_SCHEME_DATA { int gid PK nvarchar schemeName decimal amount }
-  CROP_INSURANCE_DATA { int cid PK nvarchar companyName nvarchar InsuranceName }
-  VIDEOS_DATA { int vid PK nvarchar title nvarchar link }
-  VIDEO { int id PK nvarchar title nvarchar url }
-  GRAINS { int id PK nvarchar grains UK }
-  TIPS_DATA { int id PK nvarchar tips }
-  REGISTRATION ||--o{ EXPERT_ADVICE : asks
-  REGISTRATION ||--o{ OTP_DATA : requests
-        </pre></div>
-        <div class="callout"><strong>Compatibility versus final design:</strong> the clean script intentionally preserves legacy misspellings such as <code>GovScemeData</code>, <code>CroplnsuranceData</code>, and <code>veriefied</code> so the existing pages can run. A later migration should rename these through a controlled versioned change.</div>
-      </section>
-
-      <section class="section" id="security">
-        <div class="kicker">07 — Security review</div><h2>Public release requires a security milestone first</h2>
-        <div class="diagram"><pre class="mermaid">
-flowchart LR
-  Internet["Untrusted browser input"] --> Forms["Forms and query strings"]
-  Forms --> App["Legacy Web Forms app"]
-  Upload["Uploaded files"] --> App
-  App --> DB[("User and content data")]
-  App --> APIs["Weather / SMS providers"]
-  subgraph Trust boundary
-    App
-    DB
-  end
-  R1["SQL injection"] -.-> Forms
-  R2["Stored XSS"] -.-> Forms
-  R3["Arbitrary file upload"] -.-> Upload
-  R4["Broken access control"] -.-> App
-  R5["Secret leakage"] -.-> APIs
-        </pre></div>
-        <div class="risk"><strong>Critical</strong><div><b>Plaintext and hardcoded credentials in the historical source.</b> The clean copy now uses PBKDF2 hashes and a database-backed Admin role, but existing historical accounts require a controlled password migration and lockout/audit controls remain.</div></div>
-        <div class="risk"><strong>Critical</strong><div><b>Secrets and personal data in historical artifacts.</b> The original configuration, integrations, SQL inserts, phone numbers, emails, passwords, and photographs must never enter the public repository.</div></div>
-        <div class="risk"><strong>High</strong><div><b>SQL injection.</b> Multiple list, search, and detail pages concatenate query-string or search text into SQL. Every value must become a typed parameter.</div></div>
-        <div class="risk"><strong>High</strong><div><b>Broken authorization.</b> Page folders lack a reliable central role check. Authentication must be enforced server-side on every protected route.</div></div>
-        <div class="risk"><strong>High</strong><div><b>Unsafe uploads and validation disabled.</b> Uploaded files can enter web-served folders and request validation was disabled globally. Store outside the web root, verify content, randomize names and impose limits.</div></div>
-        <div class="risk"><strong>Medium</strong><div><b>Obsolete integrations and dependencies.</b> Legacy HTTP endpoints, old jQuery/Bootstrap assets and weak error handling increase risk and maintenance cost.</div></div>
-        <h3>Sanitization already applied to this working copy</h3><ul class="check"><li>Excluded <code>.vs</code> metadata and all user/admin upload directories.</li><li>Did not copy the historical SQL dump or its personal records.</li><li>Removed the obsolete date-triggered deletion class from the public copy.</li><li>Replaced hardcoded database credentials and API secrets with empty configuration placeholders.</li><li>Re-enabled ASP.NET request validation and safer cookie defaults.</li></ul>
-        <h3>First security repairs applied</h3><ul class="check"><li>New registrations and password changes store PBKDF2 hashes instead of plaintext.</li><li>The hardcoded administrator account was removed in favor of a verified database role.</li><li>Central route checks now protect user, administrator and super-administrator pages.</li><li>Uploaded profile images are restricted by size/type, randomized and stored below <code>App_Data</code>.</li><li>The insecure password-by-SMS recovery flow is disabled until token-based recovery is implemented.</li></ul>
-      </section>
-
-      <section class="section" id="gaps">
-        <div class="kicker">08 — Gaps and defects</div><h2>Concrete problems found in code</h2>
-        <div class="table-wrap"><table><thead><tr><th>Finding</th><th>Impact</th><th>Recommended correction</th></tr></thead><tbody>
-          <tr><td><code>ExpertAdvice.aspx.cs</code> uses <code>id/que</code>; schema uses <code>eid/question</code>.</td><td>Question submission fails.</td><td>Use one model and migration; add integration test.</td></tr>
-          <tr><td>Password recovery requests <code>Registration.mobile</code>; schema uses <code>mobile_no</code>.</td><td>OTP recovery fails.</td><td>Correct the field and redesign recovery securely.</td></tr>
-          <tr><td>App references Grains, Image_Details, OtpData and TipsData absent from dump.</td><td>Specific screens fail at runtime.</td><td>Clean schema adds active tables; remove unused Image_Details code.</td></tr>
-          <tr><td>Configuration keys AR, EMP and LIS_local are referenced but absent.</td><td>Runtime null connection strings.</td><td>Consolidate to one named connection string and typed settings.</td></tr>
-          <tr><td>SuperAdmin and user master pages link to missing pages.</td><td>Broken navigation.</td><td>Remove dead links or implement routes with acceptance tests.</td></tr>
-          <tr><td>Two video tables (<code>Video</code>, <code>VideosData</code>).</td><td>Confusing ownership and duplicate CRUD.</td><td>Migrate to a single ContentVideo model.</td></tr>
-          <tr><td>Numeric data stored as text in legacy schema.</td><td>Incorrect sorting and weak validation.</td><td>Use decimal types and constraints.</td></tr>
-          <tr><td>No solution, project file, package manifest, CI or tests.</td><td>Hard-to-repeat build and risky change process.</td><td>Add scripted compile now; migrate to SDK-style solution later.</td></tr>
-        </tbody></table></div>
-      </section>
-
-      <section class="section" id="local">
-        <div class="kicker">09 — Local deployment</div><h2>D: drive development topology</h2>
-        <div class="diagram"><pre class="mermaid">
-flowchart LR
-  Dev["Developer on Windows"] --> Script["scripts/Start-FarmerBuddy.ps1"]
-  Script --> IIS["IIS Express\nlocalhost:51873"]
-  IIS --> Site["D:\\Saurabh Dindokar Career\\FarmerBuddy-Personal-Project"]
-  Site --> Static["Public page and assets"]
-  Site -. "when installed" .-> SQL["SQL Server Express\nFarmerBuddy database"]
-  Schema["database/FarmerBuddy.Schema.sql"] --> SQL
-        </pre></div>
-        <ol><li>Run <code>scripts/Test-Build.ps1</code> to compile every page.</li><li>Run <code>scripts/Start-FarmerBuddy.ps1</code> to start IIS Express.</li><li>Open <code>http://localhost:51873/Default.aspx</code>.</li><li>For data screens, install SQL Server Express and execute the clean schema against a database called <code>FarmerBuddy</code>.</li><li>Keep API keys and local credentials outside Git using ignored local settings.</li></ol>
-        <div class="callout"><strong>Current machine limitation:</strong> IIS Express is installed, but no Microsoft SQL Server service or LocalDB command is available. Therefore public rendering and compilation can be verified now; database journeys cannot honestly be marked as locally verified yet.</div>
-      </section>
-
-      <section class="section" id="testing">
-        <div class="kicker">10 — Test strategy</div><h2>Build confidence in layers</h2>
-        <div class="grid"><div class="card"><h3>1. Static safety</h3><p>Secret scan, PII scan, dead-link scan, dependency inventory, unsafe SQL pattern scan and upload-path review.</p></div><div class="card"><h3>2. Compilation</h3><p>Run <code>aspnet_compiler</code> on every commit and treat new warnings as regressions.</p></div><div class="card"><h3>3. Database integration</h3><p>Create a clean database, apply schema from zero, verify each CRUD module and check constraints.</p></div><div class="card"><h3>4. Browser journeys</h3><p>Automate visitor, farmer, expert and administrator journeys at desktop and mobile widths.</p></div><div class="card"><h3>5. Security</h3><p>Test authorization, session fixation, XSS, SQL injection, upload validation, brute-force protection and secret absence.</p></div><div class="card"><h3>6. Accessibility</h3><p>Keyboard navigation, focus order, semantic labels, contrast, reduced motion and screen-reader landmarks.</p></div></div>
-      </section>
-
-      <section class="section" id="modernization">
-        <div class="kicker">11 — Target architecture</div><h2>Move toward a maintainable platform</h2>
-        <div class="diagram"><pre class="mermaid">
-flowchart TB
-  Web["Responsive web client\naccessible design system"] --> API["ASP.NET Core Web API"]
-  API --> Auth["ASP.NET Core Identity\nroles + secure recovery"]
-  API --> Services["Domain services\ncontent, advice, catalogue"]
-  Services --> EF["Entity Framework Core"]
-  EF --> DB[("SQL Server / PostgreSQL")]
-  Services --> Files["Private object storage\nvalidated uploads"]
-  Services --> Integrations["Weather + notification adapters"]
-  API --> Obs["Structured logs, metrics, tracing"]
-  CI["GitHub Actions"] --> Tests["Build, test, scan"]
-  Tests --> Deploy["Versioned deployment"]
-        </pre></div>
-        <p>The target separates UI, application rules, persistence, integrations and operations. It preserves the product idea while replacing the most fragile implementation choices. A strangler-style migration can keep useful content screens available while each module moves behind tested services.</p>
-      </section>
-
-      <section class="section" id="roadmap">
-        <div class="kicker">12 — Delivery roadmap</div><h2>Finish in evidence-based phases</h2>
-        <div class="diagram"><pre class="mermaid">
-gantt
-  title Farmer Buddy personal-project modernization
-  dateFormat  YYYY-MM-DD
-  axisFormat  %d %b
-  section Foundation
-  Inventory, sanitize, documentation :done, f1, 2026-08-18, 3d
-  Repeatable local database           :f2, after f1, 4d
-  section Security
-  Identity and role authorization     :s1, after f2, 7d
-  Parameterized data access           :s2, after f2, 7d
-  Safe uploads and integrations       :s3, after s1, 5d
-  section Product
-  Repair expert advice and recovery   :p1, after s2, 5d
-  Modern responsive visual system     :p2, after s3, 8d
-  Content quality and accessibility   :p3, after p2, 5d
-  section Delivery
-  Automated tests and CI              :d1, after s2, 8d
-  Container/cloud deployment option   :d2, after d1, 6d
-        </pre></div>
-        <div class="table-wrap"><table><thead><tr><th>Gate</th><th>Definition of done</th></tr></thead><tbody><tr><td>Foundation</td><td>One public-safe repository, clean repeatable schema, successful compile, architecture docs and issue backlog.</td></tr><tr><td>Secure access</td><td>Hashed passwords, no hardcoded accounts, protected routes, session renewal, role tests and safe recovery.</td></tr><tr><td>Secure data</td><td>No concatenated SQL, typed models, validated URLs/files, private upload storage and migration history.</td></tr><tr><td>Product complete</td><td>All navigation works; farmer/expert/admin journeys pass; empty, loading and error states exist.</td></tr><tr><td>Portfolio ready</td><td>Live demo or video, public repository, test evidence, architecture diagrams and truthful case-study outcomes.</td></tr></tbody></table></div>
-      </section>
-
-      <section class="section" id="portfolio">
-        <div class="kicker">13 — Portfolio narrative</div><h2>Present the work as engineering judgment</h2>
-        <p class="lede">The strongest story is not “I built 62 pages.” It is “I recovered a legacy agriculture portal, proved which snapshots were duplicates, removed sensitive data, documented the system, restored a repeatable build, identified concrete security defects, and designed a staged modernization.”</p>
-        <div class="grid"><div class="card"><h3>Problem</h3><p>A useful product concept was trapped in duplicated, undocumented legacy source with incomplete schema and unsafe defaults.</p></div><div class="card"><h3>Approach</h3><p>Evidence-led inventory, checksum comparison, compilation, local smoke testing, schema reconstruction, sanitization and architecture modeling.</p></div><div class="card"><h3>Current outcome</h3><p>A GitHub-safe personal-project foundation with detailed documentation, scripts, clean schema and an explicit risk-driven roadmap.</p></div><div class="card"><h3>Next proof</h3><p>Secure authentication, database-backed journey tests, redesigned graphics and a deployable modern slice.</p></div></div>
-        <div class="callout good"><strong>Truthful wording:</strong> Use “personal legacy-modernization project.” Avoid claims of production scale, user adoption, performance improvement, or cloud deployment until measurements and links exist.</div>
-      </section>
-
-      <section class="section" id="decisions">
-        <div class="kicker">14 — Decision log</div><h2>Why the repository is structured this way</h2>
-        <div class="table-wrap"><table><thead><tr><th>Decision</th><th>Reason</th><th>Consequence</th></tr></thead><tbody><tr><td>Use the newer root snapshot as baseline.</td><td>It contains all common code plus later changes.</td><td>Historical folders remain evidence, not active source.</td></tr><tr><td>Create a separate personal-project directory.</td><td>Prevents accidental damage and makes sanitization auditable.</td><td>Future edits happen only in the new directory.</td></tr><tr><td>Exclude original SQL and uploads.</td><td>They contain plaintext credentials and personal data.</td><td>Clean schema and synthetic data replace them.</td></tr><tr><td>Keep Web Forms for the first milestone.</td><td>Allows reproducible build and incremental repair before rewrite.</td><td>Legacy risk remains visible until phased migration.</td></tr><tr><td>Do not claim database verification yet.</td><td>This machine has no SQL Server engine installed.</td><td>Installation and integration verification remain a named task.</td></tr><tr><td>Document before redesigning every screen.</td><td>Architecture and acceptance criteria prevent random cosmetic changes.</td><td>Graphics work will follow a coherent product direction.</td></tr></tbody></table></div>
-        <p class="print-only">Generated as the Farmer Buddy personal-project engineering handbook.</p>
-      </section>
-    </div>
-    <footer class="footer">Farmer Buddy Personal Project • Living engineering documentation • Updated 18 August 2026</footer>
+    <section class="cta-section">
+      <p class="eyebrow">Explore the project</p>
+      <h2>See how Farmer Buddy is being built and modernized.</h2>
+      <div class="hero-actions centered"><a class="button primary" href="https://github.com/saurabhdindokar/farmer-buddy-personal-project">View GitHub Repository</a><a class="button secondary" href="../../index.html#projects">Back to Portfolio</a></div>
+    </section>
   </main>
-</div>
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({startOnLoad:true,theme:'base',securityLevel:'strict',themeVariables:{primaryColor:'#dff5d5',primaryTextColor:'#102216',primaryBorderColor:'#2e7d32',lineColor:'#3c7048',secondaryColor:'#e0f4f1',tertiaryColor:'#fff5d5',fontFamily:'Segoe UI, Arial, sans-serif'}});
-</script>
-<script>
-const sections=[...document.querySelectorAll('.section')],links=[...document.querySelectorAll('nav a')];
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));}}),{rootMargin:'-25% 0px -65% 0px'});
-sections.forEach(section=>observer.observe(section));
-</script>
+
+  <footer><span>Farmer Buddy · Personal Project</span><span>Designed and engineered by Saurabh Dindokar</span></footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'base',themeVariables:{fontFamily:'Inter, Segoe UI, sans-serif',primaryColor:'#e7f8de',primaryTextColor:'#17351f',primaryBorderColor:'#4d9b43',lineColor:'#5d8c61',secondaryColor:'#eef7ff',tertiaryColor:'#fff6da'}});
+  </script>
 </body>
 </html>
