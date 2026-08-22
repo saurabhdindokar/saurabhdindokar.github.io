@@ -2,6 +2,8 @@
 
 This repository hosts my public-safe GitHub Pages portfolio.
 
+Current role: Platform Engineer at KSB Tech, joined 21 August 2026.
+
 It contains:
 
 - Portfolio homepage
