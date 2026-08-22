@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saurabh Dindokar Portfolio Social Card</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1200px; height: 627px; margin: 0; overflow: hidden; }
+    body {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.45fr .72fr;
+      gap: 54px;
+      align-items: center;
+      padding: 62px 72px 58px;
+      color: #f8fbff;
+      background:
+        radial-gradient(circle at 83% 16%, rgba(36, 211, 191, .16), transparent 24%),
+        radial-gradient(circle at 18% 105%, rgba(255, 153, 0, .13), transparent 30%),
+        #07111f;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(113, 148, 183, .23);
+      border-radius: 24px;
+      pointer-events: none;
+    }
+    .eyebrow {
+      margin: 0 0 24px;
+      color: #52ead9;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 66px; line-height: .98; letter-spacing: 0; }
+    h1 span {
+      display: block;
+      color: #ff9900;
+      background: linear-gradient(90deg, #ff9900, #52ead9 68%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .role { margin: 24px 0 12px; font-size: 28px; font-weight: 750; }
+    .summary { margin: 0; max-width: 670px; color: #bdcada; font-size: 21px; line-height: 1.5; }
+    .stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .stack span {
+      padding: 8px 14px;
+      border: 1px solid rgba(82, 234, 217, .55);
+      border-radius: 999px;
+      color: #bafbf3;
+      background: rgba(11, 42, 57, .72);
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .panel {
+      padding: 28px;
+      border: 1px solid rgba(125, 159, 190, .42);
+      border-radius: 20px;
+      background: linear-gradient(155deg, rgba(28, 52, 78, .96), rgba(11, 27, 45, .98));
+      box-shadow: 0 26px 60px rgba(0, 0, 0, .28);
+    }
+    .panel h2 { margin: 0 0 20px; font-size: 24px; }
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric {
+      min-height: 104px;
+      padding: 16px;
+      border: 1px solid rgba(146, 175, 202, .27);
+      border-radius: 14px;
+      background: rgba(248, 251, 255, .94);
+      color: #0c1a2d;
+    }
+    .metric strong { display: block; color: #087f73; font-size: 28px; line-height: 1.05; }
+    .metric span { display: block; margin-top: 11px; color: #4f6077; font-size: 15px; font-weight: 650; }
+    .joined {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      color: #d8e5f2;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .joined::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #32d583; box-shadow: 0 0 16px #32d583; }
+    .footer {
+      position: absolute;
+      left: 72px;
+      bottom: 28px;
+      color: #8ea1b8;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Platform Engineer · AWS DevOps</p>
+    <h1>Saurabh <span>Dindokar</span></h1>
+    <p class="role">Platform Engineer at KSB Tech</p>
+    <p class="summary">AWS infrastructure, Kubernetes platforms, CI/CD automation, cloud operations, observability and production reliability.</p>
+    <div class="stack"><span>AWS</span><span>Kubernetes</span><span>CI/CD</span><span>Terraform</span></div>
+  </main>
+  <aside class="panel">
+    <h2>Engineering Portfolio</h2>
+    <div class="metric-grid">
+      <div class="metric"><strong>4+</strong><span>Years Experience</span></div>
+      <div class="metric"><strong>2x</strong><span>AWS Certified</span></div>
+      <div class="metric"><strong>14</strong><span>Work Samples</span></div>
+      <div class="metric"><strong>3</strong><span>Awards</span></div>
+    </div>
+    <div class="joined">KSB Tech · Joined 21 August 2026</div>
+  </aside>
+  <div class="footer">saurabhdindokar.github.io</div>
+</body>
+</html>
